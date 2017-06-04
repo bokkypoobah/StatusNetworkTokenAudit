@@ -1,4 +1,8 @@
-# Status Network Tokwn Audit (Work in progress)
+# Status Network Token Audit (Work in progress)
+
+**Table of contents**
+
+* [Solidity Files](#solidity-files)
 
 ## Solidity Files
 * [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol)

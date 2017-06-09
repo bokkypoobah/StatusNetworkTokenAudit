@@ -34,7 +34,9 @@ import "./SafeMath.sol";
 contract StatusContribution is Owned, SafeMath, TokenController {
 
     uint constant public failSafe = 300000 ether;
-    uint constant public price = 10**18 / 10000;
+    uint constant public exchangeRate = 10000;
+    uint constant public SGTPreferenceBlocks = 2000;
+    uint constant public maxGasPrice = 50000000000;
 
     MiniMeToken public SGT;
     MiniMeToken public SNT;
@@ -53,6 +55,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
 
     mapping (address => uint) public guaranteedBuyersLimit;
     mapping (address => uint) public guaranteedBuyersBought;
+    mapping (address => bool) public usedAddress;
 
     uint public totalGuaranteedCollected;
     uint public totalNormalCollected;
@@ -117,6 +120,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
 
         if (SNT.totalSupply() != 0) throw;
         if (SNT.controller() != address(this)) throw;
+        if (SNT.decimals() != 18) throw;  // Same amount of decimals as ETH
 
         if (_stopBlock < _startBlock) throw;
 
@@ -195,8 +199,19 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     }
 
     function buyNormal(address _th) internal {
+
+        if (tx.gasprice > maxGasPrice) throw;
+
+        if (getBlockNumber() < startBlock + SGTPreferenceBlocks) {
+           if (SGT.balanceOf(_th) == 0) throw;
+           if (usedAddress[_th]) throw;
+           usedAddress[_th] = true;
+        }
         uint toFund;
         uint cap = dynamicCeiling.cap(getBlockNumber());
+
+        cap = safeAdd(totalNormalCollected,
+                      safeDiv(safeSub(cap, totalNormalCollected), 30));
 
         if (cap>failSafe) cap = failSafe;
 
@@ -231,9 +246,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         if (_toFund == 0) throw; // Do not spend gas for
         if (msg.value < _toFund) throw;  // Not needed, but double check.
 
-        uint tokensGenerated = safeDiv(
-                                    safeMul(_toFund, 10** uint(SNT.decimals()) ),
-                                    price);
+        uint tokensGenerated = safeMul(_toFund, exchangeRate);
         uint toReturn = safeSub(msg.value, _toFund);
 
         if (!SNT.generateTokens(_th, tokensGenerated))
@@ -279,27 +292,24 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     ///  controller.
     function finalize() initialized {
         if (getBlockNumber() < startBlock) throw;
-
-        if ((msg.sender != owner)&&(getBlockNumber() < stopBlock )) throw;
-
-        if (finalized>0) throw;
+        if (msg.sender != owner && getBlockNumber() < stopBlock) throw;
+        if (finalized > 0) throw;
 
         // Do not allow terminate until all revealed.
         if (!dynamicCeiling.allRevealed()) throw;
 
-
         // Allow premature finalization if final limit is reached
-        if (getBlockNumber () <= stopBlock) {
+        if (getBlockNumber () < stopBlock) {
             var (,,lastLimit,) = dynamicCeiling.points( safeSub(dynamicCeiling.revealedPoints(), 1));
 
-            if (totalCollected()< lastLimit) throw;
+            if (totalCollected()< lastLimit - 1 ether) throw;
         }
 
         finalized = now;
 
         uint percentageToSgt;
-        if ( SGT.totalSupply() > maxSGTSupply) {
-            percentageToSgt =  percent(10);  // 10%
+        if (SGT.totalSupply() >= maxSGTSupply) {
+            percentageToSgt = percent(10);  // 10%
         } else {
 
             //
@@ -443,7 +453,6 @@ contract StatusContribution is Owned, SafeMath, TokenController {
 
     event ClaimedTokens(address indexed token, address indexed controller, uint amount);
     event NewSale(address indexed th, uint amount, uint tokens, bool guaranteed);
-    event GuaranteedAddress(address indexed th, uint limiy);
+    event GuaranteedAddress(address indexed th, uint limit);
     event Finalized();
 }
-

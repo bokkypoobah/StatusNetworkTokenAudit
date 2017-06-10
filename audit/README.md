@@ -59,7 +59,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 * [../contracts/Owned.sol](../contracts/Owned.sol)
   * Standard Owned or Owner pattern.
-  * **NOTE** Could be improved by an acceptOwnership confirmation.
+  * **NOTE** Could be improved by an `acceptOwnership()` confirmation.
 
 * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * Safe maths

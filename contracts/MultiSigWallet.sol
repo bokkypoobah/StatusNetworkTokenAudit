@@ -3,19 +3,19 @@ pragma solidity ^0.4.11;
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
 /// @author Stefan George - <stefan.george@consensys.net>
-contract MultisigWallet {
+contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;
 
-    event Confirmation(address indexed sender, uint indexed transactionId);
-    event Revocation(address indexed sender, uint indexed transactionId);
-    event Submission(uint indexed transactionId);
-    event Execution(uint indexed transactionId);
-    event ExecutionFailure(uint indexed transactionId);
-    event Deposit(address indexed sender, uint value);
-    event OwnerAddition(address indexed owner);
-    event OwnerRemoval(address indexed owner);
-    event RequirementChange(uint required);
+    event Confirmation(address indexed _sender, uint indexed _transactionId);
+    event Revocation(address indexed _sender, uint indexed _transactionId);
+    event Submission(uint indexed _transactionId);
+    event Execution(uint indexed _transactionId);
+    event ExecutionFailure(uint indexed _transactionId);
+    event Deposit(address indexed _sender, uint _value);
+    event OwnerAddition(address indexed _owner);
+    event OwnerRemoval(address indexed _owner);
+    event RequirementChange(uint _required);
 
     mapping (uint => Transaction) public transactions;
     mapping (uint => mapping (address => bool)) public confirmations;
@@ -102,7 +102,7 @@ contract MultisigWallet {
     /// @dev Contract constructor sets initial owners and required number of confirmations.
     /// @param _owners List of initial owners.
     /// @param _required Number of required confirmations.
-    function MultisigWallet(address[] _owners, uint _required)
+    function MultiSigWallet(address[] _owners, uint _required)
         public
         validRequirement(_owners.length, _required)
     {

@@ -28,13 +28,14 @@ pragma solidity ^0.4.11;
 
 import "./SafeMath.sol";
 
-contract DynamicCeiling is SafeMath {
+
+contract DynamicCeiling {
+    using SafeMath for uint;
 
     struct CurvePoint {
         bytes32 hash;
         uint block;
         uint limit;
-        bool revealed;
     }
 
     address public creator;
@@ -52,11 +53,12 @@ contract DynamicCeiling is SafeMath {
     ///  by the `calculateHash` method. More hashes than actual points of the curve
     ///  can be committed in order to hide also the number of points of the curve.
     ///  The remaining hashes can be just random numbers.
-    function setHiddenPoints(bytes32[] _pointHashes) {
+    function setHiddenPoints(bytes32[] _pointHashes) public {
         if (msg.sender != creator) throw;
         if (points.length > 0) throw;
+
         points.length = _pointHashes.length;
-        for (uint i=0; i< _pointHashes.length; i = safeAdd(i,1)) {
+        for (uint i = 0; i < _pointHashes.length; i = i.add(1)) {
             points[i].hash = _pointHashes[i];
         }
     }
@@ -69,35 +71,34 @@ contract DynamicCeiling is SafeMath {
     ///  (must be greater or equal than the previous one).
     /// @param _last `true` if it's the last point of the curve.
     /// @param _salt Random number used to commit the point
-    function revealPoint(uint _block, uint _limit, bool _last, bytes32 _salt) {
+    function revealPoint(uint _block, uint _limit, bool _last, bytes32 _salt) public {
         if (allRevealed) throw;
         if (points[revealedPoints].hash != sha3(_block, _limit, _last, _salt)) throw;
         if (revealedPoints > 0) {
-            if (_block <= points[safeSub(revealedPoints, 1)].block) throw;
-            if (_limit < points[safeSub(revealedPoints, 1)].limit) throw;
+            if (_block <= points[revealedPoints.sub(1)].block) throw;
+            if (_limit < points[revealedPoints.sub(1)].limit) throw;
         }
         points[revealedPoints].block = _block;
         points[revealedPoints].limit = _limit;
-        points[revealedPoints].revealed = true;
-        revealedPoints = safeAdd(revealedPoints, 1);
+        revealedPoints = revealedPoints.add(1);
         if (_last) allRevealed = true;
     }
 
     /// @return Return the limit at specific block number
     ///  (or 0 if no points revealed yet or block before first point)
-    function cap(uint _block) constant returns (uint) {
+    function cap(uint _block) public constant returns (uint) {
         if (revealedPoints == 0) return 0;
 
         // Shortcut if _block is after most recently revealed point
-        if (_block >= points[safeSub(revealedPoints,1)].block)
-            return points[safeSub(revealedPoints,1)].limit;
+        if (_block >= points[revealedPoints.sub(1)].block)
+            return points[revealedPoints.sub(1)].limit;
         if (_block < points[0].block) return 0;
 
         // Binary search of the value in the array
         uint min = 0;
-        uint max = safeSub(revealedPoints,1);
-        while (max != safeAdd(min, 1)) {
-            uint mid = safeDiv(safeAdd(max, min), 2);
+        uint max = revealedPoints.sub(1);
+        while (max != min.add(1)) {
+            uint mid = max.add(min).div(2);
             if (points[mid].block<=_block) {
                 min = mid;
             } else {
@@ -105,13 +106,10 @@ contract DynamicCeiling is SafeMath {
             }
         }
 
-        return safeAdd(
-                    points[min].limit,
-                    safeDiv(
-                        safeMul(
-                            safeSub(_block, points[min].block),
-                            safeSub(points[max].limit, points[min].limit)),
-                        safeSub(points[max].block, points[min].block)));
+        return points[min].limit.add(
+            _block.sub(points[min].block).mul(
+                points[max].limit.sub(points[min].limit)).div(
+                    points[max].block.sub(points[min].block)));
 
     }
 
@@ -123,14 +121,15 @@ contract DynamicCeiling is SafeMath {
     /// @param _salt Random number that will be needed to reveal this point.
     /// @return The calculated hash of this point to be used in the
     ///  `setHiddenPoints` method
-    function calculateHash(uint _block, uint _limit, bool _last, bytes32 _salt) constant returns (bytes32) {
+    function calculateHash(uint _block, uint _limit, bool _last, bytes32 _salt) public constant returns (bytes32) {
         return sha3(_block, _limit, _last, _salt);
     }
 
     /// @return Return the total number of points committed
     ///  (can be larger than the number of actual points on the curve to hide
     ///  the real number of points)
-    function nPoints() constant returns(uint) {
+    function nPoints() public constant returns(uint) {
         return points.length;
     }
+
 }

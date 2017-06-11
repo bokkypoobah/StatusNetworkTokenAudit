@@ -26,12 +26,15 @@ pragma solidity ^0.4.11;
 ///  ETH is sent to the contribution walled and SNTs are mined according to the defined
 ///  rules.
 
+
 import "./Owned.sol";
 import "./MiniMeToken.sol";
 import "./DynamicCeiling.sol";
 import "./SafeMath.sol";
 
-contract StatusContribution is Owned, SafeMath, TokenController {
+
+contract StatusContribution is Owned, TokenController {
+    using SafeMath for uint;
 
     uint constant public failSafe = 300000 ether;
     uint constant public exchangeRate = 10000;
@@ -69,17 +72,15 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     }
 
     modifier contributionOpen() {
-        if ((getBlockNumber()<startBlock) ||
-            (getBlockNumber()>=stopBlock) ||
+        if ((getBlockNumber() < startBlock) ||
+            (getBlockNumber() >= stopBlock) ||
             (finalized > 0) ||
             (address(SNT) == 0x0 ))
             throw;
         _;
     }
 
-    function StatusContribution() {
-
-    }
+    function StatusContribution() {}
 
 
     /// @notice This method should be called by the owner before the contribution
@@ -115,9 +116,9 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         address _destTokensSgt,
         uint _maxSGTSupply,
         address _sntController
-    ) onlyOwner {
+    ) public onlyOwner {
         // Initialize only once
-        if (address(SNT) != 0x0 ) throw;
+        if (address(SNT) != 0x0) throw;
 
         SNT = MiniMeToken(_sntAddress);
 
@@ -125,14 +126,14 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         if (SNT.controller() != address(this)) throw;
         if (SNT.decimals() != 18) throw;  // Same amount of decimals as ETH
 
+        if (_startBlock < getBlockNumber()) throw;
         if (_stopBlock < _startBlock) throw;
-
         startBlock = _startBlock;
         stopBlock = _stopBlock;
         sgtLimit = _sgtLimit;
         sgtPreferenceBlocks = _sgtPreferenceBlocks;
 
-        if (_dynamicCeiling == 0x0 ) throw;
+        if (_dynamicCeiling == 0x0) throw;
         dynamicCeiling = DynamicCeiling(_dynamicCeiling);
 
         if (_destEthDevs == 0x0) throw;
@@ -166,7 +167,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     /// @param _th Guaranteed address
     /// @param _limit Particular limit for the guaranteed address. Set to 0 to remove
     ///   the guaranteed address
-    function setGuaranteedAddress(address _th, uint _limit) initialized onlyOwner {
+    function setGuaranteedAddress(address _th, uint _limit) public initialized onlyOwner {
         if (getBlockNumber() >= startBlock) throw;
         if (_limit > failSafe) throw;
         guaranteedBuyersLimit[_th] = _limit;
@@ -175,18 +176,20 @@ contract StatusContribution is Owned, SafeMath, TokenController {
 
     /// @notice If anybody sends Ether directly to this contract, consider he is
     ///  getting SNTs.
-    function () payable {
+    function () public payable {
         proxyPayment(msg.sender);
     }
 
-//////////
-// MiniMe Controller functions
-//////////
+
+    //////////
+    // MiniMe Controller functions
+    //////////
+
     /// @notice This method will generally be called by the SNT token contract to
     ///  acquire SNTs. Or directly from third parties that want po acquire SNTs in
     ///  behalf of a token holder.
     /// @param _th SNT holder where the SNTs will be minted.
-    function proxyPayment(address _th) payable initialized contributionOpen returns (bool) {
+    function proxyPayment(address _th) public payable initialized contributionOpen returns (bool) {
         if (guaranteedBuyersLimit[_th] > 0) {
             buyGuaranteed(_th);
         } else {
@@ -195,75 +198,71 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         return true;
     }
 
-    function onTransfer(address , address , uint ) returns(bool) {
+    function onTransfer(address, address, uint) public returns(bool) {
         return false;
     }
 
-    function onApprove(address , address , uint ) returns(bool) {
+    function onApprove(address, address, uint) public returns(bool) {
         return false;
     }
 
     function buyNormal(address _th) internal {
-
         if (tx.gasprice > maxGasPrice) throw;
 
         uint toFund;
         uint cap = dynamicCeiling.cap(getBlockNumber());
 
-        cap = safeAdd(totalNormalCollected,
-                      safeDiv(safeSub(cap, totalNormalCollected), 30));
+        cap = totalNormalCollected.add(cap.sub(totalNormalCollected).div(30));
 
-        if (cap>failSafe) cap = failSafe;
+        if (cap > failSafe) cap = failSafe;
 
-        if (safeAdd(totalNormalCollected, msg.value) > cap) {
-            toFund = safeSub(cap, totalNormalCollected);
+        if (totalNormalCollected.add(msg.value) > cap) {
+            toFund = cap.sub(totalNormalCollected);
         } else {
             toFund = msg.value;
         }
 
         if (getBlockNumber() < startBlock + sgtPreferenceBlocks) {
            if (SGT.balanceOf(_th) == 0) throw;
-           if ( safeAdd(sgtContributed[_th], toFund) > sgtLimit ) {
-               toFund = safeSub(sgtLimit, sgtContributed[_th]);
+           if (sgtContributed[_th].add(toFund) > sgtLimit) {
+               toFund = sgtLimit.sub(sgtContributed[_th]);
            }
-           sgtContributed[_th] = safeAdd(sgtContributed[_th], toFund);
+           sgtContributed[_th] = sgtContributed[_th].add(toFund);
         }
 
 
-        totalNormalCollected = safeAdd(totalNormalCollected, toFund);
+        totalNormalCollected = totalNormalCollected.add(toFund);
         doBuy(_th, toFund, false);
     }
 
     function buyGuaranteed(address _th) internal {
-
         uint toFund;
         uint cap = guaranteedBuyersLimit[_th];
 
-        if (safeAdd(guaranteedBuyersBought[_th], msg.value) > cap) {
-            toFund = safeSub(cap, guaranteedBuyersBought[_th]);
+        if (guaranteedBuyersBought[_th].add(msg.value) > cap) {
+            toFund = cap.sub(guaranteedBuyersBought[_th]);
         } else {
             toFund = msg.value;
         }
 
-        guaranteedBuyersBought[_th] = safeAdd(guaranteedBuyersBought[_th], toFund);
-        totalGuaranteedCollected = safeAdd(totalGuaranteedCollected, toFund);
+        guaranteedBuyersBought[_th] = guaranteedBuyersBought[_th].add(toFund);
+        totalGuaranteedCollected = totalGuaranteedCollected.add(toFund);
 
         doBuy(_th, toFund, true);
     }
 
     function doBuy(address _th, uint _toFund, bool _guaranteed) internal {
-        if (_toFund == 0) throw; // Do not spend gas for
+        if (_toFund == 0) throw;  // Do not spend gas for
         if (msg.value < _toFund) throw;  // Not needed, but double check.
 
-        uint tokensGenerated = safeMul(_toFund, exchangeRate);
-        uint toReturn = safeSub(msg.value, _toFund);
+        uint tokensGenerated = _toFund.mul(exchangeRate);
+        uint toReturn = msg.value.sub(_toFund);
 
-        if (!SNT.generateTokens(_th, tokensGenerated))
-            throw;
+        if (!SNT.generateTokens(_th, tokensGenerated)) throw;
 
-        if (!destEthDevs.send(_toFund)) throw;
+        destEthDevs.transfer(_toFund);
 
-        if (toReturn>0) {
+        if (toReturn > 0) {
             // If the call comes from the Token controller,
             // then we return it to the token Holder that.
             // Otherwise we return to the sender.
@@ -299,7 +298,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     ///  end or by anybody after the `endBlock`. This method finalizes the contribution period
     ///  by creating the remaining tokens and transferring the controller to the configured
     ///  controller.
-    function finalize() initialized {
+    function finalize() public initialized {
         if (getBlockNumber() < startBlock) throw;
         if (msg.sender != owner && getBlockNumber() < stopBlock) throw;
         if (finalized > 0) throw;
@@ -309,9 +308,9 @@ contract StatusContribution is Owned, SafeMath, TokenController {
 
         // Allow premature finalization if final limit is reached
         if (getBlockNumber () < stopBlock) {
-            var (,,lastLimit,) = dynamicCeiling.points( safeSub(dynamicCeiling.revealedPoints(), 1));
+            var (,,lastLimit) = dynamicCeiling.points(dynamicCeiling.revealedPoints().sub(1));
 
-            if (totalCollected()< lastLimit - 1 ether) throw;
+            if (totalCollected() < lastLimit - 1 ether) throw;
         }
 
         finalized = now;
@@ -326,20 +325,16 @@ contract StatusContribution is Owned, SafeMath, TokenController {
             //  percentageToSgt = 10% * -------------------
             //                             maxSGTSupply
             //
-            percentageToSgt =  safeDiv(
-                                    safeMul(percent(10), SGT.totalSupply()),
-                                    maxSGTSupply);
+            percentageToSgt = percent(10).mul(SGT.totalSupply()).div(maxSGTSupply);
         }
 
-        uint percentageToDevs = percent(20); // 20%
+        uint percentageToDevs = percent(20);  // 20%
 
 
         //
         //  % To Contributors = 41% + (10% - % to SGT holders)
         //
-        uint percentageToContributors = safeAdd(
-                                            percent(41),
-                                            safeSub(percent(10), percentageToSgt));
+        uint percentageToContributors = percent(41).add(percent(10).sub(percentageToSgt));
 
         uint percentageToSecondary = percent(29);
 
@@ -361,9 +356,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         //  =>  totalTokens = ---------------------------- * SNT.totalSupply()
         //                      percentageToContributors
         //
-        uint totalTokens = safeDiv(
-                                safeMul(SNT.totalSupply(), percent(100)),
-                                percentageToContributors);
+        uint totalTokens = SNT.totalSupply().mul(percent(100)).div(percentageToContributors);
 
 
         // Generate tokens for SGT Holders.
@@ -375,9 +368,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         //
         if (!SNT.generateTokens(
             destTokensSecondarySale,
-            safeDiv(
-                safeMul(totalTokens, percentageToSecondary),
-                percent(100)))) throw;
+            totalTokens.mul(percentageToSecondary).div(percent(100)))) throw;
 
         //
         //                  percentageToSgt
@@ -386,9 +377,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         //
         if (!SNT.generateTokens(
             destTokensSgt,
-            safeDiv(
-                safeMul(totalTokens, percentageToSgt),
-                percent(100)))) throw;
+            totalTokens.mul(percentageToSgt).div(percent(100)))) throw;
 
 
         //
@@ -398,9 +387,7 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         //
         if (!SNT.generateTokens(
             destTokensDevs,
-            safeDiv(
-                safeMul(totalTokens, percentageToDevs),
-                percent(100)))) throw;
+            totalTokens.mul(percentageToDevs).div(percent(100)))) throw;
 
         SNT.changeController(sntController);
 
@@ -409,27 +396,28 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     }
 
     function percent(uint p) internal returns(uint) {
-        return safeMul(p, 10**16);
+        return p.mul(10**16);
     }
 
 
-//////////
-// Constant functions
-//////////
+    //////////
+    // Constant functions
+    //////////
 
     /// @return Total tokens issued in weis.
-    function tokensIssued() constant returns (uint) {
+    function tokensIssued() public constant returns (uint) {
         return SNT.totalSupply();
     }
 
     /// @return Total Ether collected.
-    function totalCollected()  constant returns (uint) {
-        return safeAdd(totalNormalCollected, totalGuaranteedCollected);
+    function totalCollected() public constant returns (uint) {
+        return totalNormalCollected.add(totalGuaranteedCollected);
     }
 
-//////////
-// Testing specific methods
-//////////
+
+    //////////
+    // Testing specific methods
+    //////////
 
     /// @notice This function is overridden by the test Mocks.
     function getBlockNumber() internal constant returns (uint) {
@@ -437,15 +425,15 @@ contract StatusContribution is Owned, SafeMath, TokenController {
     }
 
 
-//////////
-// Safety Methods
-//////////
+    //////////
+    // Safety Methods
+    //////////
 
     /// @notice This method can be used by the controller to extract mistakenly
     ///  sent tokens to this contract.
     /// @param _token The address of the token contract that you want to recover
     ///  set to 0 in case you want to extract ether.
-    function claimTokens(address _token) onlyOwner {
+    function claimTokens(address _token) public onlyOwner {
         if (SNT.controller() == address(this)) {
             SNT.claimTokens(_token);
         }
@@ -460,8 +448,8 @@ contract StatusContribution is Owned, SafeMath, TokenController {
         ClaimedTokens(_token, owner, balance);
     }
 
-    event ClaimedTokens(address indexed token, address indexed controller, uint amount);
-    event NewSale(address indexed th, uint amount, uint tokens, bool guaranteed);
-    event GuaranteedAddress(address indexed th, uint limit);
+    event ClaimedTokens(address indexed _token, address indexed _controller, uint _amount);
+    event NewSale(address indexed _th, uint _amount, uint _tokens, bool _guaranteed);
+    event GuaranteedAddress(address indexed _th, uint _limit);
     event Finalized();
 }

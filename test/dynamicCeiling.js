@@ -1,123 +1,204 @@
 // Simulate a full contribution
 const DynamicCeiling = artifacts.require("DynamicCeiling");
 
-const setHiddenPoints = require("./helpers/hiddenPoints.js").setHiddenPoints;
+const setHiddenCurves = require("./helpers/hiddenCurves.js").setHiddenCurves;
 
-contract("DynamicCeiling", () => {
+contract("DynamicCeiling", (accounts) => {
     let dynamicCeiling;
 
-    const points = [
-        [1000000, web3.toWei(1000)],
-        [1001000, web3.toWei(21000)],
-        [1002000, web3.toWei(61000)],
+    const curves = [
+        [web3.toWei(1000), 30, 10**12],
+        [web3.toWei(21000), 30, 10**12],
+        [web3.toWei(61000), 30, 10**12],
     ];
 
     it("Should deploy dynamicCeiling", async () => {
-        dynamicCeiling = await DynamicCeiling.new();
+        dynamicCeiling = await DynamicCeiling.new(accounts[0], accounts[0]);
+
+        assert.equal(await dynamicCeiling.currentIndex(), 0);
     });
 
-    it("Cap should be 0 before points are set", async () => {
-        assert.equal(await dynamicCeiling.cap(99999), 0);
-        assert.equal(await dynamicCeiling.cap(100000), 0);
-        assert.equal(await dynamicCeiling.cap(100001), 0);
-        assert.equal(await dynamicCeiling.cap(100999), 0);
-        assert.equal(await dynamicCeiling.cap(101000), 0);
-        assert.equal(await dynamicCeiling.cap(101001), 0);
-        assert.equal(await dynamicCeiling.cap(101999), 0);
-        assert.equal(await dynamicCeiling.cap(102000), 0);
-        assert.equal(await dynamicCeiling.cap(102001), 0);
+    it("Cap should be 0 before curves are set", async () => {
+        assert.equal(await dynamicCeiling.toCollect.call(0), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(10)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(15)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(20)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(30)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(55)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(676)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(5555)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(10**8)), 0);
+
+        assert.equal(await dynamicCeiling.currentIndex(), 0);
     });
 
-    it("Should set the points", async () => {
-        await setHiddenPoints(dynamicCeiling, points);
-
-        assert.equal(await dynamicCeiling.nPoints(), 10);
+    it("Should set the curves", async () => {
+        await setHiddenCurves(dynamicCeiling, curves);
+        assert.equal(await dynamicCeiling.nCurves(), 10);
     });
 
-    it("Cap should be 0 before points are revealed", async () => {
-        assert.equal(await dynamicCeiling.cap(99999), 0);
-        assert.equal(await dynamicCeiling.cap(1000000), 0);
-        assert.equal(await dynamicCeiling.cap(1000001), 0);
-        assert.equal(await dynamicCeiling.cap(1000999), 0);
-        assert.equal(await dynamicCeiling.cap(1001000), 0);
-        assert.equal(await dynamicCeiling.cap(1001001), 0);
-        assert.equal(await dynamicCeiling.cap(1001999), 0);
-        assert.equal(await dynamicCeiling.cap(1002000), 0);
-        assert.equal(await dynamicCeiling.cap(1002001), 0);
+    it("Cap should be 0 before curves are revealed", async () => {
+        assert.equal(await dynamicCeiling.toCollect.call('0'), '0');
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(10)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(15)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(20)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(30)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(55)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(676)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(5555)), 0);
+        assert.equal(await dynamicCeiling.toCollect.call(web3.toWei(10**8)), 0);
+
+        assert.equal(await dynamicCeiling.currentIndex(), 0);
     });
 
-    it("Should reveal 1st point", async () => {
-        await dynamicCeiling.revealPoint(
-            points[0][0],
-            points[0][1],
+    it("Should reveal 1st curve", async () => {
+        await dynamicCeiling.revealCurve(
+            curves[0][0],
+            curves[0][1],
+            curves[0][2],
             false,
             web3.sha3("pwd0"));
 
-        assert.equal(await dynamicCeiling.revealedPoints(), 1);
+        assert.equal(await dynamicCeiling.revealedCurves(), 1);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '0');
         assert.equal(await dynamicCeiling.allRevealed(), false);
     });
 
-    it("Check limits after revealed 1st point", async () => {
-        assert.equal(await dynamicCeiling.cap(99999), 0);
-        assert.equal((await dynamicCeiling.cap(1000000)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1000001)).toString(10), web3.toWei(1000));
+    it("Check limits after revealed 1st curve", async () => {
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '0');
+        assert.equal((await dynamicCeiling.toCollect.call(0)).toFixed(), '33333333333333333333');
 
-        assert.equal((await dynamicCeiling.cap(1000999)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1001000)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1001001)).toString(10), web3.toWei(1000));
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(10))).toFixed(), '33000000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(15))).toFixed(), '32833333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(20))).toFixed(), '32666666666666666666');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(30))).toFixed(), '32333333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(55))).toFixed(), '31500000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(676))).toFixed(), '10800000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(999))).toFixed(), '33333333333333333');
 
-        assert.equal((await dynamicCeiling.cap(1001999)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1002000)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1002001)).toString(10), web3.toWei(1000));
+        assert.equal((await dynamicCeiling.toCollect.call('999999999998999999999')).toFixed(), '1000000001');
+        assert.equal((await dynamicCeiling.toCollect.call('999999999999000000000')).toFixed(), '1000000000');
+        assert.equal((await dynamicCeiling.toCollect.call('999999999999999999999')).toFixed(), '1');
+
+        await dynamicCeiling.toCollect(curves[0][0]);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '0');
+        assert.equal((await dynamicCeiling.toCollect.call(curves[0][0])).toFixed(), '0');
     });
 
-    it("Should reveal 2nd point", async () => {
-        await dynamicCeiling.revealPoint(
-            points[1][0],
-            points[1][1],
+    it("Should reveal 2nd curve", async () => {
+        await dynamicCeiling.revealCurve(
+            curves[1][0],
+            curves[1][1],
+            curves[1][2],
             false,
             web3.sha3("pwd1"));
 
-        assert.equal(await dynamicCeiling.revealedPoints(), 2);
+        assert.equal(await dynamicCeiling.revealedCurves(), 2);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '0');
         assert.equal(await dynamicCeiling.allRevealed(), false);
     });
 
-    it("Check limits after revealed 1st point", async () => {
-        assert.equal(await dynamicCeiling.cap(99999), 0);
-        assert.equal((await dynamicCeiling.cap(1000000)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1000001)).toString(10), web3.toWei(1020));
+    it("Check limits after revealed 2nd curve", async () => {
+        await dynamicCeiling.toCollect(curves[0][0]);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '1');
+        assert.equal((await dynamicCeiling.toCollect.call(curves[0][0])).toFixed(), '666666666666666666666')
 
-        assert.equal((await dynamicCeiling.cap(1000999)).toString(10), web3.toWei(20980));
-        assert.equal((await dynamicCeiling.cap(1001000)).toString(10), web3.toWei(21000));
-        assert.equal((await dynamicCeiling.cap(1001001)).toString(10), web3.toWei(21000));
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(1010))).toFixed(), '666333333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(1015))).toFixed(), '666166666666666666666');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(1020))).toFixed(), '666000000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(1030))).toFixed(), '665666666666666666666');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(1055))).toFixed(), '664833333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(10676))).toFixed(), '344133333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(10999))).toFixed(), '333366666666666666666');
 
-        assert.equal((await dynamicCeiling.cap(1001999)).toString(10), web3.toWei(21000));
-        assert.equal((await dynamicCeiling.cap(1002000)).toString(10), web3.toWei(21000));
-        assert.equal((await dynamicCeiling.cap(1002001)).toString(10), web3.toWei(21000));
+        assert.equal((await dynamicCeiling.toCollect.call('20999999999998999999999')).toFixed(), '1000000001');
+        assert.equal((await dynamicCeiling.toCollect.call('20999999999999000000000')).toFixed(), '1000000000');
+        assert.equal((await dynamicCeiling.toCollect.call('20999999999999999999999')).toFixed(), '1');
+
+        await dynamicCeiling.toCollect(curves[1][0]);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '1');
+        assert.equal((await dynamicCeiling.toCollect.call(curves[1][0])).toFixed(), '0');
     });
 
-    it("Should reveal last point", async () => {
-        await dynamicCeiling.revealPoint(
-            points[2][0],
-            points[2][1],
+    it("Should reveal last curve", async () => {
+        await dynamicCeiling.revealCurve(
+            curves[2][0],
+            curves[2][1],
+            curves[2][2],
             true,
             web3.sha3("pwd2"));
 
-        assert.equal(await dynamicCeiling.revealedPoints(), 3);
+        assert.equal(await dynamicCeiling.revealedCurves(), 3);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '1');
         assert.equal(await dynamicCeiling.allRevealed(), true);
     });
 
-    it("Check limits after revealed 1st point", async () => {
-        assert.equal(await dynamicCeiling.cap(99999), 0);
-        assert.equal((await dynamicCeiling.cap(1000000)).toString(10), web3.toWei(1000));
-        assert.equal((await dynamicCeiling.cap(1000001)).toString(10), web3.toWei(1020));
+    it("Check limits after revealed 3rd curve", async () => {
+        await dynamicCeiling.toCollect(curves[1][0]);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '2');
+        assert.equal((await dynamicCeiling.toCollect.call(curves[1][0])).toFixed(), '1333333333333333333333');
 
-        assert.equal((await dynamicCeiling.cap(1000999)).toString(10), web3.toWei(20980));
-        assert.equal((await dynamicCeiling.cap(1001000)).toString(10), web3.toWei(21000));
-        assert.equal((await dynamicCeiling.cap(1001001)).toString(10), web3.toWei(21040));
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21010))).toFixed(), '1333000000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21015))).toFixed(), '1332833333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21020))).toFixed(), '1332666666666666666666');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21030))).toFixed(), '1332333333333333333333');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21055))).toFixed(), '1331500000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21676))).toFixed(), '1310800000000000000000');
+        assert.equal((await dynamicCeiling.toCollect.call(web3.toWei(21999))).toFixed(), '1300033333333333333333');
 
-        assert.equal((await dynamicCeiling.cap(1001999)).toString(10), web3.toWei(60960));
-        assert.equal((await dynamicCeiling.cap(1002000)).toString(10), web3.toWei(61000));
-        assert.equal((await dynamicCeiling.cap(1002001)).toString(10), web3.toWei(61000));
+        assert.equal((await dynamicCeiling.toCollect.call('60999999999998999999999')).toFixed(), '1000000001');
+        assert.equal((await dynamicCeiling.toCollect.call('60999999999999000000000')).toFixed(), '1000000000');
+        assert.equal((await dynamicCeiling.toCollect.call('60999999999999999999999')).toFixed(), '1');
+
+        await dynamicCeiling.toCollect(curves[2][0]);
+        assert.equal((await dynamicCeiling.currentIndex()).toFixed(), '2');
+        assert.equal((await dynamicCeiling.toCollect.call(curves[2][0])).toFixed(), '0');
     });
+
+
+    it("Should deploy dynamicCeiling", async () => {
+        dynamicCeiling = await DynamicCeiling.new(accounts[0], accounts[0]);
+
+        assert.equal(await dynamicCeiling.currentIndex(), 0);
+    });
+
+    it("Should set the curves", async () => {
+        await setHiddenCurves(dynamicCeiling, curves);
+        assert.equal(await dynamicCeiling.nCurves(), 10);
+    });
+
+    it("Should reveal multiple curves", async () => {
+        await dynamicCeiling.revealMulti(
+            [
+                curves[0][0],
+                curves[1][0],
+                curves[2][0],
+            ],
+            [
+                curves[0][1],
+                curves[1][1],
+                curves[2][1],
+            ],
+            [
+                curves[0][2],
+                curves[1][2],
+                curves[2][2],
+            ],
+            [
+                false,
+                false,
+                true,
+            ],
+            [
+                web3.sha3("pwd0"),
+                web3.sha3("pwd1"),
+                web3.sha3("pwd2"),
+            ],
+        );
+
+        assert.equal(await dynamicCeiling.currentIndex(), 0);
+        assert.equal(await dynamicCeiling.revealedCurves(), 3);
+        assert.equal(await dynamicCeiling.allRevealed(), true);
+    });
+
 });

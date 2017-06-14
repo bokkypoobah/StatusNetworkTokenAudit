@@ -29,7 +29,8 @@ pragma solidity ^0.4.11;
 import "./MiniMeToken.sol";
 import "./SafeMath.sol";
 import "./Owned.sol";
-
+import "./StatusContribution.sol";
+import "./ERC20Token.sol";
 
 contract SGTExchanger is TokenController, Owned {
     using SafeMath for uint256;
@@ -38,21 +39,27 @@ contract SGTExchanger is TokenController, Owned {
     uint256 public totalCollected;
     MiniMeToken public sgt;
     MiniMeToken public snt;
+    StatusContribution public statusContribution;
 
-    function SGTExchanger(address _sgt, address _snt) {
+    function SGTExchanger(address _sgt, address _snt, address _statusContribution) {
         sgt = MiniMeToken(_sgt);
         snt = MiniMeToken(_snt);
+        statusContribution = StatusContribution(_statusContribution);
     }
 
     /// @notice This method should be called by the SGT holders to collect their
     ///  corresponding SNTs
     function collect() public {
+        uint256 finalizedBlock = statusContribution.finalizedBlock();
+
+        require(finalizedBlock != 0);
+
         uint256 total = totalCollected.add(snt.balanceOf(address(this)));
 
-        uint256 balance = sgt.balanceOf(msg.sender);
+        uint256 balance = sgt.balanceOfAt(msg.sender, finalizedBlock);
 
         // First calculate how much correspond to him
-        uint256 amount = total.mul(balance).div(sgt.totalSupply());
+        uint256 amount = total.mul(balance).div(sgt.totalSupplyAt(finalizedBlock));
 
         // And then subtract the amount already collected
         amount = amount.sub(collected[msg.sender]);
@@ -60,7 +67,7 @@ contract SGTExchanger is TokenController, Owned {
         totalCollected = totalCollected.add(amount);
         collected[msg.sender] = collected[msg.sender].add(amount);
 
-        if (!snt.transfer(msg.sender, amount)) throw;
+        assert(snt.transfer(msg.sender, amount));
 
         TokensCollected(msg.sender, amount);
     }
@@ -87,13 +94,13 @@ contract SGTExchanger is TokenController, Owned {
     /// @param _token The address of the token contract that you want to recover
     ///  set to 0 in case you want to extract ether.
     function claimTokens(address _token) public onlyOwner {
-        if (_token == address(snt)) throw;
+        require(_token != address(snt));
         if (_token == 0x0) {
             owner.transfer(this.balance);
             return;
         }
 
-        MiniMeToken token = MiniMeToken(_token);
+        ERC20Token token = ERC20Token(_token);
         uint256 balance = token.balanceOf(this);
         token.transfer(owner, balance);
         ClaimedTokens(_token, owner, balance);

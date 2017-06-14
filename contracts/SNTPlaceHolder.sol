@@ -30,6 +30,7 @@ import "./MiniMeToken.sol";
 import "./StatusContribution.sol";
 import "./SafeMath.sol";
 import "./Owned.sol";
+import "./ERC20Token.sol";
 
 
 contract SNTPlaceHolder is TokenController, Owned {
@@ -83,7 +84,7 @@ contract SNTPlaceHolder is TokenController, Owned {
     function transferable(address _from) internal returns (bool) {
         // Allow the exchanger to work from the beginning
         if (activationTime == 0) {
-            uint256 f = contribution.finalized();
+            uint256 f = contribution.finalizedTime();
             if (f > 0) {
                 activationTime = f.add(1 weeks);
             } else {
@@ -121,7 +122,7 @@ contract SNTPlaceHolder is TokenController, Owned {
             return;
         }
 
-        MiniMeToken token = MiniMeToken(_token);
+        ERC20Token token = ERC20Token(_token);
         uint256 balance = token.balanceOf(this);
         token.transfer(owner, balance);
         ClaimedTokens(_token, owner, balance);

@@ -9,3 +9,4 @@ __pycache__
 .settings
 audit/test/testchain/geth
 audit/test/testchain/history
+audit/test/contracts

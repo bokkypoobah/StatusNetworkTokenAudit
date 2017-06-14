@@ -12,7 +12,7 @@ const DynamicCeiling = artifacts.require("DynamicCeiling");
 const SNTPlaceHolderMock = artifacts.require("SNTPlaceHolderMock");
 const ExternalToken = artifacts.require("ExternalToken");
 
-const setHiddenPoints = require("./helpers/hiddenPoints.js").setHiddenPoints;
+const setHiddenCurves = require("./helpers/hiddenCurves.js").setHiddenCurves;
 const assertFail = require("./helpers/assertFail");
 
 contract("StatusContribution", (accounts) => {
@@ -31,15 +31,13 @@ contract("StatusContribution", (accounts) => {
     let sntPlaceHolder;
     let externalToken;
 
-    const points = [
-        [1000000, web3.toWei(3)],
-        [1001000, web3.toWei(13)],
-        [1002000, web3.toWei(15)],
+    const curves = [
+        [web3.toWei(3), 30, 10**12],
+        [web3.toWei(13), 30, 10**12],
+        [web3.toWei(15), 30, 10**12],
     ];
     const startBlock = 1000000;
     const endBlock = 1003000;
-    const sgtPreferenceBlocks = 2000;
-    const sgtLimit = web3.toWei(0.1);
 
     it("Should deploy Contribution contracts", async () => {
         multisigStatus = await MultiSigWallet.new([accounts[0]], 1);
@@ -60,10 +58,10 @@ contract("StatusContribution", (accounts) => {
             multisigDevs.address,
             statusContribution.address,
             snt.address);
-        sgtExchanger = await SGTExchanger.new(sgt.address, snt.address);
-        dynamicCeiling = await DynamicCeiling.new();
+        sgtExchanger = await SGTExchanger.new(sgt.address, snt.address, statusContribution.address);
+        dynamicCeiling = await DynamicCeiling.new(accounts[0], statusContribution.address);
 
-        await setHiddenPoints(dynamicCeiling, points);
+        await setHiddenCurves(dynamicCeiling, curves);
 
         sntPlaceHolder = await SNTPlaceHolderMock.new(
             multisigComunity.address,
@@ -78,8 +76,6 @@ contract("StatusContribution", (accounts) => {
             snt.address,
             startBlock,
             endBlock,
-            sgtPreferenceBlocks,
-            sgtLimit,
             dynamicCeiling.address,
 
             contributionWallet.address,

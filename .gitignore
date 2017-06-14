@@ -1,10 +1,6 @@
 node_modules/
 build/
 .DS_Store
-.project
-.settings
-private
-private/*
-audit/test/testchain/geth*
-audit/test/testchain/history*
-audit/test/contracts
+
+.mypy_cache
+__pycache__

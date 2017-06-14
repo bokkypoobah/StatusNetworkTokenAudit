@@ -1,5 +1,8 @@
 pragma solidity ^0.4.11;
 
+
+import "./ERC20Token.sol";
+
 /*
     Copyright 2016, Jordi Baylina
 
@@ -155,7 +158,7 @@ contract MiniMeToken is Controlled {
         parentToken = MiniMeToken(_parentToken);
         parentSnapShotBlock = _parentSnapShotBlock;
         transfersEnabled = _transfersEnabled;
-        creationBlock = block.number;
+        creationBlock = getBlockNumber();
     }
 
 
@@ -208,14 +211,14 @@ contract MiniMeToken is Controlled {
                return true;
            }
 
-           if (parentSnapShotBlock >= block.number) throw;
+           if (parentSnapShotBlock >= getBlockNumber()) throw;
 
            // Do not allow transfer to 0x0 or the token contract itself
            if ((_to == 0) || (_to == address(this))) throw;
 
            // If the amount being transfered is more than the balance of the
            //  account the transfer returns false
-           var previousBalanceFrom = balanceOfAt(_from, block.number);
+           var previousBalanceFrom = balanceOfAt(_from, getBlockNumber());
            if (previousBalanceFrom < _amount) {
                return false;
            }
@@ -232,7 +235,7 @@ contract MiniMeToken is Controlled {
 
            // Then update the balance array with the new value for the address
            //  receiving the tokens
-           var previousBalanceTo = balanceOfAt(_to, block.number);
+           var previousBalanceTo = balanceOfAt(_to, getBlockNumber());
            if (previousBalanceTo + _amount < previousBalanceTo) throw; // Check for overflow
            updateValueAtNow(balances[_to], previousBalanceTo + _amount);
 
@@ -245,7 +248,7 @@ contract MiniMeToken is Controlled {
     /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) constant returns (uint256 balance) {
-        return balanceOfAt(_owner, block.number);
+        return balanceOfAt(_owner, getBlockNumber());
     }
 
     /// @notice `msg.sender` approves `_spender` to spend `_amount` tokens on
@@ -308,7 +311,7 @@ contract MiniMeToken is Controlled {
     /// @dev This function makes it easy to get the total number of tokens
     /// @return The total number of tokens
     function totalSupply() constant returns (uint) {
-        return totalSupplyAt(block.number);
+        return totalSupplyAt(getBlockNumber());
     }
 
 
@@ -388,7 +391,7 @@ contract MiniMeToken is Controlled {
         uint _snapshotBlock,
         bool _transfersEnabled
         ) returns(address) {
-        if (_snapshotBlock == 0) _snapshotBlock = block.number;
+        if (_snapshotBlock == 0) _snapshotBlock = getBlockNumber();
         MiniMeToken cloneToken = tokenFactory.createCloneToken(
             this,
             _snapshotBlock,
@@ -415,7 +418,7 @@ contract MiniMeToken is Controlled {
     /// @return True if the tokens are generated correctly
     function generateTokens(address _owner, uint _amount
     ) onlyController returns (bool) {
-        uint curTotalSupply = getValueAt(totalSupplyHistory, block.number);
+        uint curTotalSupply = getValueAt(totalSupplyHistory, getBlockNumber());
         if (curTotalSupply + _amount < curTotalSupply) throw; // Check for overflow
         updateValueAtNow(totalSupplyHistory, curTotalSupply + _amount);
         var previousBalanceTo = balanceOf(_owner);
@@ -432,7 +435,7 @@ contract MiniMeToken is Controlled {
     /// @return True if the tokens are burned correctly
     function destroyTokens(address _owner, uint _amount
     ) onlyController returns (bool) {
-        uint curTotalSupply = getValueAt(totalSupplyHistory, block.number);
+        uint curTotalSupply = getValueAt(totalSupplyHistory, getBlockNumber());
         if (curTotalSupply < _amount) throw;
         updateValueAtNow(totalSupplyHistory, curTotalSupply - _amount);
         var previousBalanceFrom = balanceOf(_owner);
@@ -491,9 +494,9 @@ contract MiniMeToken is Controlled {
     function updateValueAtNow(Checkpoint[] storage checkpoints, uint _value
     ) internal  {
         if ((checkpoints.length == 0)
-        || (checkpoints[checkpoints.length -1].fromBlock < block.number)) {
+        || (checkpoints[checkpoints.length -1].fromBlock < getBlockNumber())) {
                Checkpoint newCheckPoint = checkpoints[ checkpoints.length++ ];
-               newCheckPoint.fromBlock =  uint128(block.number);
+               newCheckPoint.fromBlock =  uint128(getBlockNumber());
                newCheckPoint.value = uint128(_value);
            } else {
                Checkpoint oldCheckPoint = checkpoints[checkpoints.length-1];
@@ -530,6 +533,16 @@ contract MiniMeToken is Controlled {
         }
     }
 
+
+//////////
+// Testing specific methods
+//////////
+
+    /// @notice This function is overridden by the test Mocks.
+    function getBlockNumber() internal constant returns (uint256) {
+        return block.number;
+    }
+
 //////////
 // Safety Methods
 //////////
@@ -544,7 +557,7 @@ contract MiniMeToken is Controlled {
             return;
         }
 
-        MiniMeToken token = MiniMeToken(_token);
+        ERC20Token token = ERC20Token(_token);
         uint balance = token.balanceOf(this);
         token.transfer(controller, balance);
         ClaimedTokens(_token, controller, balance);

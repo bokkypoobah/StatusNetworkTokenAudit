@@ -11,3 +11,4 @@ audit/test/testchain/geth
 audit/test/testchain/geth.ipc
 audit/test/testchain/history
 audit/test/contracts
+private

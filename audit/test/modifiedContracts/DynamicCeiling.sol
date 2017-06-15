@@ -29,10 +29,11 @@ pragma solidity ^0.4.11;
 import "./SafeMath.sol";
 import "./Owned.sol";
 
-
+// BK For easier reading, `Curve` should be renamed `Point` as these represent points in the curve
 contract DynamicCeiling is Owned {
     using SafeMath for uint256;
 
+    // BK Should be `struct Point`
     struct Curve {
         bytes32 hash;
         // Absolute limit for this curve
@@ -46,8 +47,10 @@ contract DynamicCeiling is Owned {
 
     address public contribution;
 
+    // BK Should be `Point[] public points` or `Point[] public curve` as this structure represents points in a single curve
     Curve[] public curves;
     uint256 public currentIndex;
+    // BK Should be revealedPoints
     uint256 public revealedCurves;
     bool public allRevealed;
 
@@ -110,7 +113,7 @@ contract DynamicCeiling is Owned {
         // BK Hash for the curve point being revealed must match the hash of the 
         //    hidden caps
         require(curves[revealedCurves].hash == keccak256(_limit, _slopeFactor, _collectMinimum,
-                                                     _last, _salt));
+                                                         _last, _salt));
 
         // BK Just checking for non nulls.
         //    Ideally this check should be done when constructing the hashes
@@ -138,7 +141,7 @@ contract DynamicCeiling is Owned {
     // BK Anyone can call this, but they will have to know the curve point that
     //    generated the hashes that was set by the owner
     function revealMulti(uint256[] _limits, uint256[] _slopeFactors, uint256[] _collectMinimums,
-                        bool[] _lasts, bytes32[] _salts) public {
+                         bool[] _lasts, bytes32[] _salts) public {
         // Do not allow none and needs to be same length for all parameters
         require(_limits.length != 0 &&
                 _limits.length == _slopeFactors.length &&

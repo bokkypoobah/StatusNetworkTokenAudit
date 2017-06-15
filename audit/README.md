@@ -55,6 +55,10 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### DynamicCeiling.sol
+* MEDIUM IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
+  * `struct Curve` is renamed to `struct Point`
+  * `Curve[] public curves;` is renamed to `Point[] public curve`
+  * `function setHiddenCurves(bytes32[] _curveHashes)` is renamed to `function setHiddenPoints(bytes32[] _curveHashes)`
 * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
   * Used in StatusContribution
   * This contract includes the following files:

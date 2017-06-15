@@ -1,0 +1,115 @@
+ # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       25.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Total Token Balances *
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+* Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
+
+
+Test 1.1 Deploy DynamicCeiling Contract
+dynamicCeilingAddress=0xf3d9d349146b55cf4e0b622edc71bc4af76b014c gas=4000000 gasUsed=981776 costETH=0.017671968 costUSD=6.72223990752 @ ETH/USD=380.39 gasPrice=18000000000 block=754 txId=0x32b52f96927fe9b43c0c711f92233f3e6a0b6b7f520e9521c64860a60caad2ab
+ # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.017671968000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.017671968000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
+ 6 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 DynamicCeiling
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Total Token Balances *
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+* Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
+
+PASS Test 1.1 Deploy DynamicCeiling Contract
+dynamicCeiling.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+dynamicCeiling.contribution=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+dynamicCeiling.currentIndex=0
+dynamicCeiling.revealedCurves=0
+dynamicCeiling.allRevealed=false
+dynamicCeiling.nCurves=0
+
+hashes=["0x5b1317aed4879a2c19344480ed2c5853e5ee015aa11ebd73dff615754bd18ebc","0xa5ff054b33f686d746fcef4076257b4f37c6fdd883e2c4b84731697669e1e5a5","0xbb418848f99a17e7cd8c40929fa2fc34f75a709f100ca53ca12f4a8880d2ed54","0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae"]
+limits=["1000000000000000000000","21000000000000000000000","61000000000000000000000"]
+slopeFactors=[30,30,30]
+collectMinimums=[6,6,6]
+lasts=[false,false,true]
+salts["salt","salt","salt"]
+Test 1.2 Add Hidden Curve
+tx12_1 gas=200000 gasUsed=186246 costETH=0.003352428 costUSD=1.27523008692 @ ETH/USD=380.39 gasPrice=18000000000 block=756 txId=0x14373248e6d2de85043634e14b6a5148ef879a5431554341c6820f30d45509ef
+ # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       40.021024396000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.021024396000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
+ 6 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 DynamicCeiling
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Total Token Balances *
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+* Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
+
+PASS Test 1.2 Add Hidden Curve
+dynamicCeiling.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+dynamicCeiling.contribution=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+dynamicCeiling.currentIndex=0
+dynamicCeiling.revealedCurves=0
+dynamicCeiling.allRevealed=false
+dynamicCeiling.nCurves=6
+HashSet Event 0: {"hash":"0x5b1317aed4879a2c19344480ed2c5853e5ee015aa11ebd73dff615754bd18ebc","index":"0"} block=756
+HashSet Event 1: {"hash":"0xa5ff054b33f686d746fcef4076257b4f37c6fdd883e2c4b84731697669e1e5a5","index":"1"} block=756
+HashSet Event 2: {"hash":"0xbb418848f99a17e7cd8c40929fa2fc34f75a709f100ca53ca12f4a8880d2ed54","index":"2"} block=756
+HashSet Event 3: {"hash":"0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","index":"3"} block=756
+HashSet Event 4: {"hash":"0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","index":"4"} block=756
+HashSet Event 5: {"hash":"0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","index":"5"} block=756
+dynamicCeiling.curves(0)=["0x5b1317aed4879a2c19344480ed2c5853e5ee015aa11ebd73dff615754bd18ebc","0","0","0"]
+dynamicCeiling.curves(1)=["0xa5ff054b33f686d746fcef4076257b4f37c6fdd883e2c4b84731697669e1e5a5","0","0","0"]
+dynamicCeiling.curves(2)=["0xbb418848f99a17e7cd8c40929fa2fc34f75a709f100ca53ca12f4a8880d2ed54","0","0","0"]
+dynamicCeiling.curves(3)=["0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0","0","0"]
+dynamicCeiling.curves(4)=["0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0","0","0"]
+dynamicCeiling.curves(5)=["0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","0","0","0"]
+
+Test 2.1 Reveal All Points In Curve
+tx21_1 gas=2000000 gasUsed=272796 costETH=0.004910328 costUSD=1.86783966792 @ ETH/USD=380.39 gasPrice=18000000000 block=759 txId=0xdd67fff5fb814011fa911f68d766503d209fde9f3f7ae60d1bc9fb130b9cbb67
+ # Account                                             EtherBalanceChange                 Unlocked Token                      Locked 1Y                      Locked 2Y                          Total Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       55.025934724000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.025934724000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4
+ 6 0xf3d9d349146b55cf4e0b622edc71bc4af76b014c        0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 DynamicCeiling
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000           0.000000000000000000           0.000000000000000000 Total Token Balances *
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ------------------------------ ------------------------------ ---------------------------
+* Note that the sum of all the locked tokens is represented in the unlocked balance at the token contract address, and this will be double counted in the grand total balance above
+
+PASS Test 2.1 Reveal All Points In Curve
+dynamicCeiling.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+dynamicCeiling.contribution=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+dynamicCeiling.currentIndex=0
+dynamicCeiling.revealedCurves=3
+dynamicCeiling.allRevealed=true
+dynamicCeiling.nCurves=6
+HashSet Event 0: {"hash":"0x5b1317aed4879a2c19344480ed2c5853e5ee015aa11ebd73dff615754bd18ebc","index":"0"} block=756
+HashSet Event 1: {"hash":"0xa5ff054b33f686d746fcef4076257b4f37c6fdd883e2c4b84731697669e1e5a5","index":"1"} block=756
+HashSet Event 2: {"hash":"0xbb418848f99a17e7cd8c40929fa2fc34f75a709f100ca53ca12f4a8880d2ed54","index":"2"} block=756
+HashSet Event 3: {"hash":"0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","index":"3"} block=756
+HashSet Event 4: {"hash":"0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","index":"4"} block=756
+HashSet Event 5: {"hash":"0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","index":"5"} block=756
+CurvePointRevealed Event 0: {"collectMinimum":"6","last":false,"limit":"1e+21","salt":"0x73616c7400000000000000000000000000000000000000000000000000000000","slopeFactor":"30"} block=759
+CurvePointRevealed Event 1: {"collectMinimum":"6","last":false,"limit":"2.1e+22","salt":"0x73616c7400000000000000000000000000000000000000000000000000000000","slopeFactor":"30"} block=759
+CurvePointRevealed Event 2: {"collectMinimum":"6","last":true,"limit":"6.1e+22","salt":"0x73616c7400000000000000000000000000000000000000000000000000000000","slopeFactor":"30"} block=759
+dynamicCeiling.curves(0)=["0x5b1317aed4879a2c19344480ed2c5853e5ee015aa11ebd73dff615754bd18ebc","1e+21","30","6"]
+dynamicCeiling.curves(1)=["0xa5ff054b33f686d746fcef4076257b4f37c6fdd883e2c4b84731697669e1e5a5","2.1e+22","30","6"]
+dynamicCeiling.curves(2)=["0xbb418848f99a17e7cd8c40929fa2fc34f75a709f100ca53ca12f4a8880d2ed54","6.1e+22","30","6"]
+dynamicCeiling.curves(3)=["0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0","0","0"]
+dynamicCeiling.curves(4)=["0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0","0","0"]
+dynamicCeiling.curves(5)=["0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","0","0","0"]
+

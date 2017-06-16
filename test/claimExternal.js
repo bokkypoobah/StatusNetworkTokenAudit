@@ -18,7 +18,7 @@ const assertFail = require("./helpers/assertFail");
 contract("StatusContribution", (accounts) => {
     let multisigStatus;
     let multisigComunity;
-    let multisigSecondarySell;
+    let multisigReserve;
     let multisigDevs;
     let miniMeFactory;
     let sgt;
@@ -42,7 +42,7 @@ contract("StatusContribution", (accounts) => {
     it("Should deploy Contribution contracts", async () => {
         multisigStatus = await MultiSigWallet.new([accounts[0]], 1);
         multisigComunity = await MultiSigWallet.new([accounts[1]], 1);
-        multisigSecondarySell = await MultiSigWallet.new([accounts[2]], 1);
+        multisigReserve = await MultiSigWallet.new([accounts[2]], 1);
         multisigDevs = await MultiSigWallet.new([accounts[3]], 1);
         miniMeFactory = await MiniMeTokenFactory.new();
         sgt = await SGT.new(miniMeFactory.address);
@@ -70,25 +70,24 @@ contract("StatusContribution", (accounts) => {
             sgtExchanger.address);
 
         await snt.changeController(statusContribution.address);
-        await sgt.changeController(sgtExchanger.address);
 
         await statusContribution.initialize(
             snt.address,
+            sntPlaceHolder.address,
+
             startBlock,
             endBlock,
+
             dynamicCeiling.address,
 
             contributionWallet.address,
 
+            multisigReserve.address,
+            sgtExchanger.address,
             devTokensHolder.address,
 
-            multisigSecondarySell.address,
             sgt.address,
-
-            sgtExchanger.address,
-            5000 * 2,
-
-            sntPlaceHolder.address);
+            5000 * 2);
 
         externalToken = await ExternalToken.new();
         await externalToken.generateTokens(accounts[0], 1000);

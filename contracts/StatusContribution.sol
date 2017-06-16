@@ -50,7 +50,7 @@ contract StatusContribution is Owned, TokenController {
     address public destEthDevs;
 
     address public destTokensDevs;
-    address public destTokensSecondarySale;
+    address public destTokensReserve;
     uint256 public maxSGTSupply;
     address public destTokensSgt;
     DynamicCeiling public dynamicCeiling;
@@ -84,44 +84,47 @@ contract StatusContribution is Owned, TokenController {
 
     /// @notice This method should be called by the owner before the contribution
     ///  period starts This initializes most of the parameters
-    /// @param _sntAddress Address of the SNT token contract
+    /// @param _snt Address of the SNT token contract
+    /// @param _sntController Token controller for the SNT that will be transferred after
+    ///  the contribution finalizes.
     /// @param _startBlock Block when the contribution period starts
     /// @param _endBlock The last block that the contribution period is active
     /// @param _dynamicCeiling Address of the contract that controls the ceiling
     /// @param _destEthDevs Destination address where the contribution ether is sent
-    /// @param _destTokensDevs Address where the tokens for the dev are sent
-    /// @param _destTokensSecondarySale Address where the tokens for the secondary sell
-    ///  are going to be sent
-    /// @param _sgt Address of the SGT token contract
+    /// @param _destTokensReserve Address where the tokens for the reserve are sent
     /// @param _destTokensSgt Address of the exchanger SGT-SNT where the SNT are sent
     ///  to be distributed to the SGT holders.
+    /// @param _destTokensDevs Address where the tokens for the dev are sent
+    /// @param _sgt Address of the SGT token contract
     /// @param _maxSGTSupply Quantity of SGT tokens that would represent 10% of status.
-    /// @param _sntController Token controller for the SNT that will be transferred after
-    ///  the contribution finalizes.
     function initialize(
-        address _sntAddress,
+        address _snt,
+        address _sntController,
+
         uint256 _startBlock,
         uint256 _endBlock,
+
         address _dynamicCeiling,
 
         address _destEthDevs,
 
-        address _destTokensDevs,
-        address _destTokensSecondarySale,
-        address _sgt,
-
+        address _destTokensReserve,
         address _destTokensSgt,
-        uint256 _maxSGTSupply,
-        address _sntController
+        address _destTokensDevs,
+
+        address _sgt,
+        uint256 _maxSGTSupply
     ) public onlyOwner {
         // Initialize only once
         require(address(SNT) == 0x0);
 
-        SNT = MiniMeToken(_sntAddress);
-
+        SNT = MiniMeToken(_snt);
         require(SNT.totalSupply() == 0);
         require(SNT.controller() == address(this));
         require(SNT.decimals() == 18);  // Same amount of decimals as ETH
+
+        require(_sntController != 0x0);
+        sntController = _sntController;
 
         require(_startBlock >= getBlockNumber());
         require(_startBlock < _endBlock);
@@ -134,24 +137,20 @@ contract StatusContribution is Owned, TokenController {
         require(_destEthDevs != 0x0);
         destEthDevs = _destEthDevs;
 
-        require(_destTokensDevs != 0x0);
-        destTokensDevs = _destTokensDevs;
-
-        require(_destTokensSecondarySale != 0x0);
-        destTokensSecondarySale = _destTokensSecondarySale;
-
-        require(_sgt != 0x0);
-        require(MiniMeToken(_sgt).controller() == _destTokensSgt);
-        SGT = MiniMeToken(_sgt);
+        require(_destTokensReserve != 0x0);
+        destTokensReserve = _destTokensReserve;
 
         require(_destTokensSgt != 0x0);
         destTokensSgt = _destTokensSgt;
 
+        require(_destTokensDevs != 0x0);
+        destTokensDevs = _destTokensDevs;
+
+        require(_sgt != 0x0);
+        SGT = MiniMeToken(_sgt);
+
         require(_maxSGTSupply >= MiniMeToken(SGT).totalSupply());
         maxSGTSupply = _maxSGTSupply;
-
-        require(_sntController != 0x0);
-        sntController = _sntController;
     }
 
     /// @notice Sets the limit for a guaranteed address. All the guaranteed addresses
@@ -181,7 +180,7 @@ contract StatusContribution is Owned, TokenController {
     //////////
 
     /// @notice This method will generally be called by the SNT token contract to
-    ///  acquire SNTs. Or directly from third parties that want po acquire SNTs in
+    ///  acquire SNTs. Or directly from third parties that want to acquire SNTs in
     ///  behalf of a token holder.
     /// @param _th SNT holder where the SNTs will be minted.
     function proxyPayment(address _th) public payable initialized contributionOpen returns (bool) {
@@ -267,7 +266,7 @@ contract StatusContribution is Owned, TokenController {
     //  100% = 100*(10**16) = 10**18
     //
     // To get a percentage of a value we do it by first multiplying it by the percentage in  (x per 10^18)
-    //  and then divide it by 10**8
+    //  and then divide it by 10**18
     //
     //              Y * X(in x per 10**18)
     //  X% of Y = -------------------------
@@ -317,12 +316,12 @@ contract StatusContribution is Owned, TokenController {
         //
         uint256 percentageToContributors = percent(41).add(percent(10).sub(percentageToSgt));
 
-        uint256 percentageToSecondary = percent(29);
+        uint256 percentageToReserve = percent(29);
 
 
         // SNT.totalSupply() -> Tokens minted during the contribution
         //  totalTokens  -> Total tokens that should be after the allocation
-        //                   of devTokens, sgtTokens and secondary
+        //                   of devTokens, sgtTokens and reserve
         //  percentageToContributors -> Which percentage should go to the
         //                               contribution participants
         //                               (x per 10**18 format)
@@ -343,13 +342,13 @@ contract StatusContribution is Owned, TokenController {
         // Generate tokens for SGT Holders.
 
         //
-        //                         percentageToSecondary
-        //  secondContribTokens = ----------------------- * totalTokens
-        //                            percentage(100)
+        //                    percentageToReserve
+        //  reserveTokens = ----------------------- * totalTokens
+        //                      percentage(100)
         //
         assert(SNT.generateTokens(
-            destTokensSecondarySale,
-            totalTokens.mul(percentageToSecondary).div(percent(100))));
+            destTokensReserve,
+            totalTokens.mul(percentageToReserve).div(percent(100))));
 
         //
         //                  percentageToSgt

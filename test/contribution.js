@@ -17,7 +17,7 @@ const assertFail = require("./helpers/assertFail");
 contract("StatusContribution", (accounts) => {
     let multisigStatus;
     let multisigComunity;
-    let multisigSecondarySell;
+    let multisigReserve;
     let multisigDevs;
     let miniMeFactory;
     let sgt;
@@ -43,7 +43,7 @@ contract("StatusContribution", (accounts) => {
     it("Should deploy Contribution contracts", async () => {
         multisigStatus = await MultiSigWallet.new([accounts[0]], 1);
         multisigComunity = await MultiSigWallet.new([accounts[1]], 1);
-        multisigSecondarySell = await MultiSigWallet.new([accounts[2]], 1);
+        multisigReserve = await MultiSigWallet.new([accounts[2]], 1);
         multisigDevs = await MultiSigWallet.new([accounts[3]], 1);
         miniMeFactory = await MiniMeTokenFactory.new();
         sgt = await SGT.new(miniMeFactory.address);
@@ -72,30 +72,28 @@ contract("StatusContribution", (accounts) => {
             sgtExchanger.address);
 
         await snt.changeController(statusContribution.address);
-        await sgt.changeController(sgtExchanger.address);
 
         await statusContribution.initialize(
             snt.address,
+            sntPlaceHolder.address,
+
             startBlock,
             endBlock,
+
             dynamicCeiling.address,
 
             contributionWallet.address,
 
+            multisigReserve.address,
+            sgtExchanger.address,
             devTokensHolder.address,
 
-            multisigSecondarySell.address,
             sgt.address,
-
-            sgtExchanger.address,
-            5000 * 2,
-
-            sntPlaceHolder.address);
+            5000 * 2);
     });
 
     it("Check initial parameters", async () => {
         assert.equal(await snt.controller(), statusContribution.address);
-        assert.equal(await sgt.controller(), sgtExchanger.address);
     });
 
     it("Checks that no body can buy before the sale starts", async () => {
@@ -277,7 +275,7 @@ contract("StatusContribution", (accounts) => {
         const balanceDevs = await snt.balanceOf(devTokensHolder.address);
         assert.equal(balanceDevs.toNumber(), totalSupply.mul(0.20).toNumber());
 
-        const balanceSecondary = await snt.balanceOf(multisigSecondarySell.address);
+        const balanceSecondary = await snt.balanceOf(multisigReserve.address);
         assert.equal(balanceSecondary.toNumber(), totalSupply.mul(0.29).toNumber());
     });
 
@@ -334,7 +332,7 @@ contract("StatusContribution", (accounts) => {
     });
 
     it("Devs Should be able to extract 1/2 after a year", async () => {
-        const t = Math.floor(new Date().getTime() / 1000) + (86400 * 360);
+        const t = (await statusContribution.finalizedTime()).toNumber() + (86400 * 360);
         await devTokensHolder.setMockedTime(t);
 
         const totalSupply = await snt.totalSupply();
@@ -350,7 +348,7 @@ contract("StatusContribution", (accounts) => {
         const calcTokens = web3.fromWei(totalSupply.mul(0.20).mul(0.5)).toNumber();
         const realTokens = web3.fromWei(balance).toNumber();
 
-        assert.isBelow(realTokens - calcTokens, 0.1);
+        assert.equal(realTokens, calcTokens);
     });
 
     it("Devs Should be able to extract every thing after 2 year", async () => {

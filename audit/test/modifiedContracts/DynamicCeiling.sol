@@ -112,8 +112,8 @@ contract DynamicCeiling is Owned {
 
         // BK Hash for the curve point being revealed must match the hash of the 
         //    hidden caps
-        require(curves[revealedCurves].hash == keccak256(_limit, _slopeFactor, _collectMinimum,
-                                                         _last, _salt));
+        require(curves[revealedCurves].hash == calculateHash(_limit, _slopeFactor, _collectMinimum,
+                                                             _last, _salt));
 
         // BK Just checking for non nulls.
         //    Ideally this check should be done when constructing the hashes
@@ -171,6 +171,7 @@ contract DynamicCeiling is Owned {
     /// @return Return the funds to collect for the current point on the curve
     ///  (or 0 if no curves revealed yet)
     function toCollect(uint256 collected) public onlyContribution returns (uint256) {
+        // BK Ok
         if (revealedCurves == 0) return 0;
 
         // Move to the next curve

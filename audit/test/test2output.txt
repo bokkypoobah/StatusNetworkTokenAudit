@@ -1,0 +1,533 @@
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3
+coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
+at block: 3420 (Sun, 18 Jun 2017 01:52:44 AEST)
+ datadir: /Users/bok/Projects/StatusNetworkTokenAudit/audit/test/testchain
+ modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+true
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+> 
+DATA: miniMeTokenFactoryAbi=[{"constant":false,"inputs":[{"name":"_parentToken","type":"address"},{"name":"_snapshotBlock","type":"uint256"},{"name":"_tokenName","type":"string"},{"name":"_decimalUnits","type":"uint8"},{"name":"_tokenSymbol","type":"string"},{"name":"_transfersEnabled","type":"bool"}],"name":"createCloneToken","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"}]
+undefined
+> 
+DATA: sgtAbi=[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"creationBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newController","type":"address"}],"name":"changeController","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_blockNumber","type":"uint256"}],"name":"balanceOfAt","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_cloneTokenName","type":"string"},{"name":"_cloneDecimalUnits","type":"uint8"},{"name":"_cloneTokenSymbol","type":"string"},{"name":"_snapshotBlock","type":"uint256"},{"name":"_transfersEnabled","type":"bool"}],"name":"createCloneToken","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"parentToken","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"},{"name":"_amount","type":"uint256"}],"name":"generateTokens","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_blockNumber","type":"uint256"}],"name":"totalSupplyAt","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"data","type":"uint256[]"}],"name":"multiMint","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"transfersEnabled","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"parentSnapShotBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"},{"name":"_amount","type":"uint256"}],"name":"destroyTokens","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenFactory","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_transfersEnabled","type":"bool"}],"name":"enableTransfers","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"controller","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"_tokenFactory","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_cloneToken","type":"address"},{"indexed":false,"name":"_snapshotBlock","type":"uint256"}],"name":"NewCloneToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Approval","type":"event"}]
+undefined
+> 
+DATA: sntAbi=[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"creationBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newController","type":"address"}],"name":"changeController","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_blockNumber","type":"uint256"}],"name":"balanceOfAt","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_cloneTokenName","type":"string"},{"name":"_cloneDecimalUnits","type":"uint8"},{"name":"_cloneTokenSymbol","type":"string"},{"name":"_snapshotBlock","type":"uint256"},{"name":"_transfersEnabled","type":"bool"}],"name":"createCloneToken","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"parentToken","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"},{"name":"_amount","type":"uint256"}],"name":"generateTokens","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_blockNumber","type":"uint256"}],"name":"totalSupplyAt","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"transfersEnabled","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"parentSnapShotBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_amount","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"},{"name":"_amount","type":"uint256"}],"name":"destroyTokens","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokenFactory","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_transfersEnabled","type":"bool"}],"name":"enableTransfers","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"controller","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"_tokenFactory","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_cloneToken","type":"address"},{"indexed":false,"name":"_snapshotBlock","type":"uint256"}],"name":"NewCloneToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Approval","type":"event"}]
+undefined
+> 
+DATA: statusContributionAbi=[{"constant":true,"inputs":[],"name":"destEthDevs","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"endBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxSGTSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalGuaranteedCollected","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalNormalCollected","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxCallFrequency","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"sntController","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"failSafeLimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"exchangeRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxGasPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"finalizedBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"startBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onTransfer","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finalize","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"maxGuaranteedLimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"lastCallBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"dynamicCeiling","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"destTokensDevs","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"guaranteedBuyersBought","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"tokensIssued","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_snt","type":"address"},{"name":"_sntController","type":"address"},{"name":"_startBlock","type":"uint256"},{"name":"_endBlock","type":"uint256"},{"name":"_dynamicCeiling","type":"address"},{"name":"_destEthDevs","type":"address"},{"name":"_destTokensReserve","type":"address"},{"name":"_destTokensSgt","type":"address"},{"name":"_destTokensDevs","type":"address"},{"name":"_sgt","type":"address"},{"name":"_maxSGTSupply","type":"uint256"}],"name":"initialize","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"SGT","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"guaranteedBuyersLimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"destTokensSgt","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"SNT","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_th","type":"address"},{"name":"_limit","type":"uint256"}],"name":"setGuaranteedAddress","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"destTokensReserve","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onApprove","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalCollected","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_th","type":"address"}],"name":"proxyPayment","outputs":[{"name":"","type":"bool"}],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"finalizedTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_th","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"},{"indexed":false,"name":"_tokens","type":"uint256"},{"indexed":false,"name":"_guaranteed","type":"bool"}],"name":"NewSale","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_th","type":"address"},{"indexed":false,"name":"_limit","type":"uint256"}],"name":"GuaranteedAddress","type":"event"},{"anonymous":false,"inputs":[],"name":"Finalized","type":"event"}]
+undefined
+> 
+DATA: contributionWalletAbi=[{"constant":true,"inputs":[],"name":"endBlock","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"multisig","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"contribution","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"_multisig","type":"address"},{"name":"_endBlock","type":"uint256"},{"name":"_contribution","type":"address"}],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"}]
+undefined
+> 
+DATA: devTokensHolderAbi=[{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"collectTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"inputs":[{"name":"_owner","type":"address"},{"name":"_contribution","type":"address"},{"name":"_snt","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_holder","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"TokensWithdrawn","type":"event"}]
+undefined
+> 
+DATA: sgtExchangerAbi=[{"constant":true,"inputs":[],"name":"snt","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"sgt","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"collected","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onTransfer","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"statusContribution","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onApprove","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalCollected","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"collect","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"}],"name":"proxyPayment","outputs":[{"name":"","type":"bool"}],"payable":true,"type":"function"},{"inputs":[{"name":"_sgt","type":"address"},{"name":"_snt","type":"address"},{"name":"_statusContribution","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_holder","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"TokensCollected","type":"event"}]
+undefined
+> 
+DATA: dynamicCeilingAbi=[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"curves","outputs":[{"name":"hash","type":"bytes32"},{"name":"limit","type":"uint256"},{"name":"slopeFactor","type":"uint256"},{"name":"collectMinimum","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"currentIndex","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"nCurves","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"allRevealed","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"contribution","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_curveHashes","type":"bytes32[]"}],"name":"setHiddenCurves","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_limits","type":"uint256[]"},{"name":"_slopeFactors","type":"uint256[]"},{"name":"_collectMinimums","type":"uint256[]"},{"name":"_lasts","type":"bool[]"},{"name":"_salts","type":"bytes32[]"}],"name":"revealMulti","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_limit","type":"uint256"},{"name":"_slopeFactor","type":"uint256"},{"name":"_collectMinimum","type":"uint256"},{"name":"_last","type":"bool"},{"name":"_salt","type":"bytes32"}],"name":"revealCurve","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"revealedCurves","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_limit","type":"uint256"},{"name":"_slopeFactor","type":"uint256"},{"name":"_collectMinimum","type":"uint256"},{"name":"_last","type":"bool"},{"name":"_salt","type":"bytes32"}],"name":"calculateHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"collected","type":"uint256"}],"name":"toCollect","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_index","type":"uint256"}],"name":"moveTo","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"_owner","type":"address"},{"name":"_contribution","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"index","type":"uint256"},{"indexed":false,"name":"hash","type":"bytes32"}],"name":"HashSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"limit","type":"uint256"},{"indexed":false,"name":"slopeFactor","type":"uint256"},{"indexed":false,"name":"collectMinimum","type":"uint256"},{"indexed":false,"name":"last","type":"bool"},{"indexed":false,"name":"salt","type":"bytes32"}],"name":"CurvePointRevealed","type":"event"}]
+undefined
+> 
+DATA: sntPlaceHolderAbi=[{"constant":true,"inputs":[],"name":"snt","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newController","type":"address"}],"name":"changeController","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onTransfer","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"contribution","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"sgtExchanger","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"activationTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"onApprove","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"claimTokens","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"","type":"address"}],"name":"proxyPayment","outputs":[{"name":"","type":"bool"}],"payable":true,"type":"function"},{"inputs":[{"name":"_owner","type":"address"},{"name":"_snt","type":"address"},{"name":"_contribution","type":"address"},{"name":"_sgtExchanger","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_token","type":"address"},{"indexed":true,"name":"_controller","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"ClaimedTokens","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_newController","type":"address"}],"name":"ControllerChanged","type":"event"}]
+undefined
+> 
+> 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        5.000000000000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.1 Deploy MiniMeTokenFactory
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: miniMeTokenFactoryAddress=0x658ce9fb3cf49687a5309121b2794f349b79b9a6 gas=4000000 gasUsed=2276140 costETH=0.04097052 costUSD=14.0545271808 @ ETH/USD=343.04 gasPrice=18000000000 block=3423 txId=0x5a956756c1410428eeb1fb17c7c62d8dac4ae293bc9edf466c3cad21903a6b38
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.040970520000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.040970520000000000           0.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.1 Deploy MiniMeTokenFactory
+1
+> 
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.2 Deploy SGT
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: sgtAddress=0xed7852146e2254fc862b87f77fa3ba3b211079fe gas=4000000 gasUsed=2191485 costETH=0.03944673 costUSD=13.5318062592 @ ETH/USD=343.04 gasPrice=18000000000 block=3425 txId=0x4c5e2cacd240b69a8661af0ee58ce721382e54e7a29f5144186d332695e1d239
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       25.080417250000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.080417250000000000           0.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0xed7852146e2254fc862b87f77fa3ba3b211079fe        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                     0.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.2 Deploy SGT
+1
+> 
+RESULT: sgt.symbol=SGT
+RESULT: sgt.name=Status Genesis Token
+RESULT: sgt.decimals=1
+RESULT: sgt.totalSupply=0
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.3 Generate SGT Tokens
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: tx3_3_1 gas=2000000 gasUsed=107865 costETH=0.00194157 costUSD=0.6660361728 @ ETH/USD=343.04 gasPrice=18000000000 block=3427 txId=0x7410a4da5ef2d149013a0df68003f23019954bb2d4ef96095c1c3d3f8cda86c9
+undefined
+> 
+RESULT: tx3_3_2 gas=2000000 gasUsed=73269 costETH=0.001318842 costUSD=0.45241555968 @ ETH/USD=343.04 gasPrice=18000000000 block=3427 txId=0xbf3913566a8c2f92fa5f17b77057ec4b22e123b6dcf7637dcae66acf2d5c54a4
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.083677662000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.083677662000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000         250.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0xed7852146e2254fc862b87f77fa3ba3b211079fe        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.3 Generate SGT Tokens
+1
+> 
+RESULT: PASS Test 3.3 Generate SGT Tokens
+1
+> 
+RESULT: sgt.symbol=SGT
+RESULT: sgt.name=Status Genesis Token
+RESULT: sgt.decimals=1
+RESULT: sgt.totalSupply=500
+RESULT: 0 #3427 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
+RESULT: 1 #3427 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.4 Deploy SNT
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: sntAddress=0x491ef36b192b3fcd85b7b6a6cf9b94384b0360a6 gas=4000000 gasUsed=2119522 costETH=0.038151396 costUSD=13.08745488384 @ ETH/USD=343.04 gasPrice=18000000000 block=3429 txId=0x8177a36f5f258154c011a87efc8553468de129bde97f04733e066b141770956b
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.121829058000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.121829058000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000         250.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0xed7852146e2254fc862b87f77fa3ba3b211079fe        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x491ef36b192b3fcd85b7b6a6cf9b94384b0360a6        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.4 Deploy SNT
+1
+> 
+RESULT: snt.symbol=SNT
+RESULT: snt.name=Status Network Token
+RESULT: snt.decimals=18
+RESULT: snt.totalSupply=0
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.5 Deploy StatusContribution
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: statusContributionAddress=0xdbf468de0962819bd951bf829d821a8ba436907a gas=4000000 gasUsed=2084454 costETH=0.037520172 costUSD=12.87091980288 @ ETH/USD=343.04 gasPrice=18000000000 block=3431 txId=0xe40106f8000ec0febc06f910d0f34f28239cc4ab9f4af8584654c7a665c8c297
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       55.159349230000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.159349230000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000         250.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0xed7852146e2254fc862b87f77fa3ba3b211079fe        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x491ef36b192b3fcd85b7b6a6cf9b94384b0360a6        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.5 Deploy StatusContribution
+1
+> 
+RESULT: statusContribution.failSafeLimit=300000 ETH
+RESULT: statusContribution.maxGuaranteedLimit=30000 ETH
+RESULT: statusContribution.exchangeRate=10000
+RESULT: statusContribution.maxGasPrice=0.000000050000000000 ETH
+RESULT: statusContribution.maxCallFrequency=20
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+RESULT: Test 3.6 Deploy ContributionWallet
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+...... 
+......... 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+............ 
+......... 
+...... 
+... 
+undefined
+> 
+... 
+undefined
+> 
+RESULT: contributionWalletAddress=0x6f6219a19a821e2ed20b1d5485c24915d6c96517 gas=4000000 gasUsed=272350 costETH=0.0049023 costUSD=1.681684992 @ ETH/USD=343.04 gasPrice=18000000000 block=3433 txId=0x01b27272f0d569e6b19650b5c63c18f27e0ffab87bce5213d1410af0ba6ead8a
+RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       65.164251530000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.164251530000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000         250.0           0.000000000000000000 Account #5 - SGTHolder
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.0           0.000000000000000000 Account #6 - Guaranteed
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
+RESULT: 10 0x658ce9fb3cf49687a5309121b2794f349b79b9a6        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0xed7852146e2254fc862b87f77fa3ba3b211079fe        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x491ef36b192b3fcd85b7b6a6cf9b94384b0360a6        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6f6219a19a821e2ed20b1d5485c24915d6c96517        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Test 3.6 Deploy ContributionWallet
+1
+> 
+RESULT: contributionWallet.multisig=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: contributionWallet.endBlock=3441
+RESULT: contributionWallet.contribution=0xdbf468de0962819bd951bf829d821a8ba436907a
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 

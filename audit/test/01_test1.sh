@@ -94,7 +94,7 @@ console.log("RESULT: " + testMessage);
 var dynamicCeilingContract = web3.eth.contract(dynamicCeilingAbi);
 var dynamicCeilingTx = null;
 var dynamicCeilingAddress = null;
-var dynamicCeiling = dynamicCeilingContract.new(contractOwnerAccount, contributionAccount, {from: contractOwnerAccount, data: dynamicCeilingBin, gas: 4000000},
+var dynamicCeiling = dynamicCeilingContract.new(statusAccount, contributionWallet, {from: statusAccount, data: dynamicCeilingBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -120,9 +120,12 @@ console.log("RESULT: ");
 // Prepare curve and hashes
 // -----------------------------------------------------------------------------
 var hashes = [];
-var curves = [[web3.toWei(1000, "ether"), 30, 10^12], \
-    [web3.toWei(21000, "ether"), 30, 10^12], \
-    [web3.toWei(61000, "ether"), 30, 10^12]];
+var curves = [[web3.toWei(1000, "ether"), 30, Math.pow(10, 12)], \
+    [web3.toWei(2000, "ether"), 30, Math.pow(10, 12)], \
+    [web3.toWei(3000, "ether"), 30, Math.pow(10, 12)], \
+    [web3.toWei(4000, "ether"), 30, Math.pow(10, 12)], \
+    [web3.toWei(5000, "ether"), 30, Math.pow(10, 12)], \
+    [web3.toWei(6000, "ether"), 30, Math.pow(10, 12)]];
 var limits = [];
 var slopeFactors = [];
 var collectMinimums = [];
@@ -141,6 +144,7 @@ for (var i = 0 ; i < curves.length; i++) {
 hashes.push(web3.sha3("test1"));
 hashes.push(web3.sha3("test2"));
 hashes.push(web3.sha3("test3"));
+hashes.push(web3.sha3("test4"));
 console.log("RESULT: hashes=" + JSON.stringify(hashes));
 console.log("RESULT: limits=" + JSON.stringify(limits));
 console.log("RESULT: slopeFactors=" + JSON.stringify(slopeFactors));
@@ -152,7 +156,7 @@ console.log("RESULT: salts" + JSON.stringify(salts));
 // -----------------------------------------------------------------------------
 var testMessage = "Test 1.2 Add Hidden Curve";
 console.log("RESULT: " + testMessage);
-var tx12_1 = dynamicCeiling.setHiddenCurves(hashes, {from: contractOwnerAccount, gas: 200000});
+var tx12_1 = dynamicCeiling.setHiddenCurves(hashes, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx12_1", tx12_1);
@@ -169,7 +173,7 @@ if (revealAll) {
 var testMessage = "Test 2.1 Reveal All Points In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx21_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums, lasts, salts, {from: contractOwnerAccount, gas: 2000000});
+var tx21_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums, lasts, salts, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx21_1", tx21_1);
@@ -184,12 +188,16 @@ if (!revealAll) {
 var testMessage = "Test 2.2 Reveal 1st Point In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx22_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: contractOwnerAccount, gas: 200000});
+var tx22_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
+c = curves[1];
+var tx22_2 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx22_1", tx22_1);
+printTxData("tx22_2", tx22_2);
 printBalances();
 failIfGasEqualsGasUsed(tx22_1, testMessage);
+failIfGasEqualsGasUsed(tx22_2, testMessage);
 printDynamicCeilingDetails();
 console.log("RESULT: ");
 }

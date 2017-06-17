@@ -4,22 +4,33 @@ PASSWORD=testtest
 CONTRACTSDIR=../../contracts
 CONTRACTSTEMPDIR=./contracts
 
+MINIMETOKEN=MiniMeToken.sol
+MINIMETOKENJS=MiniMeToken.js
+SGT=SGT.sol
+SGTJS=SGT.js
+SNT=SNT.sol
+SNTJS=SNT.js
+STATUSCONTRIBUTION=StatusContribution.sol
+STATUSCONTRIBUTIONJS=StatusContribution.js
 CONTRIBUTIONWALLET=ContributionWallet.sol
+CONTRIBUTIONWALLETJS=ContributionWallet.js
 DEVTOKENSHOLDER=DevTokensHolder.sol
+DEVTOKENSHOLDERJS=DevTokensHolder.js
+SGTEXCHANGER=SGTExchanger.sol
+SGTEXCHANGERJS=SGTExchanger.js
 DYNAMICCEILING=DynamicCeiling.sol
 DYNAMICCEILINGJS=DynamicCeiling.js
-MINIMETOKEN=MiniMeToken.sol
+SNTPLACEHOLDER=SNTPlaceHolder.sol
+SNTPLACEHOLDERJS=SNTPlaceHolder.js
+
 MULTISIGWALLET=MultiSigWallet.sol
 OWNED=Owned.sol
-SGT=SGT.sol
-SGTEXCHANGER=SGTExchanger.sol
-SNT=SNT.sol
-SNTPLACEHOLDER=SNTPlaceHolder.sol
 SAFEMATH=SafeMath.sol
-STATUSCONTRIBUTION=StatusContribution.sol
 
 DEPLOYMENTDATA=deploymentData.txt
 
 INCLUDEJS=./include.js
 TEST1OUTPUT=test1output.txt
 TEST1RESULTS=test1results.txt
+TEST2OUTPUT=test2output.txt
+TEST2RESULTS=test2results.txt

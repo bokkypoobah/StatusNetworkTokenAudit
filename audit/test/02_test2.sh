@@ -328,6 +328,62 @@ printContributionWalletContractDetails();
 console.log("RESULT: ");
 
 
+// -----------------------------------------------------------------------------
+var testMessage = "Test 3.7 Deploy DevTokensHolder";
+console.log("RESULT: " + testMessage);
+var devTokensHolderContract = web3.eth.contract(devTokensHolderAbi);
+var devTokensHolderTx = null;
+var devTokensHolderAddress = null;
+var devTokensHolder = devTokensHolderContract.new(devAccount, statusContributionAddress, sntAddress, {from: statusAccount, data: devTokensHolderBin, gas: 4000000},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        devTokensHolderTx = contract.transactionHash;
+      } else {
+        devTokensHolderAddress = contract.address;
+        addAccount(devTokensHolderAddress, "DevTokensHolder");
+        addDevTokensHolderContractAddressAndAbi(devTokensHolderAddress, devTokensHolderAbi);
+        printTxData("devTokensHolderAddress=" + devTokensHolderAddress, devTokensHolderTx);
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(devTokensHolderTx, testMessage);
+printDevTokensHolderContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testMessage = "Test 3.8 Deploy SGTExchanger";
+console.log("RESULT: " + testMessage);
+var sgtExchangerContract = web3.eth.contract(sgtExchangerAbi);
+var sgtExchangerTx = null;
+var sgtExchangerAddress = null;
+var sgtExchanger = sgtExchangerContract.new(devAccount, statusContributionAddress, sntAddress, {from: statusAccount, data: sgtExchangerBin, gas: 4000000},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        sgtExchangerTx = contract.transactionHash;
+      } else {
+        sgtExchangerAddress = contract.address;
+        addAccount(sgtExchangerAddress, "SGTExchanger");
+        addSgtExchangerContractAddressAndAbi(sgtExchangerAddress, sgtExchangerAbi);
+        printTxData("sgtExchangerAddress=" + sgtExchangerAddress, sgtExchangerTx);
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(sgtExchangerTx, testMessage);
+printSgtExchangerContractDetails();
+console.log("RESULT: ");
+
+
 exit;
 
 // -----------------------------------------------------------------------------

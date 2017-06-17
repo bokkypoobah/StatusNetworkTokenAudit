@@ -339,6 +339,9 @@ function printSntContractDetails() {
 //-----------------------------------------------------------------------------
 // StatusContribution contract details
 //-----------------------------------------------------------------------------
+var statusContributionContractAddress = null;
+var statusContributionContractAbi = null;
+
 function addStatusContributionContractAddressAndAbi(address, tokenAbi) {
   statusContributionContractAddress = address;
   statusContributionContractAbi = tokenAbi;
@@ -394,6 +397,9 @@ function printStatusContributionContractDetails() {
 //-----------------------------------------------------------------------------
 // ContributionWallet contract details
 //-----------------------------------------------------------------------------
+var contributionWalletContractAddress = null;
+var contributionWalletContractAbi = null;
+
 function addContributionWalletContractAddressAndAbi(address, tokenAbi) {
   contributionWalletContractAddress = address;
   contributionWalletContractAbi = tokenAbi;
@@ -408,6 +414,88 @@ function printContributionWalletContractDetails() {
   }
 }
 
+
+//-----------------------------------------------------------------------------
+// DevTokensHolder contract details
+//-----------------------------------------------------------------------------
+var devTokensHolderContractAddress = null;
+var devTokensHolderContractAbi = null;
+
+function addDevTokensHolderContractAddressAndAbi(address, tokenAbi) {
+  devTokensHolderContractAddress = address;
+  devTokensHolderContractAbi = tokenAbi;
+}
+
+var devTokensHolderDetailsFromBlock = 0;
+function printDevTokensHolderContractDetails() {
+  if (devTokensHolderContractAddress != null && devTokensHolderContractAbi != null) {
+    var contract = eth.contract(devTokensHolderContractAbi).at(devTokensHolderContractAddress);
+    // Not public console.log("RESULT: devTokensHolder.collectedTokens=" + contract.collectedTokens().shift(-18));
+    // Not public console.log("RESULT: devTokensHolder.contribution=" + contract.contribution());
+    // Not public console.log("RESULT: devTokensHolder.snt=" + contract.snt());
+
+    var latestBlock = eth.blockNumber;
+    var i;
+
+    var claimedTokensEvents = contract.ClaimedTokens({}, { fromBlock: devTokensHolderDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    claimedTokensEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    claimedTokensEvents.stopWatching();
+
+    var tokensWithdrawnEvents = contract.TokensWithdrawn({}, { fromBlock: devTokensHolderDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    tokensWithdrawnEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    tokensWithdrawnEvents.stopWatching();
+
+    devTokensHolderDetailsFromBlock = latestBlock + 1;
+  }
+}
+
+
+//-----------------------------------------------------------------------------
+// SGTExchanger contract details
+//-----------------------------------------------------------------------------
+var sgtExchangerContractAddress = null;
+var sgtExchangerContractAbi = null;
+
+function addSgtExchangerContractAddressAndAbi(address, tokenAbi) {
+  sgtExchangerContractAddress = address;
+  sgtExchangerContractAbi = tokenAbi;
+}
+
+var sgtExchangerDetailsFromBlock = 0;
+function printSgtExchangerContractDetails() {
+  if (sgtExchangerContractAddress != null && sgtExchangerContractAbi != null) {
+    var contract = eth.contract(sgtExchangerContractAbi).at(sgtExchangerContractAddress);
+    console.log("RESULT: devTokensHolder.totalCollected=" + contract.totalCollected().shift(-18));
+    console.log("RESULT: sgtExchanger.sgt=" + contract.sgt());
+    console.log("RESULT: sgtExchanger.snt=" + contract.snt());
+    console.log("RESULT: sgtExchanger.statusContribution=" + contract.statusContribution());
+
+    var latestBlock = eth.blockNumber;
+    var i;
+
+    var claimedTokensEvents = contract.ClaimedTokens({}, { fromBlock: sgtExchangerDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    claimedTokensEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    claimedTokensEvents.stopWatching();
+
+    var tokensCollectedEvents = contract.TokensCollected({}, { fromBlock: sgtExchangerDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    tokensCollectedEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    tokensCollectedEvents.stopWatching();
+
+    sgtExchangerDetailsFromBlock = latestBlock + 1;
+  }
+}
 
 
 var dynamicDetailsFromBlock = 0;

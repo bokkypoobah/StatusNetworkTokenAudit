@@ -15,6 +15,8 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * [To Check](#to-check)
 * [General Notes](#general-notes)
 * [Solidity Files](#solidity-files)
+* [Solidity Files In Scope](#solidity-files-in-scope)
+* [Solidity Files Out Of Scope](#solidity-files-out-of-scope)
 
 <br />
 
@@ -36,7 +38,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <hr />
 
-## Solidity Files
+## Solidity Files In Scope
 
 ### ContributionWallet.sol
 * [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol)
@@ -66,19 +68,6 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### MiniMeToken.sol
-* [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-  * Audit not required
-  * This contract does not include any other files
-
-<br />
-
-### MultisigWallet.sol
-* [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol)
-  * This contract does not include any other files
-
-<br />
-
 ### Owned.sol
 * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
   * Standard Owned or Owner pattern
@@ -91,16 +80,6 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * Safe maths, as a library
   * This contract does not include any other files
-
-<br />
-
-### SGT.sol
-* [../contracts/SGT.sol](../contracts/SGT.sol)
-  * SGT "Status Genesis Token"
-  * 1 decimals
-  * An instance of the MiniMe contract, with a `multiMint(...)` function
-  * This contract includes the following files:
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
 
 <br />
 
@@ -146,6 +125,34 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
     * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
     * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
     * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+
+<br />
+
+<hr />
+
+## Solidity Files Out Of Scope
+
+### MiniMeToken.sol
+* Audit not required as this contract has already been audited by other parties
+* Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that does not include any other files.
+
+<br />
+
+### SGT.sol
+* Audit not required as this contract is already deployed
+* SGT "Status Genesis Token" with 1 decimal place
+* This is an instance of the MiniMe contract, with a `multiMint(...)` function, with sample usage transaction at [0xd6bf8620](https://etherscan.io/tx/0xd6bf86202e427bf9c50f0044260e850abd828e2469f279c927201d611ddb78e7)
+* Already deployed to Mainnet at [0xd248B0D48E44aaF9c49aea0312be7E13a6dc1468](https://etherscan.io/address/0xd248B0D48E44aaF9c49aea0312be7E13a6dc1468#code)
+* Token transfer view at [0xd248b0d48e44aaf9c49aea0312be7e13a6dc1468](https://etherscan.io/token/0xd248b0d48e44aaf9c49aea0312be7e13a6dc1468)
+* Source [../contracts/SGT.sol](../contracts/SGT.sol) that includes the following file:
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+
+<br />
+
+### MultisigWallet.sol
+* This is a copy of a [multisig wallet](https://github.com/ConsenSys/MultiSigWallet/blob/e3240481928e9d2b57517bd192394172e31da487/contracts/solidity/MultiSigWallet.sol) by Consensys with the Solidity version updated from `0.4.4` to `^0.4.11` and the event parameter names prefixed with `_`s
+* Audit not required
+* Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files.
 
 <br />
 

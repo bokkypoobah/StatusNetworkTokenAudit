@@ -277,7 +277,8 @@ console.log("RESULT: " + testMessage);
 var statusContributionContract = web3.eth.contract(statusContributionAbi);
 var statusContributionTx = null;
 var statusContributionAddress = null;
-var statusContribution = statusContributionContract.new(miniMeTokenFactoryAddress, {from: statusAccount, data: statusContributionBin, gas: 4000000},
+var statusContribution = statusContributionContract.new(miniMeTokenFactoryAddress,
+    {from: statusAccount, data: statusContributionBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -306,7 +307,8 @@ var contributionWalletContract = web3.eth.contract(contributionWalletAbi);
 var contributionWalletTx = null;
 var contributionWalletAddress = null;
 var endBlock = parseInt(eth.blockNumber) + 10;
-var contributionWallet = contributionWalletContract.new(statusAccount, endBlock, statusContributionAddress, {from: statusAccount, data: contributionWalletBin, gas: 4000000},
+var contributionWallet = contributionWalletContract.new(statusAccount, endBlock, statusContributionAddress,
+    {from: statusAccount, data: contributionWalletBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -334,7 +336,8 @@ console.log("RESULT: " + testMessage);
 var devTokensHolderContract = web3.eth.contract(devTokensHolderAbi);
 var devTokensHolderTx = null;
 var devTokensHolderAddress = null;
-var devTokensHolder = devTokensHolderContract.new(devAccount, statusContributionAddress, sntAddress, {from: statusAccount, data: devTokensHolderBin, gas: 4000000},
+var devTokensHolder = devTokensHolderContract.new(devAccount, statusContributionAddress, sntAddress, 
+    {from: statusAccount, data: devTokensHolderBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -362,7 +365,8 @@ console.log("RESULT: " + testMessage);
 var sgtExchangerContract = web3.eth.contract(sgtExchangerAbi);
 var sgtExchangerTx = null;
 var sgtExchangerAddress = null;
-var sgtExchanger = sgtExchangerContract.new(devAccount, statusContributionAddress, sntAddress, {from: statusAccount, data: sgtExchangerBin, gas: 4000000},
+var sgtExchanger = sgtExchangerContract.new(devAccount, statusContributionAddress, sntAddress, 
+    {from: statusAccount, data: sgtExchangerBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -390,7 +394,9 @@ console.log("RESULT: " + testMessage);
 var sntPlaceHolderContract = web3.eth.contract(sntPlaceHolderAbi);
 var sntPlaceHolderTx = null;
 var sntPlaceHolderAddress = null;
-var sntPlaceHolder = sntPlaceHolderContract.new(communityAccount, sntAddress, statusContributionAddress, sgtExchangerAddress, {from: statusAccount, data: sntPlaceHolderBin, gas: 4000000},
+var sntPlaceHolder = sntPlaceHolderContract.new(communityAccount, sntAddress,
+    statusContributionAddress, sgtExchangerAddress,
+    {from: statusAccount, data: sntPlaceHolderBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -418,7 +424,8 @@ console.log("RESULT: " + testMessage);
 var dynamicCeilingContract = web3.eth.contract(dynamicCeilingAbi);
 var dynamicCeilingTx = null;
 var dynamicCeilingAddress = null;
-var dynamicCeiling = dynamicCeilingContract.new(statusAccount, statusContribution, {from: statusAccount, data: dynamicCeilingBin, gas: 4000000},
+var dynamicCeiling = dynamicCeilingContract.new(statusAccount, statusContributionAddress,
+    {from: statusAccount, data: dynamicCeilingBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -497,7 +504,8 @@ if (revealAll) {
 var testMessage = "Test 10.3.a Reveal All Points In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx10_3_a_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums, lasts, salts, {from: statusAccount, gas: 2000000});
+var tx10_3_a_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums,
+    lasts, salts, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx10_3_a_1", tx10_3_a_1);
@@ -512,9 +520,11 @@ if (!revealAll) {
 var testMessage = "Test 10.3.b Reveal 2 Points In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx10_3_b_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
+var tx10_3_b_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt",
+    {from: statusAccount, gas: 200000});
 c = curves[1];
-var tx10_3_b_2 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
+var tx10_3_b_2 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt",
+    {from: statusAccount, gas: 200000});
 while (txpool.status.pending > 0) {
 }
 printTxData("tx10_3_b_1", tx10_3_b_1);

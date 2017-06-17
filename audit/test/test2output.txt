@@ -2,7 +2,7 @@ Welcome to the Geth JavaScript console!
 
 instance: Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3
 coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
-at block: 3947 (Sun, 18 Jun 2017 03:23:43 AEST)
+at block: 3995 (Sun, 18 Jun 2017 03:34:14 AEST)
  datadir: /Users/bok/Projects/StatusNetworkTokenAudit/audit/test/testchain
  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
 
@@ -119,7 +119,7 @@ undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        5.000000000000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.000000000000000000           0.0           0.000000000000000000 Account #0 - Miner
 RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
@@ -170,10 +170,10 @@ undefined
 ... 
 undefined
 > 
-RESULT: miniMeTokenFactoryAddress=0xa77649a75d1de000a1e2815cc671325e5ac48d05 gas=4000000 gasUsed=2276140 costETH=0.04097052 costUSD=14.0545271808 @ ETH/USD=343.04 gasPrice=18000000000 block=3950 txId=0x2919e28ce18d5b4bc41224eb1cd41d826cbed15fb242daf0bbeb87e2fc57166b
+RESULT: miniMeTokenFactoryAddress=0x6018bc97feb6551e610524b61074d1a0517d5212 gas=4000000 gasUsed=2276140 costETH=0.04097052 costUSD=14.0545271808 @ ETH/USD=343.04 gasPrice=18000000000 block=3997 txId=0xcf4dd443912544cb5c25e192eb4400cb2fe784ec71d3aac582365cf5b6f0e4b8
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.040970520000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       10.040970520000000000           0.0           0.000000000000000000 Account #0 - Miner
 RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.040970520000000000           0.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
@@ -183,7 +183,7 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                     0.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -231,11 +231,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: sgtAddress=0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d gas=4000000 gasUsed=2191421 costETH=0.039445578 costUSD=13.53141107712 @ ETH/USD=343.04 gasPrice=18000000000 block=3952 txId=0xa9bd5e53e0a1b7d24235999a2c5b8895ea7a05864b170fccd982b2b07c72cac1
+RESULT: sgtAddress=0x2971552ca0a289f03d1da55050d867def431415c gas=4000000 gasUsed=2191485 costETH=0.03944673 costUSD=13.5318062592 @ ETH/USD=343.04 gasPrice=18000000000 block=3999 txId=0x6133ebe7b492acc0101370b6974153e52a97ec92e09a898fe7066c57e702de02
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       25.080416098000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.080416098000000000           0.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.080417250000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.080417250000000000           0.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -244,8 +244,8 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                     0.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -280,16 +280,16 @@ undefined
 ... 
 undefined
 > 
-RESULT: tx3_3_1 gas=2000000 gasUsed=107865 costETH=0.00194157 costUSD=0.6660361728 @ ETH/USD=343.04 gasPrice=18000000000 block=3954 txId=0x9b095fd830b0a7b305508ce33600101623526a3c04e7b80ecb1350fcfa2568c6
+RESULT: tx3_3_1 gas=2000000 gasUsed=107865 costETH=0.00194157 costUSD=0.6660361728 @ ETH/USD=343.04 gasPrice=18000000000 block=4001 txId=0x0a08a63459a429029eab051d052d15bd2ee82b466eb3a40184e61e51f0f5394a
 undefined
 > 
-RESULT: tx3_3_2 gas=2000000 gasUsed=73269 costETH=0.001318842 costUSD=0.45241555968 @ ETH/USD=343.04 gasPrice=18000000000 block=3954 txId=0x2a41ef3879a8a061d82c8278ef46f740b9bd0300bad47e87f16e5a202a930512
+RESULT: tx3_3_2 gas=2000000 gasUsed=73269 costETH=0.001318842 costUSD=0.45241555968 @ ETH/USD=343.04 gasPrice=18000000000 block=4001 txId=0xe7247e4a490f8fa452d70c02e9f4d73ef10853255b2fe6bb3efeb075320e349d
 undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.083676510000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.083676510000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.083677662000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.083677662000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -298,8 +298,8 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -316,8 +316,8 @@ RESULT: sgt.symbol=SGT
 RESULT: sgt.name=Status Genesis Token
 RESULT: sgt.decimals=1
 RESULT: sgt.totalSupply=500
-RESULT: 0 #3954 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
-RESULT: 1 #3954 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
+RESULT: 0 #4001 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
+RESULT: 1 #4001 {"_amount":"2500","_from":"0x0000000000000000000000000000000000000000","_to":"0xa11aae29840fbb5c86e6fd4cf809eba183aef433"}
 undefined
 > 
 RESULT: 
@@ -356,11 +356,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: sntAddress=0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb gas=4000000 gasUsed=2119458 costETH=0.038150244 costUSD=13.08705970176 @ ETH/USD=343.04 gasPrice=18000000000 block=3956 txId=0x7cd7a7d6d5deec3928202a496987f07978e13f997d4ee201f3be3c760d16a565
+RESULT: sntAddress=0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d gas=4000000 gasUsed=2119522 costETH=0.038151396 costUSD=13.08745488384 @ ETH/USD=343.04 gasPrice=18000000000 block=4003 txId=0xbd0eb890756c36e4e344062664830c7a8fd0428d43a08c85fc3b9e08aa79e215
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.121826754000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.121826754000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       40.121829058000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.121829058000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -369,9 +369,9 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -406,6 +406,7 @@ undefined
 undefined
 > 
 ... 
+... 
 ...... 
 ......... 
 ............ 
@@ -423,11 +424,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: statusContributionAddress=0x6b67203f3aef24182d09e2f5d66126428b06aba1 gas=4000000 gasUsed=2084454 costETH=0.037520172 costUSD=12.87091980288 @ ETH/USD=343.04 gasPrice=18000000000 block=3958 txId=0x040d5149f1ab0e1d6a9c1f1f16e5b925dcd6b71283a5e540495d954c29852814
+RESULT: statusContributionAddress=0x64111821441fc2749d5591107353735bdbfcb0b1 gas=4000000 gasUsed=2084454 costETH=0.037520172 costUSD=12.87091980288 @ ETH/USD=343.04 gasPrice=18000000000 block=4005 txId=0xdfe7ad7d4b3f4afe8abb9a381306251ed1f39f4194a36b808d109d445ccfd71c
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       55.159346926000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.159346926000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       50.159349230000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.159349230000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -436,10 +437,10 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -477,6 +478,7 @@ undefined
 undefined
 > 
 ... 
+... 
 ...... 
 ......... 
 ............ 
@@ -494,11 +496,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: contributionWalletAddress=0xff5ef8bf5b4decb63717f48357291616f1eee21d gas=4000000 gasUsed=272350 costETH=0.0049023 costUSD=1.681684992 @ ETH/USD=343.04 gasPrice=18000000000 block=3960 txId=0xb30deaba39ed1b7e9300035e91f1b171437dec19dd32e2815e73bcdeb637e842
+RESULT: contributionWalletAddress=0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2 gas=4000000 gasUsed=272350 costETH=0.0049023 costUSD=1.681684992 @ ETH/USD=343.04 gasPrice=18000000000 block=4007 txId=0xa72326d0539e0f1f6c006b6f7809749c3d0325b19f9de23a3b776ff714413bdf
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       65.164249226000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.164249226000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       60.164251530000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.164251530000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -507,11 +509,11 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -522,8 +524,8 @@ RESULT: PASS Test 3.6 Deploy ContributionWallet
 1
 > 
 RESULT: contributionWallet.multisig=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-RESULT: contributionWallet.endBlock=3968
-RESULT: contributionWallet.contribution=0x6b67203f3aef24182d09e2f5d66126428b06aba1
+RESULT: contributionWallet.endBlock=4015
+RESULT: contributionWallet.contribution=0x64111821441fc2749d5591107353735bdbfcb0b1
 undefined
 > 
 RESULT: 
@@ -545,6 +547,7 @@ undefined
 undefined
 > 
 ... 
+... 
 ...... 
 ......... 
 ............ 
@@ -562,11 +565,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: devTokensHolderAddress=0x8b535eeb7c4704afe708ea8cc9b830978310f97f gas=4000000 gasUsed=625532 costETH=0.011259576 costUSD=3.86248495104 @ ETH/USD=343.04 gasPrice=18000000000 block=3962 txId=0x5e8f7249d6ade619ddd6514260bcfa7221deecd5b59c5999090810fa6f336235
+RESULT: devTokensHolderAddress=0xe6f25cd45a9745157abde31a62f38a42273f1303 gas=4000000 gasUsed=625532 costETH=0.011259576 costUSD=3.86248495104 @ ETH/USD=343.04 gasPrice=18000000000 block=4010 txId=0xc21622519350fb356c361184d77a36160d3ab0828f772a36eea1945f3423a059
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       75.175508802000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.175508802000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       75.175511106000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.175511106000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -575,12 +578,12 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
-RESULT: 15 0x8b535eeb7c4704afe708ea8cc9b830978310f97f        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 15 0xe6f25cd45a9745157abde31a62f38a42273f1303        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -611,6 +614,7 @@ undefined
 undefined
 > 
 ... 
+... 
 ...... 
 ......... 
 ............ 
@@ -628,11 +632,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: sgtExchangerAddress=0x11f72ce9616536054e80f6e72946f67f73ffc7a4 gas=4000000 gasUsed=839318 costETH=0.015107724 costUSD=5.18255364096 @ ETH/USD=343.04 gasPrice=18000000000 block=3965 txId=0x054c0dcdce02c12a6d666b73a9a959072ac3dd450ee41c4f4781056ca7ea1fcf
+RESULT: sgtExchangerAddress=0x170c88bb15a5e20344ff37291f0c1dc16c41cd81 gas=4000000 gasUsed=839318 costETH=0.015107724 costUSD=5.18255364096 @ ETH/USD=343.04 gasPrice=18000000000 block=4015 txId=0x038a3697885b9512eeced9398f030d50d58119fb9b8e8b70ae013528e0edbaed
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       90.190616526000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.190616526000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      100.190618830000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.190618830000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -641,13 +645,13 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
-RESULT: 15 0x8b535eeb7c4704afe708ea8cc9b830978310f97f        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
-RESULT: 16 0x11f72ce9616536054e80f6e72946f67f73ffc7a4        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 15 0xe6f25cd45a9745157abde31a62f38a42273f1303        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
+RESULT: 16 0x170c88bb15a5e20344ff37291f0c1dc16c41cd81        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -659,8 +663,8 @@ RESULT: PASS Test 3.8 Deploy SGTExchanger
 > 
 RESULT: sgtExchanger.totalCollected=0
 RESULT: sgtExchanger.sgt=0xa44a08d3f6933c69212114bb66e2df1813651844
-RESULT: sgtExchanger.snt=0x6b67203f3aef24182d09e2f5d66126428b06aba1
-RESULT: sgtExchanger.statusContribution=0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb
+RESULT: sgtExchanger.snt=0x64111821441fc2749d5591107353735bdbfcb0b1
+RESULT: sgtExchanger.statusContribution=0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d
 undefined
 > 
 RESULT: 
@@ -682,6 +686,8 @@ undefined
 undefined
 > 
 ... 
+... 
+... 
 ...... 
 ......... 
 ............ 
@@ -699,11 +705,11 @@ undefined
 ... 
 undefined
 > 
-RESULT: sntPlaceHolderAddress=0x84ab2291cdc41f74ad21a1022a9070e1f4156b1e gas=4000000 gasUsed=734016 costETH=0.013212288 costUSD=4.53234327552 @ ETH/USD=343.04 gasPrice=18000000000 block=3967 txId=0x36e2e3485eb462bc6e37b576f6b2cd8a2dbb48970bbc2fe3e09df5e1dfc45dbe
+RESULT: sntPlaceHolderAddress=0xc646c1704a86720cc2ed185a7fbccfb2724024ea gas=4000000 gasUsed=734016 costETH=0.013212288 costUSD=4.53234327552 @ ETH/USD=343.04 gasPrice=18000000000 block=4017 txId=0x6c2df0b78197844f5c468cc53e40e865f8b57fed6a5630dfaeadc5ca886ccb35
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      100.203828814000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.203828814000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.203831118000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.203831118000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -712,14 +718,14 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
-RESULT: 15 0x8b535eeb7c4704afe708ea8cc9b830978310f97f        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
-RESULT: 16 0x11f72ce9616536054e80f6e72946f67f73ffc7a4        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
-RESULT: 17 0x84ab2291cdc41f74ad21a1022a9070e1f4156b1e        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 15 0xe6f25cd45a9745157abde31a62f38a42273f1303        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
+RESULT: 16 0x170c88bb15a5e20344ff37291f0c1dc16c41cd81        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
+RESULT: 17 0xc646c1704a86720cc2ed185a7fbccfb2724024ea        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
@@ -729,10 +735,10 @@ undefined
 RESULT: PASS Test 3.8 Deploy SNTPlaceHolder
 1
 > 
-RESULT: sntPlaceHolder.snt=0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb
-RESULT: sntPlaceHolder.contribution=0x6b67203f3aef24182d09e2f5d66126428b06aba1
+RESULT: sntPlaceHolder.snt=0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d
+RESULT: sntPlaceHolder.contribution=0x64111821441fc2749d5591107353735bdbfcb0b1
 RESULT: sntPlaceHolder.activationTime=0 Thu, 01 Jan 1970 00:00:00 UTC
-RESULT: sntPlaceHolder.sgtExchanger=0x11f72ce9616536054e80f6e72946f67f73ffc7a4
+RESULT: sntPlaceHolder.sgtExchanger=0x170c88bb15a5e20344ff37291f0c1dc16c41cd81
 undefined
 > 
 RESULT: 
@@ -754,6 +760,7 @@ undefined
 undefined
 > 
 ... 
+... 
 ...... 
 ......... 
 ............ 
@@ -766,26 +773,16 @@ undefined
 ......... 
 ...... 
 ... 
-Error: new BigNumber() not a number: [object Object]
-    at raise (web3.js:14632:29)
-    at web3.js:14620:33
-    at BigNumber (web3.js:13648:67)
-    at BigNumber (web3.js:13658:29)
-    at web3.js:2212:16
-    at web3.js:2223:21
-    at web3.js:930:32
-    at web3.js:1576:12
-    at web3.js:694:16
-    at map (<native code>)
-
+undefined
 > 
 ... 
 undefined
 > 
+RESULT: dynamicCeilingAddress=0xfc166243cef775f982be01f320109a91bc560a48 gas=4000000 gasUsed=965727 costETH=0.017383086 costUSD=5.96309382144 @ ETH/USD=343.04 gasPrice=18000000000 block=4019 txId=0x35b88417651cc035259b1740fa596226a08dd9d2cc8297b8216f19a0cf732a04
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      100.203828814000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.203828814000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      120.221214204000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.221214204000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -794,25 +791,30 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
-RESULT: 15 0x8b535eeb7c4704afe708ea8cc9b830978310f97f        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
-RESULT: 16 0x11f72ce9616536054e80f6e72946f67f73ffc7a4        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
-RESULT: 17 0x84ab2291cdc41f74ad21a1022a9070e1f4156b1e        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 15 0xe6f25cd45a9745157abde31a62f38a42273f1303        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
+RESULT: 16 0x170c88bb15a5e20344ff37291f0c1dc16c41cd81        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
+RESULT: 17 0xc646c1704a86720cc2ed185a7fbccfb2724024ea        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
+RESULT: 18 0xfc166243cef775f982be01f320109a91bc560a48        0.000000000000000000           0.0           0.000000000000000000 DynamicCeiling
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT: 
 undefined
 > 
-TypeError: Cannot access member 'gas' of null
-    at failIfGasEqualsGasUsed (functions.js:203:13)
-    at <anonymous>:1:1
-
+RESULT: PASS Test 10.1 Deploy DynamicCeiling Contract
+1
 > 
+RESULT: dynamicCeiling.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: dynamicCeiling.contribution=0x64111821441fc2749d5591107353735bdbfcb0b1
+RESULT: dynamicCeiling.currentIndex=0
+RESULT: dynamicCeiling.revealedCurves=0
+RESULT: dynamicCeiling.allRevealed=false
+RESULT: dynamicCeiling.nCurves=0
 undefined
 > 
 RESULT: 
@@ -849,34 +851,32 @@ undefined
 ... 
 ... 
 ... 
-TypeError: Cannot access member 'calculateHash' of undefined
-    at <anonymous>:3:14
-
+6
 > 
-1
+7
 > 
-2
+8
 > 
-3
+9
 > 
-4
+10
 > 
-RESULT: hashes=["0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","0x87ce9fb076e206b40a6ab86e39ba8d0097abec87a8fa990c91a1d0b9269835ae"]
+RESULT: hashes=["0x70a10045f8fbed182f35bd8fd37062351ede649ef456347d7a1027948457b792","0x64a9ac799d80d8893df16bfecab291f2ad6645e72c091d51d96a0b953497e09a","0xd0a8a2fbe1684e9ba382150a4bf2a146964737f3f520822f934595b6fca80b67","0xf07917b9303b3004ced6a8d5fc392d882e66279072e42a63dd37c7ec42951282","0x8a39232bf3397f63cd58edb2d0cb03a5aa5104ce4d130048770fc58c9374fe37","0x6f194390c15ac3f373d74130e1dc3f3f1f65a176ece95a5c38c1ea19f14b8005","0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","0x87ce9fb076e206b40a6ab86e39ba8d0097abec87a8fa990c91a1d0b9269835ae"]
 undefined
 > 
-RESULT: limits=[]
+RESULT: limits=["1000000000000000000000","2000000000000000000000","3000000000000000000000","4000000000000000000000","5000000000000000000000","6000000000000000000000"]
 undefined
 > 
-RESULT: slopeFactors=[]
+RESULT: slopeFactors=[30,30,30,30,30,30]
 undefined
 > 
-RESULT: collectMinimums=[]
+RESULT: collectMinimums=[1000000000000,1000000000000,1000000000000,1000000000000,1000000000000,1000000000000]
 undefined
 > 
-RESULT: lasts=[]
+RESULT: lasts=[false,false,false,false,false,true]
 undefined
 > 
-RESULT: salts[]
+RESULT: salts["salt","salt","salt","salt","salt","salt"]
 undefined
 > 
 > 
@@ -888,22 +888,18 @@ undefined
 RESULT: Test 10.2 Add Hidden Curve
 undefined
 > 
-TypeError: Cannot access member 'setHiddenCurves' of undefined
-    at <anonymous>:1:16
-
+undefined
 > 
 ... 
 undefined
 > 
-TypeError: Cannot access member 'gasPrice' of null
-    at printTxData (functions.js:179:18)
-    at <anonymous>:1:1
-
+RESULT: tx10_2_1 gas=2000000 gasUsed=281818 costETH=0.005072724 costUSD=1.74014724096 @ ETH/USD=343.04 gasPrice=18000000000 block=4021 txId=0xa2ea8d0dba3982a4d4fcf47b00e39291e4eeff50da58d120e98ec44ef235af18
+undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange           SGT                            SNT Name
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      105.203828814000000000           0.0           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.203828814000000000         250.0           0.000000000000000000 Account #1 - Status
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      130.226286928000000000           0.0           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.226286928000000000         250.0           0.000000000000000000 Account #1 - Status
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.0           0.000000000000000000 Account #2 - Community
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.0           0.000000000000000000 Account #3 - Reserve
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.0           0.000000000000000000 Account #4 - Devs
@@ -912,25 +908,50 @@ RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.00000000000000000
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.0           0.000000000000000000 Account #7 - Contribution Wallet
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.0           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.0           0.000000000000000000 Account #9
-RESULT: 10 0xa77649a75d1de000a1e2815cc671325e5ac48d05        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
-RESULT: 11 0x844725d6b7fa92781b8d0b4e87d2a162d0b3922d        0.000000000000000000           0.0           0.000000000000000000 SGT
-RESULT: 12 0x7621d75c7e7aaa594a1f1d7a55b18ce946937bbb        0.000000000000000000           0.0           0.000000000000000000 SNT
-RESULT: 13 0x6b67203f3aef24182d09e2f5d66126428b06aba1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
-RESULT: 14 0xff5ef8bf5b4decb63717f48357291616f1eee21d        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
-RESULT: 15 0x8b535eeb7c4704afe708ea8cc9b830978310f97f        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
-RESULT: 16 0x11f72ce9616536054e80f6e72946f67f73ffc7a4        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
-RESULT: 17 0x84ab2291cdc41f74ad21a1022a9070e1f4156b1e        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
+RESULT: 10 0x6018bc97feb6551e610524b61074d1a0517d5212        0.000000000000000000           0.0           0.000000000000000000 MiniMeTokenFactory
+RESULT: 11 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.0           0.000000000000000000 SGT
+RESULT: 12 0x3708ad6abbe680fc9ad5e49fa3eb177f24b1870d        0.000000000000000000           0.0           0.000000000000000000 SNT
+RESULT: 13 0x64111821441fc2749d5591107353735bdbfcb0b1        0.000000000000000000           0.0           0.000000000000000000 StatusContribution
+RESULT: 14 0x6d2a77aadd31a1644e6fabcb8e53b2af60f8e0e2        0.000000000000000000           0.0           0.000000000000000000 ContributionWallet
+RESULT: 15 0xe6f25cd45a9745157abde31a62f38a42273f1303        0.000000000000000000           0.0           0.000000000000000000 DevTokensHolder
+RESULT: 16 0x170c88bb15a5e20344ff37291f0c1dc16c41cd81        0.000000000000000000           0.0           0.000000000000000000 SGTExchanger
+RESULT: 17 0xc646c1704a86720cc2ed185a7fbccfb2724024ea        0.000000000000000000           0.0           0.000000000000000000 SNTPlaceHolder
+RESULT: 18 0xfc166243cef775f982be01f320109a91bc560a48        0.000000000000000000           0.0           0.000000000000000000 DynamicCeiling
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT:                                                                                   500.0           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------- ------------------------------ ---------------------------
 RESULT: 
 undefined
 > 
-TypeError: Cannot access member 'gas' of null
-    at failIfGasEqualsGasUsed (functions.js:203:13)
-    at <anonymous>:1:1
-
+RESULT: PASS Test 10.2 Add Hidden Curve
+1
 > 
+RESULT: dynamicCeiling.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+RESULT: dynamicCeiling.contribution=0x64111821441fc2749d5591107353735bdbfcb0b1
+RESULT: dynamicCeiling.currentIndex=0
+RESULT: dynamicCeiling.revealedCurves=0
+RESULT: dynamicCeiling.allRevealed=false
+RESULT: dynamicCeiling.nCurves=10
+RESULT: HashSet Event 0: {"hash":"0x70a10045f8fbed182f35bd8fd37062351ede649ef456347d7a1027948457b792","index":"0"} block=4021
+RESULT: HashSet Event 1: {"hash":"0x64a9ac799d80d8893df16bfecab291f2ad6645e72c091d51d96a0b953497e09a","index":"1"} block=4021
+RESULT: HashSet Event 2: {"hash":"0xd0a8a2fbe1684e9ba382150a4bf2a146964737f3f520822f934595b6fca80b67","index":"2"} block=4021
+RESULT: HashSet Event 3: {"hash":"0xf07917b9303b3004ced6a8d5fc392d882e66279072e42a63dd37c7ec42951282","index":"3"} block=4021
+RESULT: HashSet Event 4: {"hash":"0x8a39232bf3397f63cd58edb2d0cb03a5aa5104ce4d130048770fc58c9374fe37","index":"4"} block=4021
+RESULT: HashSet Event 5: {"hash":"0x6f194390c15ac3f373d74130e1dc3f3f1f65a176ece95a5c38c1ea19f14b8005","index":"5"} block=4021
+RESULT: HashSet Event 6: {"hash":"0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","index":"6"} block=4021
+RESULT: HashSet Event 7: {"hash":"0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","index":"7"} block=4021
+RESULT: HashSet Event 8: {"hash":"0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","index":"8"} block=4021
+RESULT: HashSet Event 9: {"hash":"0x87ce9fb076e206b40a6ab86e39ba8d0097abec87a8fa990c91a1d0b9269835ae","index":"9"} block=4021
+RESULT: dynamicCeiling.curves(0)=["0x70a10045f8fbed182f35bd8fd37062351ede649ef456347d7a1027948457b792","0","0","0"]
+RESULT: dynamicCeiling.curves(1)=["0x64a9ac799d80d8893df16bfecab291f2ad6645e72c091d51d96a0b953497e09a","0","0","0"]
+RESULT: dynamicCeiling.curves(2)=["0xd0a8a2fbe1684e9ba382150a4bf2a146964737f3f520822f934595b6fca80b67","0","0","0"]
+RESULT: dynamicCeiling.curves(3)=["0xf07917b9303b3004ced6a8d5fc392d882e66279072e42a63dd37c7ec42951282","0","0","0"]
+RESULT: dynamicCeiling.curves(4)=["0x8a39232bf3397f63cd58edb2d0cb03a5aa5104ce4d130048770fc58c9374fe37","0","0","0"]
+RESULT: dynamicCeiling.curves(5)=["0x6f194390c15ac3f373d74130e1dc3f3f1f65a176ece95a5c38c1ea19f14b8005","0","0","0"]
+RESULT: dynamicCeiling.curves(6)=["0x6d255fc3390ee6b41191da315958b7d6a1e5b17904cc7683558f98acc57977b4","0","0","0"]
+RESULT: dynamicCeiling.curves(7)=["0x4da432f1ecd4c0ac028ebde3a3f78510a21d54087b161590a63080d33b702b8d","0","0","0"]
+RESULT: dynamicCeiling.curves(8)=["0x204558076efb2042ebc9b034aab36d85d672d8ac1fa809288da5b453a4714aae","0","0","0"]
+RESULT: dynamicCeiling.curves(9)=["0x87ce9fb076e206b40a6ab86e39ba8d0097abec87a8fa990c91a1d0b9269835ae","0","0","0"]
 undefined
 > 
 RESULT: 
@@ -946,6 +967,7 @@ undefined
 ... 
 ... 
 ... 
+...... 
 ... 
 ...... 
 ... 
@@ -962,8 +984,10 @@ undefined
 ... 
 ... 
 ... 
+...... 
 ... 
 ... 
+...... 
 ... 
 ...... 
 ... 

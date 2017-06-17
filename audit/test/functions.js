@@ -471,7 +471,7 @@ var sgtExchangerDetailsFromBlock = 0;
 function printSgtExchangerContractDetails() {
   if (sgtExchangerContractAddress != null && sgtExchangerContractAbi != null) {
     var contract = eth.contract(sgtExchangerContractAbi).at(sgtExchangerContractAddress);
-    console.log("RESULT: devTokensHolder.totalCollected=" + contract.totalCollected().shift(-18));
+    console.log("RESULT: sgtExchanger.totalCollected=" + contract.totalCollected().shift(-18));
     console.log("RESULT: sgtExchanger.sgt=" + contract.sgt());
     console.log("RESULT: sgtExchanger.snt=" + contract.snt());
     console.log("RESULT: sgtExchanger.statusContribution=" + contract.statusContribution());
@@ -496,6 +496,51 @@ function printSgtExchangerContractDetails() {
     sgtExchangerDetailsFromBlock = latestBlock + 1;
   }
 }
+
+
+//-----------------------------------------------------------------------------
+// SNTPlaceHolder contract details
+//-----------------------------------------------------------------------------
+var sntPlaceHolderContractAddress = null;
+var sntPlaceHolderContractAbi = null;
+
+function addSntPlaceHolderContractAddressAndAbi(address, tokenAbi) {
+  sntPlaceHolderContractAddress = address;
+  sntPlaceHolderContractAbi = tokenAbi;
+}
+
+var sntPlaceHolderDetailsFromBlock = 0;
+function printSntPlaceHolderContractDetails() {
+  if (sntPlaceHolderContractAddress != null && sntPlaceHolderContractAbi != null) {
+    var contract = eth.contract(sntPlaceHolderContractAbi).at(sntPlaceHolderContractAddress);
+    console.log("RESULT: sntPlaceHolder.snt=" + contract.snt());
+    console.log("RESULT: sntPlaceHolder.contribution=" + contract.contribution());
+    console.log("RESULT: sntPlaceHolder.activationTime=" + contract.activationTime() + " " + 
+        new Date(contract.activationTime() * 1000).toUTCString());
+    console.log("RESULT: sntPlaceHolder.sgtExchanger=" + contract.sgtExchanger());
+
+    var latestBlock = eth.blockNumber;
+    var i;
+
+    var claimedTokensEvents = contract.ClaimedTokens({}, { fromBlock: sntPlaceHolderDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    claimedTokensEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    claimedTokensEvents.stopWatching();
+
+    var controllerChangedEvents = contract.ControllerChanged({}, { fromBlock: sntPlaceHolderDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    controllerChangedEvents.watch(function (error, result) {
+      console.log("RESULT: " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    controllerChangedEvents.stopWatching();
+
+    sntPlaceHolderDetailsFromBlock = latestBlock + 1;
+  }
+}
+
+
 
 
 var dynamicDetailsFromBlock = 0;

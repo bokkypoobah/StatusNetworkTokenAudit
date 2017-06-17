@@ -384,15 +384,41 @@ printSgtExchangerContractDetails();
 console.log("RESULT: ");
 
 
-exit;
+// -----------------------------------------------------------------------------
+var testMessage = "Test 3.8 Deploy SNTPlaceHolder";
+console.log("RESULT: " + testMessage);
+var sntPlaceHolderContract = web3.eth.contract(sntPlaceHolderAbi);
+var sntPlaceHolderTx = null;
+var sntPlaceHolderAddress = null;
+var sntPlaceHolder = sntPlaceHolderContract.new(communityAccount, sntAddress, statusContributionAddress, sgtExchangerAddress, {from: statusAccount, data: sntPlaceHolderBin, gas: 4000000},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        sntPlaceHolderTx = contract.transactionHash;
+      } else {
+        sntPlaceHolderAddress = contract.address;
+        addAccount(sntPlaceHolderAddress, "SNTPlaceHolder");
+        addSntPlaceHolderContractAddressAndAbi(sntPlaceHolderAddress, sntPlaceHolderAbi);
+        printTxData("sntPlaceHolderAddress=" + sntPlaceHolderAddress, sntPlaceHolderTx);
+      }
+    }
+  }
+);
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(sntPlaceHolderTx, testMessage);
+printSntPlaceHolderContractDetails();
+console.log("RESULT: ");
+
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.1 Deploy DynamicCeiling Contract";
+var testMessage = "Test 10.1 Deploy DynamicCeiling Contract";
 console.log("RESULT: " + testMessage);
 var dynamicCeilingContract = web3.eth.contract(dynamicCeilingAbi);
 var dynamicCeilingTx = null;
 var dynamicCeilingAddress = null;
-var dynamicCeiling = dynamicCeilingContract.new(contractOwnerAccount, contributionAccount, {from: contractOwnerAccount, data: dynamicCeilingBin, gas: 4000000},
+var dynamicCeiling = dynamicCeilingContract.new(statusAccount, statusContribution, {from: statusAccount, data: dynamicCeilingBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -452,14 +478,14 @@ console.log("RESULT: salts" + JSON.stringify(salts));
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.2 Add Hidden Curve";
+var testMessage = "Test 10.2 Add Hidden Curve";
 console.log("RESULT: " + testMessage);
-var tx12_1 = dynamicCeiling.setHiddenCurves(hashes, {from: contractOwnerAccount, gas: 2000000});
+var tx10_2_1 = dynamicCeiling.setHiddenCurves(hashes, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx12_1", tx12_1);
+printTxData("tx10_2_1", tx10_2_1);
 printBalances();
-failIfGasEqualsGasUsed(tx12_1, testMessage);
+failIfGasEqualsGasUsed(tx10_2_1, testMessage);
 printDynamicCeilingDetails();
 console.log("RESULT: ");
 
@@ -468,34 +494,34 @@ var revealAll = "$MODE" == "revealAll" ? true : false;
 
 if (revealAll) {
 // -----------------------------------------------------------------------------
-var testMessage = "Test 2.1 Reveal All Points In Curve";
+var testMessage = "Test 10.3.a Reveal All Points In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx21_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums, lasts, salts, {from: contractOwnerAccount, gas: 2000000});
+var tx10_3_a_1 = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums, lasts, salts, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx21_1", tx21_1);
+printTxData("tx10_3_a_1", tx10_3_a_1);
 printBalances();
-failIfGasEqualsGasUsed(tx21_1, testMessage);
+failIfGasEqualsGasUsed(tx10_3_a_1, testMessage);
 printDynamicCeilingDetails();
 console.log("RESULT: ");
 }
 
 if (!revealAll) {
 // -----------------------------------------------------------------------------
-var testMessage = "Test 2.2 Reveal 1st Point In Curve";
+var testMessage = "Test 10.3.b Reveal 2 Points In Curve";
 console.log("RESULT: " + testMessage);
 var c = curves[0];
-var tx22_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: contractOwnerAccount, gas: 200000});
+var tx10_3_b_1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
 c = curves[1];
-var tx22_2 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: contractOwnerAccount, gas: 200000});
+var tx10_3_b_2 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt", {from: statusAccount, gas: 200000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx22_1", tx22_1);
-printTxData("tx22_2", tx22_2);
+printTxData("tx10_3_b_1", tx10_3_b_1);
+printTxData("tx10_3_b_2", tx10_3_b_2);
 printBalances();
-failIfGasEqualsGasUsed(tx22_1, testMessage);
-failIfGasEqualsGasUsed(tx22_2, testMessage);
+failIfGasEqualsGasUsed(tx10_3_b_1, testMessage + " - 1st point");
+failIfGasEqualsGasUsed(tx10_3_b_2, testMessage + " - 2nd point);
 printDynamicCeilingDetails();
 console.log("RESULT: ");
 }

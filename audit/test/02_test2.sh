@@ -145,18 +145,6 @@ var dynamicCeilingBin = "0x" + dynamicCeilingOutput.contracts["$CONTRACTSTEMPDIR
 var sntPlaceHolderAbi = JSON.parse(sntPlaceHolderOutput.contracts["$CONTRACTSTEMPDIR/$SNTPLACEHOLDER:SNTPlaceHolder"].abi);
 var sntPlaceHolderBin = "0x" + sntPlaceHolderOutput.contracts["$CONTRACTSTEMPDIR/$SNTPLACEHOLDER:SNTPlaceHolder"].bin;
 
-
-// CONTRIBUTIONWALLET=ContributionWallet.sol
-// CONTRIBUTIONWALLETJS=ContributionWallet.js
-// DEVTOKENSHOLDER=DevTokensHolder.sol
-// DEVTOKENSHOLDERJS=DevTokensHolder.js
-// SGTEXCHANGER=SGTExchanger.sol
-// SGTEXCHANGERJS=SGTExchanger.js
-// DYNAMICCEILING=DynamicCeiling.sol
-// DYNAMICCEILINGJS=DynamicCeiling.js
-// SNTPLACEHOLDER=SNTPlaceHolder.sol
-// SNTPLACEHOLDERJS=SNTPlaceHolder.js
-
 console.log("DATA: miniMeTokenFactoryAbi=" + JSON.stringify(miniMeTokenFactoryAbi));
 console.log("DATA: sgtAbi=" + JSON.stringify(sgtAbi));
 console.log("DATA: sntAbi=" + JSON.stringify(sntAbi));
@@ -173,7 +161,9 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var miniMeTokenFactoryMessage = "Test 3.1 Deploy MiniMeTokenFactory";
+// Deploy MiniMeTokenFactory
+// -----------------------------------------------------------------------------
+var miniMeTokenFactoryMessage = "Deploy MiniMeTokenFactory";
 console.log("RESULT: " + miniMeTokenFactoryMessage);
 var miniMeTokenFactoryContract = web3.eth.contract(miniMeTokenFactoryAbi);
 var miniMeTokenFactoryTx = null;
@@ -191,16 +181,20 @@ var miniMeTokenFactory = miniMeTokenFactoryContract.new({from: statusAccount, da
     }
   }
 );
+
 while (txpool.status.pending > 0) {
 }
+
 printBalances();
 failIfGasEqualsGasUsed(miniMeTokenFactoryTx, miniMeTokenFactoryMessage);
-// printDynamicCeilingDetails();
 console.log("RESULT: ");
 
 
+
 // -----------------------------------------------------------------------------
-var sgtMessage = "Test 3.2 Deploy SGT";
+// Deploy SGT, SNT, StatusContribution
+// -----------------------------------------------------------------------------
+var sgtMessage = "Deploy SGT";
 console.log("RESULT: " + sgtMessage);
 var sgtContract = web3.eth.contract(sgtAbi);
 var sgtTx = null;
@@ -219,32 +213,8 @@ var sgt = sgtContract.new(miniMeTokenFactoryAddress, {from: statusAccount, data:
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(sgtTx, sgtMessage);
-printSgtContractDetails();
-console.log("RESULT: ");
 
-
-// -----------------------------------------------------------------------------
-var sgtGenTokensMessage = "Test 3.3 Generate SGT Tokens";
-console.log("RESULT: " + sgtGenTokensMessage);
-var sgtGenTokensTx1 = sgt.generateTokens(sgtHolderAccount, 2500, {from: statusAccount, gas: 2000000});
-var sgtGenTokensTx2 = sgt.generateTokens(statusAccount, 2500, {from: statusAccount, gas: 2000000});
-while (txpool.status.pending > 0) {
-}
-printTxData("sgtGenTokensTx1", sgtGenTokensTx1);
-printTxData("sgtGenTokensTx2", sgtGenTokensTx2);
-printBalances();
-failIfGasEqualsGasUsed(sgtGenTokensTx1, sgtGenTokensMessage + " - tx1 2500 SGT -> sgtHolderAccount");
-failIfGasEqualsGasUsed(sgtGenTokensTx2, sgtGenTokensMessage + " - tx2 2500 SGT -> statusAccount");
-printSgtContractDetails();
-console.log("RESULT: ");
-
-
-// -----------------------------------------------------------------------------
-var sntMessage = "Test 3.4 Deploy SNT";
+var sntMessage = "Deploy SNT";
 console.log("RESULT: " + sntMessage);
 var sntContract = web3.eth.contract(sntAbi);
 var sntTx = null;
@@ -263,16 +233,8 @@ var snt = sntContract.new(miniMeTokenFactoryAddress, {from: statusAccount, data:
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(sntTx, sntMessage);
-printSntContractDetails();
-console.log("RESULT: ");
 
-
-// -----------------------------------------------------------------------------
-var statusContributionMessage = "Test 3.5 Deploy StatusContribution";
+var statusContributionMessage = "Deploy StatusContribution";
 console.log("RESULT: " + statusContributionMessage);
 var statusContributionContract = web3.eth.contract(statusContributionAbi);
 var statusContributionTx = null;
@@ -292,16 +254,30 @@ var statusContribution = statusContributionContract.new(miniMeTokenFactoryAddres
     }
   }
 );
+
 while (txpool.status.pending > 0) {
 }
+
 printBalances();
+
+failIfGasEqualsGasUsed(sgtTx, sgtMessage);
+printSgtContractDetails();
+
+failIfGasEqualsGasUsed(sntTx, sntMessage);
+printSntContractDetails();
+
 failIfGasEqualsGasUsed(statusContributionTx, statusContributionMessage);
 printStatusContributionContractDetails();
+
 console.log("RESULT: ");
 
 
+
 // -----------------------------------------------------------------------------
-var contributionWalletMessage = "Test 3.6 Deploy ContributionWallet";
+// Deploy ContributionWallet, DevTokensHolder, SGTExchanger, SNTPlaceHolder, DynamicCeiling
+// Generate SGT Tokens
+// -----------------------------------------------------------------------------
+var contributionWalletMessage = "Deploy ContributionWallet";
 console.log("RESULT: " + contributionWalletMessage);
 var contributionWalletContract = web3.eth.contract(contributionWalletAbi);
 var contributionWalletTx = null;
@@ -322,16 +298,8 @@ var contributionWallet = contributionWalletContract.new(statusAccount, endBlock,
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(contributionWalletTx, contributionWalletMessage);
-printContributionWalletContractDetails();
-console.log("RESULT: ");
 
-
-// -----------------------------------------------------------------------------
-var devTokensHolderMessage = "Test 3.7 Deploy DevTokensHolder";
+var devTokensHolderMessage = "Deploy DevTokensHolder";
 console.log("RESULT: " + devTokensHolderMessage);
 var devTokensHolderContract = web3.eth.contract(devTokensHolderAbi);
 var devTokensHolderTx = null;
@@ -351,16 +319,9 @@ var devTokensHolder = devTokensHolderContract.new(devAccount, statusContribution
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(devTokensHolderTx, devTokensHolderMessage);
-printDevTokensHolderContractDetails();
-console.log("RESULT: ");
 
 
-// -----------------------------------------------------------------------------
-var sgtExchangerMessage = "Test 3.8 Deploy SGTExchanger";
+var sgtExchangerMessage = "Deploy SGTExchanger";
 console.log("RESULT: " + sgtExchangerMessage);
 var sgtExchangerContract = web3.eth.contract(sgtExchangerAbi);
 var sgtExchangerTx = null;
@@ -380,16 +341,9 @@ var sgtExchanger = sgtExchangerContract.new(devAccount, statusContributionAddres
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(sgtExchangerTx, sgtExchangerMessage);
-printSgtExchangerContractDetails();
-console.log("RESULT: ");
 
 
-// -----------------------------------------------------------------------------
-var sntPlaceHolderMessage = "Test 3.8 Deploy SNTPlaceHolder";
+var sntPlaceHolderMessage = "Deploy SNTPlaceHolder";
 console.log("RESULT: " + sntPlaceHolderMessage);
 var sntPlaceHolderContract = web3.eth.contract(sntPlaceHolderAbi);
 var sntPlaceHolderTx = null;
@@ -410,16 +364,8 @@ var sntPlaceHolder = sntPlaceHolderContract.new(communityAccount, sntAddress,
     }
   }
 );
-while (txpool.status.pending > 0) {
-}
-printBalances();
-failIfGasEqualsGasUsed(sntPlaceHolderTx, sntPlaceHolderMessage);
-printSntPlaceHolderContractDetails();
-console.log("RESULT: ");
 
-
-// -----------------------------------------------------------------------------
-var dynamicCeilingMessage = "Test 10.1 Deploy DynamicCeiling Contract";
+var dynamicCeilingMessage = "Deploy DynamicCeiling";
 console.log("RESULT: " + dynamicCeilingMessage);
 var dynamicCeilingContract = web3.eth.contract(dynamicCeilingAbi);
 var dynamicCeilingTx = null;
@@ -439,12 +385,40 @@ var dynamicCeiling = dynamicCeilingContract.new(statusAccount, statusContributio
     }
   }
 );
+
+var sgtGenTokensMessage = "Generate SGT Tokens";
+console.log("RESULT: " + sgtGenTokensMessage);
+var sgtGenTokensTx1 = sgt.generateTokens(sgtHolderAccount, 2500, {from: statusAccount, gas: 2000000});
+var sgtGenTokensTx2 = sgt.generateTokens(statusAccount, 2500, {from: statusAccount, gas: 2000000});
+
 while (txpool.status.pending > 0) {
 }
+
 printBalances();
+
+failIfGasEqualsGasUsed(contributionWalletTx, contributionWalletMessage);
+printContributionWalletContractDetails();
+
+failIfGasEqualsGasUsed(devTokensHolderTx, devTokensHolderMessage);
+printDevTokensHolderContractDetails();
+
+failIfGasEqualsGasUsed(sgtExchangerTx, sgtExchangerMessage);
+printSgtExchangerContractDetails();
+
+failIfGasEqualsGasUsed(sntPlaceHolderTx, sntPlaceHolderMessage);
+printSntPlaceHolderContractDetails();
+
 failIfGasEqualsGasUsed(dynamicCeilingTx, dynamicCeilingMessage);
 printDynamicCeilingDetails();
+
+printTxData("sgtGenTokensTx1", sgtGenTokensTx1);
+printTxData("sgtGenTokensTx2", sgtGenTokensTx2);
+failIfGasEqualsGasUsed(sgtGenTokensTx1, sgtGenTokensMessage + " - tx1 2500 SGT -> sgtHolderAccount");
+failIfGasEqualsGasUsed(sgtGenTokensTx2, sgtGenTokensMessage + " - tx2 2500 SGT -> statusAccount");
+printSgtContractDetails();
+
 console.log("RESULT: ");
+
 
 
 // -----------------------------------------------------------------------------
@@ -485,7 +459,7 @@ console.log("RESULT: salts" + JSON.stringify(salts));
 
 
 // -----------------------------------------------------------------------------
-var setHiddenCurveMessage = "Test 10.2 Set Hidden Curve";
+var setHiddenCurveMessage = "Set Hidden Curve";
 console.log("RESULT: " + setHiddenCurveMessage);
 var setHiddenCurveTx = dynamicCeiling.setHiddenCurves(hashes, {from: statusAccount, gas: 2000000});
 while (txpool.status.pending > 0) {
@@ -501,7 +475,7 @@ var revealAll = "$MODE" == "revealAll" ? true : false;
 
 if (revealAll) {
 // -----------------------------------------------------------------------------
-var revealMultiMessage = "Test 10.3.a Reveal All Points In Curve";
+var revealMultiMessage = "Reveal All Points In Curve";
 console.log("RESULT: " + revealMultiMessage);
 var c = curves[0];
 var revealMultiTx = dynamicCeiling.revealMulti(limits, slopeFactors, collectMinimums,
@@ -517,7 +491,7 @@ console.log("RESULT: ");
 
 if (!revealAll) {
 // -----------------------------------------------------------------------------
-var revealCurveMessage = "Test 10.3.b Reveal 2 Points In Curve";
+var revealCurveMessage = "Reveal 2 Points In Curve";
 console.log("RESULT: " + revealCurveMessage);
 var c = curves[0];
 var revealCurveTx1 = dynamicCeiling.revealCurve(c[0], c[1], c[2], false, "salt",

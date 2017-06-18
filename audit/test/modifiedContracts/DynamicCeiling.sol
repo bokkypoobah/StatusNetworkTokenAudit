@@ -29,11 +29,9 @@ pragma solidity ^0.4.11;
 import "./SafeMath.sol";
 import "./Owned.sol";
 
-// BK For easier reading, `Curve` should be renamed `Point` as these represent points in the curve
 contract DynamicCeiling is Owned {
     using SafeMath for uint256;
 
-    // BK Should be `struct Point`
     struct Curve {
         bytes32 hash;
         // Absolute limit for this curve
@@ -47,10 +45,8 @@ contract DynamicCeiling is Owned {
 
     address public contribution;
 
-    // BK Should be `Point[] public points` or `Point[] public curve` as this structure represents points in a single curve
     Curve[] public curves;
     uint256 public currentIndex;
-    // BK Should be revealedPoints
     uint256 public revealedCurves;
     bool public allRevealed;
 
@@ -68,7 +64,6 @@ contract DynamicCeiling is Owned {
 
     // BK Testing
     event HashSet(uint256 index, bytes32 hash);
-    // BK Testing
     event CurvePointRevealed(uint256 limit, uint256 slopeFactor, uint256 collectMinimum,
         bool last, bytes32 salt);
 
@@ -78,9 +73,7 @@ contract DynamicCeiling is Owned {
     ///  by the `calculateHash` method. More hashes than actual curves can be
     ///  committed in order to hide also the number of curves.
     ///  The remaining hashes can be just random numbers.
-    // BK Only the owner can call
     function setHiddenCurves(bytes32[] _curveHashes) public onlyOwner {
-        // BK Only the owner can call once
         require(curves.length == 0);
 
         curves.length = _curveHashes.length;
@@ -97,49 +90,29 @@ contract DynamicCeiling is Owned {
     ///  (must be greater or equal to the previous one).
     /// @param _last `true` if it's the last curve.
     /// @param _salt Random number used to commit the curve
-    // BK Anyone can call this, but they will have to know the curve point that
-    //    generated the hashes that was set by the owner
-    // BK In effect, accounts controlled by the owner will be able to call this function
-    // BK The setting of the initial data and the revealed data will need to be exactly
-    //    accurate, or else the curve point cannot be revealed correctly
-    // BK In the worst case, the first cap is revealed and an error prevents the next
-    //    cap in being revealed, resulting in only the first cap being effective for
-    //    the whole crowdsale period
     function revealCurve(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
                          bool _last, bytes32 _salt) public {
-        // BK Cannot reveal if all already revealed
         require(!allRevealed);
 
-        // BK Hash for the curve point being revealed must match the hash of the 
-        //    hidden caps
         require(curves[revealedCurves].hash == calculateHash(_limit, _slopeFactor, _collectMinimum,
                                                              _last, _salt));
 
-        // BK Just checking for non nulls.
-        //    Ideally this check should be done when constructing the hashes
-        //    as once the hashes are set, you cannot set with invalid data 
         require(_limit != 0 && _slopeFactor != 0 && _collectMinimum != 0);
-        // BK Next limit (after the first) must be greater than the previous
         if (revealedCurves > 0) {
             require(_limit >= curves[revealedCurves.sub(1)].limit);
         }
 
-        // BK Set the data
         curves[revealedCurves].limit = _limit;
         curves[revealedCurves].slopeFactor = _slopeFactor;
         curves[revealedCurves].collectMinimum = _collectMinimum;
-        // BK This point has been revealed, this is the next point to be revealed
         revealedCurves = revealedCurves.add(1);
 
-        // BK What happens if the hash and yet-to-be-revealed points is incorrect
         if (_last) allRevealed = true;
         // BK Testing
         CurvePointRevealed(_limit, _slopeFactor, _collectMinimum, _last, _salt);
     }
 
     /// @notice Reveal multiple curves at once
-    // BK Anyone can call this, but they will have to know the curve point that
-    //    generated the hashes that was set by the owner
     function revealMulti(uint256[] _limits, uint256[] _slopeFactors, uint256[] _collectMinimums,
                          bool[] _lasts, bytes32[] _salts) public {
         // Do not allow none and needs to be same length for all parameters
@@ -149,7 +122,6 @@ contract DynamicCeiling is Owned {
                 _limits.length == _lasts.length &&
                 _limits.length == _salts.length);
 
-        // BK Can reveal the sets of points in batches
         for (uint256 i = 0; i < _limits.length; i = i.add(1)) {
             revealCurve(_limits[i], _slopeFactors[i], _collectMinimums[i],
                         _lasts[i], _salts[i]);
@@ -157,21 +129,15 @@ contract DynamicCeiling is Owned {
     }
 
     /// @notice Move to curve, used as a failsafe
-    // BK Only the owner can call this. What happens if the owner is unable to get
-    //    their transaction mined?
     function moveTo(uint256 _index) public onlyOwner {
-        // BK Can only move the index to up to the revealed points
-        // BK Can only move up one point in the curve
         require(_index < revealedCurves &&       // No more curves
                 _index == currentIndex.add(1));  // Only move one index at a time
-        // BK Save new current index
         currentIndex = _index;
     }
 
     /// @return Return the funds to collect for the current point on the curve
     ///  (or 0 if no curves revealed yet)
     function toCollect(uint256 collected) public onlyContribution returns (uint256) {
-        // BK Ok
         if (revealedCurves == 0) return 0;
 
         // Move to the next curve
@@ -205,7 +171,6 @@ contract DynamicCeiling is Owned {
     /// @param _last `true` if it's the last curve.
     /// @param _salt Random number that will be needed to reveal this curve.
     /// @return The calculated hash of this curve to be used in the `setHiddenCurves` method
-    // BK Could consider checking the parameters here
     function calculateHash(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
                            bool _last, bytes32 _salt) public constant returns (bytes32) {
         return keccak256(_limit, _slopeFactor, _collectMinimum, _last, _salt);

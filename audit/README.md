@@ -35,7 +35,10 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 * ContributionWallet.sol
   * Can receive funds during the crowdsale
-  * Can release the funds
+  * Can release the funds at the right time
+* DevTokensHolder.sol
+  * Can receive tokens during the crowdsale
+  * Can release tokens at the right time
 
 <br />
 
@@ -72,70 +75,62 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
   * `struct Curve` is renamed to `struct Point`
   * `Curve[] public curves;` is renamed to `Point[] public curve`
   * `function setHiddenCurves(bytes32[] _curveHashes)` is renamed to `function setHiddenPoints(bytes32[] _curveHashes)`
-* [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
-  * Used in StatusContribution
-  * This contract includes the following files:
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+* Used in StatusContribution
+* Source [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol) that includes the following files:
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
 
 <br />
 
 ### Owned.sol
-* [x] [../contracts/Owned.sol](../contracts/Owned.sol)
-  * Standard Owned or Owner pattern
-  * Has just been upgraded to use the [`acceptOwnership()`](https://github.com/bokkypoobah/SikobaTokenContinuous/blob/master/contracts/SikobaContinuousSale.sol#L38-L42) confirmation.
-  * This contract does not include any other files
+* Standard Owned or Owner pattern
+* Implemented functionality looks correct
+* Was upgraded to use the `acceptOwnership()`confirmation recently which is good
+* Source [../contracts/Owned.sol](../contracts/Owned.sol) that does not include any other files
 
 <br />
 
 ### SafeMath.sol
-* [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-  * Safe maths, as a library
-  * This contract does not include any other files
+* Safe maths, as a library
+* Source [../contracts/SafeMath.sol](../contracts/SafeMath.sol) that does not include any other files
 
 <br />
 
 ### SGTExchanger.sol
-* [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol)
-  * For SGT tokens to be exchanged with the new SNT tokens
-  * This contract includes the following files:
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-    * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
+* For SGT tokens to be exchanged with the new SNT tokens
+* Source [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol) that includes the following files:
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [../contracts/Owned.sol](../contracts/Owned.sol)
 
 <br />
 
 ### SNT.sol
-* [../contracts/SNT.sol](../contracts/SNT.sol)
-  * SNT "Status Network Token"
-  * 18 decimals
-  * An instance of the MiniMe contract
-  * Audit not required
-  * This contract includes the following files:
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-    * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-    * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
+* SNT "Status Network Token" with 18 decimal places
+* An instance of the MiniMe contract
+* Source [../contracts/SNT.sol](../contracts/SNT.sol) that includes the following files:
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
 
 <br />
 
 ### SNTPlaceHolder.sol
-* [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol)
-  * This contract includes the following files:
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-    * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-    * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
+* Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
 
 <br />
 
 ### StatusContribution.sol
-* [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
-  * Calls MiniMe's `generateTokens(...)` to generate tokens according to ETH contribution and the rules
-  * This contract includes the following files:
-    * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-    * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+* Calls MiniMe's `generateTokens(...)` to generate tokens according to ETH contribution and the rules
+* Source [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol) that includes the following files:
+  * [../contracts/Owned.sol](../contracts/Owned.sol)
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+  * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
 
 <br />
 
@@ -145,7 +140,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ### MiniMeToken.sol
 * Audit not required as this contract has already been audited by other parties
-* Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that does not include any other files.
+* Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that does not include any other files
 
 <br />
 
@@ -163,7 +158,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 ### MultisigWallet.sol
 * This is a copy of a [multisig wallet](https://github.com/ConsenSys/MultiSigWallet/blob/e3240481928e9d2b57517bd192394172e31da487/contracts/solidity/MultiSigWallet.sol) by Consensys with the Solidity version updated from `0.4.4` to `^0.4.11` and the event parameter names prefixed with `_`s
 * Audit not required
-* Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files.
+* Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files
 
 <br />
 

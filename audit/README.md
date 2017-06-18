@@ -13,6 +13,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 **Table of contents**
 
 * [To Check](#to-check)
+* [To Test](#to-test)
 * [General Notes](#general-notes)
 * [Solidity Files](#solidity-files)
 * [Solidity Files In Scope](#solidity-files-in-scope)
@@ -30,6 +31,16 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <hr />
 
+## To Test
+
+* ContributionWallet.sol
+  * Can receive funds during the crowdsale
+  * Can release the funds
+
+<br />
+
+<hr />
+
 ## General Notes
 
 * The smart contracts and interactions between the smart contracts are of medium complexity. The whole interactions are not simple to understand, but can be understood with a bit of work.
@@ -41,9 +52,9 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 ## Solidity Files In Scope
 
 ### ContributionWallet.sol
-* [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol)
-  * This contract includes the following files:
-    * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
+* My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
+* Source [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol) that includes the following file:
+  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
 
 <br />
 

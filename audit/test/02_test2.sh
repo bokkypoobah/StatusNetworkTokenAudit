@@ -531,7 +531,7 @@ printTxData("tx10_3_b_1", tx10_3_b_1);
 printTxData("tx10_3_b_2", tx10_3_b_2);
 printBalances();
 failIfGasEqualsGasUsed(tx10_3_b_1, testMessage + " - 1st point");
-failIfGasEqualsGasUsed(tx10_3_b_2, testMessage + " - 2nd point);
+failIfGasEqualsGasUsed(tx10_3_b_2, testMessage + " - 2nd point");
 printDynamicCeilingDetails();
 console.log("RESULT: ");
 }

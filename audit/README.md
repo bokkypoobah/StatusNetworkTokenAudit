@@ -67,10 +67,12 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 
 ### DynamicCeiling.sol
+* TODO - My comments on the code can be found in [DynamicCeiling.md](DynamicCeiling.md)
 * MEDIUM IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
   * `struct Curve` is renamed to `struct Point`
   * `Curve[] public curves;` is renamed to `Point[] public curve`
@@ -78,6 +80,13 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * Used in StatusContribution
 * Source [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol) that includes the following files:
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [../contracts/Owned.sol](../contracts/Owned.sol)
+
+<br />
+
+### ERC20Token.sol
+* ERC20 interface with declaration of `totalSupply`, and `Transfer(...)` and `Approval(...)` events
+* Source [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol) that does not include any other files
 
 <br />
 
@@ -96,11 +105,14 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### SGTExchanger.sol
+* TODO - My comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
 * For SGT tokens to be exchanged with the new SNT tokens
 * Source [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * [../contracts/Owned.sol](../contracts/Owned.sol)
+  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
+  * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 
@@ -109,28 +121,29 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * An instance of the MiniMe contract
 * Source [../contracts/SNT.sol](../contracts/SNT.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
-  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-  * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
 
 <br />
 
 ### SNTPlaceHolder.sol
+* TODO - My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
 * Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
-  * [x] [../contracts/Owned.sol](../contracts/Owned.sol)
+  * [../contracts/Owned.sol](../contracts/Owned.sol)
+  * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 
 ### StatusContribution.sol
+* TODO - My comments on the code can be found in [StatusContribution.md](StatusContribution.md)
 * Calls MiniMe's `generateTokens(...)` to generate tokens according to ETH contribution and the rules
 * Source [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol) that includes the following files:
   * [../contracts/Owned.sol](../contracts/Owned.sol)
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+  * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 
@@ -140,7 +153,8 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ### MiniMeToken.sol
 * Audit not required as this contract has already been audited by other parties
-* Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that does not include any other files
+* Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that includes the following files:
+  * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 

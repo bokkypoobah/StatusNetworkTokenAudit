@@ -3,6 +3,7 @@
 My comments prefixed with `// BK` below.
 
 ```javascript
+// BK Ok - Recent Solidity
 pragma solidity ^0.4.11;
 
 /*

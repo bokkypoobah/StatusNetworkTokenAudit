@@ -41,6 +41,7 @@ import "./StatusContribution.sol";
 
 // BK Ok - Note that there is no owner, but this contract's withdraw() function is restricted to the multisig address
 // BK Needs to be tested to confirm interconnected operations
+// BK This contract will hold the funds from the crowdsale
 contract ContributionWallet {
 
     // Public variables
@@ -62,6 +63,8 @@ contract ContributionWallet {
         // BK Ok
         require(_contribution != 0x0);
         // BK Ok - End block needs to be specified and before a particular block number
+        //    May be better to set this number as a public constant so it is not accidentally
+        //    overlooked on deployment
         require(_endBlock != 0 && _endBlock <= 4000000);
         // BK Next 3 lines Ok
         multisig = _multisig;

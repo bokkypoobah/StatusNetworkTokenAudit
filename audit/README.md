@@ -46,7 +46,14 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ## General Notes
 
-* The smart contracts and interactions between the smart contracts are of medium complexity. The whole interactions are not simple to understand, but can be understood with a bit of work.
+* [x] The contracts and interactions between the contracts are of medium complexity
+* [x] The functionality has been modularised to compartmentalise the complexity
+* [x] The interactions between the modules are a bit complicated as there are different times when at which the modules and functions operate
+* [x] The SNT token contract is based on the MiniMe contract that has been audited in the past, and is already in production use
+  * [x] The MiniMe contract has been updated with some minor changes, mainly to allow the injection of the blocknumber for testing purposes
+* [x] There is no refund functionality in this crowdsale, so the funds raised can be diverted to a less complex contract (ContributionWallet)
+* [x] Funds received in the crowdsale by StatusContribution are immediately diverted to ContributionWallet
+  * [x] This contract has minimal functionality and complexity, reducing the attack surface and risk of errors
 
 <br />
 
@@ -56,6 +63,12 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ### ContributionWallet.sol
 * My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
+* This contract will hold the funds from the crowdsale
+* This contract receives the funds from the crowdsale when sent by `StatusContribution.doBuy(...)`
+* [x] This contract's `withdraw()` function can only be executed by the controlling multisig and can only be executed after the sale is finalised
+* [x] There are no areas for potential overflow, underflow, division, division by zero and type conversion errors
+* There is a `transfer(...)` function to transfer the ethers to the multisig within the `withdraw()` function
+  * [x] But this function can only be called by the multisig
 * Source [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol) that includes the following file:
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
 
@@ -81,26 +94,6 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * Source [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol) that includes the following files:
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * [../contracts/Owned.sol](../contracts/Owned.sol)
-
-<br />
-
-### ERC20Token.sol
-* ERC20 interface with declaration of `totalSupply`, and `Transfer(...)` and `Approval(...)` events
-* Source [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol) that does not include any other files
-
-<br />
-
-### Owned.sol
-* Standard Owned or Owner pattern
-* Implemented functionality looks correct
-* Was upgraded to use the `acceptOwnership()`confirmation recently which is good
-* Source [../contracts/Owned.sol](../contracts/Owned.sol) that does not include any other files
-
-<br />
-
-### SafeMath.sol
-* Safe maths, as a library
-* Source [../contracts/SafeMath.sol](../contracts/SafeMath.sol) that does not include any other files
 
 <br />
 
@@ -144,6 +137,27 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
   * [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
+
+<br />
+
+### ERC20Token.sol
+* [x] Matches https://github.com/ethereum/EIPs/issues/20
+* ERC20 interface with declaration of `totalSupply`, and `Transfer(...)` and `Approval(...)` events
+* Source [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol) that does not include any other files
+
+<br />
+
+### Owned.sol
+* [x] Implemented functionality looks correct
+* Standard Owned or Owner pattern
+* Was upgraded to use the `acceptOwnership()`confirmation recently which is good
+* Source [../contracts/Owned.sol](../contracts/Owned.sol) that does not include any other files
+
+<br />
+
+### SafeMath.sol
+* Safe maths, as a library
+* Source [../contracts/SafeMath.sol](../contracts/SafeMath.sol) that does not include any other files
 
 <br />
 

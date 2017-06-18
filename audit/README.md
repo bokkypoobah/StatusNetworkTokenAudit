@@ -59,11 +59,11 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### DevTokensHolder.sol
-* [../contracts/DevTokensHolder.sol](../contracts/DevTokensHolder.sol)
-  * This contract includes the following files:
-    * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
-    * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
-    * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
+* My comments on the code can be found in [DevTokensHolder.md](DevTokensHolder.md)
+* Source [../contracts/DevTokensHolder.sol](../contracts/DevTokensHolder.sol) that includes the following files:
+  * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
+  * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
+  * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
 
 <br />
 

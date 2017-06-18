@@ -40,6 +40,7 @@ import "./StatusContribution.sol";
 
 
 // BK Ok - Note that there is no owner, but this contract's withdraw() function is restricted to the multisig address
+// BK Needs to be tested to confirm interconnected operations
 contract ContributionWallet {
 
     // Public variables

@@ -274,15 +274,22 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-// Deploy ContributionWallet, DevTokensHolder, SGTExchanger, SNTPlaceHolder, DynamicCeiling
+// Start block and end block
+// -----------------------------------------------------------------------------
+var startBlock = parseInt(eth.blockNumber) + 10;
+var endBlock = parseInt(eth.blockNumber) + 20;
+
+// -----------------------------------------------------------------------------
+// Deploy ContributionWallet, DevTokensHolder, SGTExchanger, SNTPlaceHolder and
+//   DynamicCeiling
 // Generate SGT Tokens
+// SNT ChangeController To StatusContribution 
 // -----------------------------------------------------------------------------
 var contributionWalletMessage = "Deploy ContributionWallet";
 console.log("RESULT: " + contributionWalletMessage);
 var contributionWalletContract = web3.eth.contract(contributionWalletAbi);
 var contributionWalletTx = null;
 var contributionWalletAddress = null;
-var endBlock = parseInt(eth.blockNumber) + 10;
 var contributionWallet = contributionWalletContract.new(statusAccount, endBlock, statusContributionAddress,
     {from: statusAccount, data: contributionWalletBin, gas: 4000000},
   function(e, contract) {
@@ -391,6 +398,10 @@ console.log("RESULT: " + sgtGenTokensMessage);
 var sgtGenTokensTx1 = sgt.generateTokens(sgtHolderAccount, 2500, {from: statusAccount, gas: 2000000});
 var sgtGenTokensTx2 = sgt.generateTokens(statusAccount, 2500, {from: statusAccount, gas: 2000000});
 
+var sntChangeControllerMessage = "SNT ChangeController To StatusContribution";
+console.log("RESULT: " + sntChangeControllerMessage);
+var sntChangeControllerTx = snt.changeController(statusContributionAddress, {from: statusAccount, gas: 2000000});
+
 while (txpool.status.pending > 0) {
 }
 
@@ -416,6 +427,9 @@ printTxData("sgtGenTokensTx2", sgtGenTokensTx2);
 failIfGasEqualsGasUsed(sgtGenTokensTx1, sgtGenTokensMessage + " - tx1 2500 SGT -> sgtHolderAccount");
 failIfGasEqualsGasUsed(sgtGenTokensTx2, sgtGenTokensMessage + " - tx2 2500 SGT -> statusAccount");
 printSgtContractDetails();
+
+failIfGasEqualsGasUsed(sntChangeControllerTx, sntChangeControllerMessage);
+printSntContractDetails();
 
 console.log("RESULT: ");
 
@@ -459,15 +473,33 @@ console.log("RESULT: salts" + JSON.stringify(salts));
 
 
 // -----------------------------------------------------------------------------
+// Set Hidden Curve
+// Initialise StatusContribution 
+// -----------------------------------------------------------------------------
 var setHiddenCurveMessage = "Set Hidden Curve";
 console.log("RESULT: " + setHiddenCurveMessage);
 var setHiddenCurveTx = dynamicCeiling.setHiddenCurves(hashes, {from: statusAccount, gas: 2000000});
+
+var initialiseStatusContributionMessage = "Initialise StatusContribution";
+var maxSgtSupply = 10000;
+console.log("RESULT: " + initialiseStatusContributionMessage);
+var initialiseStatusContributionTx = statusContribution.initialize(sntAddress, sntPlaceHolderAddress, \
+  startBlock, endBlock, dynamicCeilingAddress, contributionWalletAddress, reserveAccount, sgtExchangerAddress, \
+  devTokensHolderAddress, sgtAddress, maxSgtSupply, {from: statusAccount, gas: 2000000});
+
 while (txpool.status.pending > 0) {
 }
+
 printTxData("setHiddenCurveTx", setHiddenCurveTx);
+printTxData("initialiseStatusContributionTx", initialiseStatusContributionTx);
+
 printBalances();
 failIfGasEqualsGasUsed(setHiddenCurveTx, setHiddenCurveMessage);
 printDynamicCeilingDetails();
+
+failIfGasEqualsGasUsed(initialiseStatusContributionTx, initialiseStatusContributionMessage);
+printStatusContributionContractDetails();
+
 console.log("RESULT: ");
 
 

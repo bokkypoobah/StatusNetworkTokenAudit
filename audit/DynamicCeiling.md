@@ -3,6 +3,7 @@
 My comments prefixed with `// BK` below.
 
 ```javascript
+// BK Ok - Recent Solidity
 pragma solidity ^0.4.11;
 
 /*
@@ -34,10 +35,12 @@ pragma solidity ^0.4.11;
 import "./SafeMath.sol";
 import "./Owned.sol";
 
-
 contract DynamicCeiling is Owned {
+    // BK Ok
     using SafeMath for uint256;
 
+    // BK A bit confusing as a Curve normally has Points, but here Curves have Curve, but from explanations from Status,
+    //    this is a curve of curves
     struct Curve {
         bytes32 hash;
         // Absolute limit for this curve
@@ -49,8 +52,10 @@ contract DynamicCeiling is Owned {
         uint256 collectMinimum;
     }
 
+    // BK Ok
     address public contribution;
 
+    // BK Next 4 lines Ok
     Curve[] public curves;
     uint256 public currentIndex;
     uint256 public revealedCurves;
@@ -58,11 +63,14 @@ contract DynamicCeiling is Owned {
 
     /// @dev `contribution` is the only address that can call a function with this
     /// modifier
+    // BK Ok - StatusContribution address only
     modifier onlyContribution {
         require(msg.sender == contribution);
         _;
     }
 
+    // BK Ok - Constructor. Note that this owner overwrites the 
+    //    Owned constructor's owner assignment
     function DynamicCeiling(address _owner, address _contribution) {
         owner = _owner;
         contribution = _contribution;
@@ -74,9 +82,12 @@ contract DynamicCeiling is Owned {
     ///  by the `calculateHash` method. More hashes than actual curves can be
     ///  committed in order to hide also the number of curves.
     ///  The remaining hashes can be just random numbers.
+    // BK Ok - Only the owner can set the hidden curve
     function setHiddenCurves(bytes32[] _curveHashes) public onlyOwner {
+        // BK Ok - Owner can only submit data once
         require(curves.length == 0);
 
+        // BK Ok
         curves.length = _curveHashes.length;
         for (uint256 i = 0; i < _curveHashes.length; i = i.add(1)) {
             curves[i].hash = _curveHashes[i];
@@ -89,36 +100,52 @@ contract DynamicCeiling is Owned {
     ///  (must be greater or equal to the previous one).
     /// @param _last `true` if it's the last curve.
     /// @param _salt Random number used to commit the curve
+    // BK Ok - This function can be called by anyone, but the person will need to know
+    //         the data that matches the originally submitted hash of the data
     function revealCurve(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
                          bool _last, bytes32 _salt) public {
+        // BK Ok - Cannot reveal once all has been revealed
         require(!allRevealed);
 
+        // BK Ok - Can only reveal if the provided hash matches the data
         require(curves[revealedCurves].hash == calculateHash(_limit, _slopeFactor, _collectMinimum,
                                                              _last, _salt));
 
+        // BK Ok - Check for non-zero
+        // BK Note - If the hash provided has a 0 in the values below, the
+        //    data with the 0 value can never be revealed
+        //    User has to make sure that the hash submitted originally has
+        //    non zero valeus
         require(_limit != 0 && _slopeFactor != 0 && _collectMinimum != 0);
+        // BK Ok - Checking limit(n) > limit(n-1)
         if (revealedCurves > 0) {
             require(_limit >= curves[revealedCurves.sub(1)].limit);
         }
 
+        // BK Ok - Storing the revealed data
         curves[revealedCurves].limit = _limit;
         curves[revealedCurves].slopeFactor = _slopeFactor;
         curves[revealedCurves].collectMinimum = _collectMinimum;
+        // BK Ok - Move to next point
         revealedCurves = revealedCurves.add(1);
-
+        // BK Ok - Cannot reveal any more after the last point is revealed
         if (_last) allRevealed = true;
     }
 
     /// @notice Reveal multiple curves at once
+    // BK Ok - This function can be called by anyone, but the person will need to know
+    //         the data that matches the originally submitted hash of the data
     function revealMulti(uint256[] _limits, uint256[] _slopeFactors, uint256[] _collectMinimums,
                          bool[] _lasts, bytes32[] _salts) public {
         // Do not allow none and needs to be same length for all parameters
+        // BK Ok
         require(_limits.length != 0 &&
                 _limits.length == _slopeFactors.length &&
                 _limits.length == _collectMinimums.length &&
                 _limits.length == _lasts.length &&
                 _limits.length == _salts.length);
 
+        // BK Ok
         for (uint256 i = 0; i < _limits.length; i = i.add(1)) {
             revealCurve(_limits[i], _slopeFactors[i], _collectMinimums[i],
                         _lasts[i], _salts[i]);
@@ -126,6 +153,7 @@ contract DynamicCeiling is Owned {
     }
 
     /// @notice Move to curve, used as a failsafe
+    // BK Ok - Only owner can move one index at a time
     function moveTo(uint256 _index) public onlyOwner {
         require(_index < revealedCurves &&       // No more curves
                 _index == currentIndex.add(1));  // Only move one index at a time
@@ -135,17 +163,23 @@ contract DynamicCeiling is Owned {
     /// @return Return the funds to collect for the current point on the curve
     ///  (or 0 if no curves revealed yet)
     function toCollect(uint256 collected) public onlyContribution returns (uint256) {
+        // BK Ok - Cannot collect any contributions if no points revealed
         if (revealedCurves == 0) return 0;
 
         // Move to the next curve
+        // BK Ok - Collected more than current limit
         if (collected >= curves[currentIndex].limit) {  // Catches `limit == 0`
             uint256 nextIndex = currentIndex.add(1);
+            // BK Ok - Cannot move past number of revealed curve. Cannot collect any more contributions 
             if (nextIndex >= revealedCurves) return 0;  // No more curves
+            // BK Ok - Move to next curve
             currentIndex = nextIndex;
+            // BK CHECK - If current contribution more than the new limit, it will be rejected
             if (collected >= curves[currentIndex].limit) return 0;  // Catches `limit == 0`
         }
 
         // Everything left to collect from this limit
+        // BK Ok - Diff = CurrentLimit - Collected
         uint256 difference = curves[currentIndex].limit.sub(collected);
 
         // Current point on the curve
@@ -168,6 +202,7 @@ contract DynamicCeiling is Owned {
     /// @param _last `true` if it's the last curve.
     /// @param _salt Random number that will be needed to reveal this curve.
     /// @return The calculated hash of this curve to be used in the `setHiddenCurves` method
+    // BK Ok - Read only
     function calculateHash(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
                            bool _last, bytes32 _salt) public constant returns (bytes32) {
         return keccak256(_limit, _slopeFactor, _collectMinimum, _last, _salt);
@@ -176,6 +211,7 @@ contract DynamicCeiling is Owned {
     /// @return Return the total number of curves committed
     ///  (can be larger than the number of actual curves on the curve to hide
     ///  the real number of curves)
+    // BK Ok - Read only
     function nCurves() public constant returns (uint256) {
         return curves.length;
     }

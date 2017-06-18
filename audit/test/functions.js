@@ -241,6 +241,7 @@ function printSntContractDetails() {
     console.log("RESULT: snt.name=" + contract.name());
     console.log("RESULT: snt.decimals=" + contract.decimals());
     console.log("RESULT: snt.totalSupply=" + contract.totalSupply().shift(-decimals));
+    console.log("RESULT: snt.controller=" + contract.controller());
 
     var latestBlock = eth.blockNumber;
     var i;

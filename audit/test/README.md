@@ -16,11 +16,11 @@
 
       ./00_runGeth.sh
 
-* Run the test in [01_test1.sh](01_test1.sh)
+* Run the test in [02_test2.sh](02_test2.sh)
 
-      ./01_test1.sh
+      ./02_test2.sh
 
-* See  [test1results.txt](test1results.txt) for the results and [test1output.txt](test1output.txt) for the full output.
+* See  [test2results.txt](test2results.txt) for the results and [test2output.txt](test2output.txt) for the full output.
 
 <br />
 

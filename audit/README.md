@@ -14,10 +14,23 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 * [To Check](#to-check)
 * [To Test](#to-test)
+* [Recommendations](#recommendations)
 * [General Notes](#general-notes)
-* [Solidity Files](#solidity-files)
 * [Solidity Files In Scope](#solidity-files-in-scope)
+  * [ContributionWallet](#contributionwallet)
+  * [DevTokensHolder](#devtokensholder)
+  * [DynamicCeiling](#dynamicceiling)
+  * [SGTExchanger](#sgtexchanger)
+  * [SNT](#snt)
+  * [SNTPlaceHolder](#sntplaceholder)
+  * [StatusContribution](#statuscontribution)
+  * [ERC20Token](#erc20token)
+  * [Owned](#owned)
+  * [SafeMath](#safemath)
 * [Solidity Files Out Of Scope](#solidity-files-out-of-scope)
+  * [MiniMeToken](#minimetoken)
+  * [SGT](#sgt)
+  * [MultisigWallet](#multisigwallet)
 
 <br />
 
@@ -44,11 +57,29 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <hr />
 
+## Recommendations
+
+* There are many moving parts to this set of contracts
+  * On deployment to Mainnet, scripts should be used to check for the correctness of the state of these contracts
+    * e.g., the multisig wallet accounts, DynamicCeiling hashes
+    * e.g., ethers will be locked up in ContributionWallet forever if the `multisig` address, or `endBlock` and `contribution` address are incorrect
+  * Scripts should be created to check, confirm and monitor that the state of these contracts are correct, e.g., funds received by StatusContribution and ContributionWallet should match up
+* [ ] LOW IMPORTANCE **ContributionWallet** There is a hard coded block number that should be converted into a constant
+
+<br />
+
+<hr />
+
 ## General Notes
 
 * [x] The contracts and interactions between the contracts are of medium complexity
 * [x] The functionality has been modularised to compartmentalise the complexity
-* [x] The interactions between the modules are a bit complicated as there are different times when at which the modules and functions operate
+* [x] The interactions between the modules are a bit complicated as there are different times when the different modules and functions operate
+* Assessment of risks
+  * [x] The high risk contract is the ContributionWallet contract as these hold the ethers raised by the crowdsale
+  * [x] The other contracts are of lower risk as token contracts can be redeployed with corrected code and token balances in the case of failures, at the cost of inconvenience to users
+  * [x] The `pauseContribution()` and `resumeContribution()` switch allows Status to pause and resume the crowdsale contributions lowers the risks in the event of some failures
+    * As should be expected, the network may be saturated with transactions so it may be difficult to get the `pauseContribution()` transaction mined
 * [x] The SNT token contract is based on the MiniMe contract that has been audited in the past, and is already in production use
   * [x] The MiniMe contract has been updated with some minor changes, mainly to allow the injection of the blocknumber for testing purposes
 * [x] There is no refund functionality in this crowdsale, so the funds raised can be diverted to a less complex contract (ContributionWallet)
@@ -61,20 +92,20 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ## Solidity Files In Scope
 
-### ContributionWallet.sol
-* My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
+### ContributionWallet
 * This contract will hold the funds from the crowdsale
 * This contract receives the funds from the crowdsale when sent by `StatusContribution.doBuy(...)`
 * [x] This contract's `withdraw()` function can only be executed by the controlling multisig and can only be executed after the sale is finalised
 * [x] There are no areas for potential overflow, underflow, division, division by zero and type conversion errors
-* There is a `transfer(...)` function to transfer the ethers to the multisig within the `withdraw()` function
-  * [x] But this function can only be called by the multisig
+* There is a `transfer(...)` function to transfer the ethers to the multisig account within the `withdraw()` function
+  * [x] This function can only be called by the multisig account
+* My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
 * Source [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol) that includes the following file:
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
 
 <br />
 
-### DevTokensHolder.sol
+### DevTokensHolder
 * My comments on the code can be found in [DevTokensHolder.md](DevTokensHolder.md)
 * Source [../contracts/DevTokensHolder.sol](../contracts/DevTokensHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
@@ -84,7 +115,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### DynamicCeiling.sol
+### DynamicCeiling
 * TODO - My comments on the code can be found in [DynamicCeiling.md](DynamicCeiling.md)
 * MEDIUM IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
   * `struct Curve` is renamed to `struct Point`
@@ -97,7 +128,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### SGTExchanger.sol
+### SGTExchanger
 * TODO - My comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
 * For SGT tokens to be exchanged with the new SNT tokens
 * Source [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol) that includes the following files:
@@ -109,7 +140,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### SNT.sol
+### SNT
 * SNT "Status Network Token" with 18 decimal places
 * An instance of the MiniMe contract
 * Source [../contracts/SNT.sol](../contracts/SNT.sol) that includes the following files:
@@ -117,7 +148,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### SNTPlaceHolder.sol
+### SNTPlaceHolder
 * TODO - My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
 * Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
@@ -128,9 +159,10 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### StatusContribution.sol
-* TODO - My comments on the code can be found in [StatusContribution.md](StatusContribution.md)
+### StatusContribution
+* Accepts ethers, calculated token amounts, forwards ethers to ContributionWallet, finalises the crowdsale
 * Calls MiniMe's `generateTokens(...)` to generate tokens according to ETH contribution and the rules
+* My comments on the code can be found in [StatusContribution.md](StatusContribution.md)
 * Source [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol) that includes the following files:
   * [../contracts/Owned.sol](../contracts/Owned.sol)
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
@@ -140,14 +172,14 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### ERC20Token.sol
+### ERC20Token
 * [x] Matches https://github.com/ethereum/EIPs/issues/20
 * ERC20 interface with declaration of `totalSupply`, and `Transfer(...)` and `Approval(...)` events
 * Source [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol) that does not include any other files
 
 <br />
 
-### Owned.sol
+### Owned
 * [x] Implemented functionality looks correct
 * Standard Owned or Owner pattern
 * Was upgraded to use the `acceptOwnership()`confirmation recently which is good
@@ -155,7 +187,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### SafeMath.sol
+### SafeMath
 * Safe maths, as a library
 * Source [../contracts/SafeMath.sol](../contracts/SafeMath.sol) that does not include any other files
 
@@ -165,14 +197,14 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ## Solidity Files Out Of Scope
 
-### MiniMeToken.sol
+### MiniMeToken
 * Audit not required as this contract has already been audited by other parties
 * Source [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol) that includes the following files:
   * [../contracts/ERC20Token.sol](../contracts/ERC20Token.sol)
 
 <br />
 
-### SGT.sol
+### SGT
 * Audit not required as this contract is already deployed
 * SGT "Status Genesis Token" with 1 decimal place
 * This is an instance of the MiniMe contract, with a `multiMint(...)` function, with sample usage transaction at [0xd6bf8620](https://etherscan.io/tx/0xd6bf86202e427bf9c50f0044260e850abd828e2469f279c927201d611ddb78e7)
@@ -183,7 +215,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-### MultisigWallet.sol
+### MultisigWallet
 * This is a copy of a [multisig wallet](https://github.com/ConsenSys/MultiSigWallet/blob/e3240481928e9d2b57517bd192394172e31da487/contracts/solidity/MultiSigWallet.sol) by Consensys with the Solidity version updated from `0.4.4` to `^0.4.11` and the event parameter names prefixed with `_`s
 * Audit not required
 * Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files

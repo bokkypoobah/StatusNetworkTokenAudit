@@ -87,6 +87,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * [x] Funds received in the crowdsale by StatusContribution are immediately diverted to ContributionWallet
   * [x] The ContributionWallet contract has minimal functionality and complexity, reducing the attack surface and risk of errors
   * [x] The ContributionWallet does not have any [reentrancy](https://github.com/ConsenSys/smart-contract-best-practices#reentrancy) or [control flow hijacking](https://github.com/ConsenSys/smart-contract-best-practices#dont-make-control-flow-assumptions-after-external-calls) logic as external calls to transfer funds are only to the owner's own wallet, under the owner's control
+* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this DevTokensHolder, DynamicCeiling, SGTExchanger and SNTPlaceholder, , but there are `claimTokens(0x0)` functions to retrieve any accidentally sent ethers
 * [x] The `claimTokens(...)` function in the DevTokensHolder, SGTExchanger, SNTPlaceHolder and StatusContribution (plus MiniMeToken) contracts can only be used to transfer small amounts of trapped ethers (if the contract allows the leak), does not have the reentrancy and control flow hijacking logic, and cannot be exploited as these function are only executable by the contract owner
 
 <br />
@@ -99,7 +100,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * This contract will hold the funds from the crowdsale
 * This contract receives the funds from the crowdsale when sent by `StatusContribution.doBuy(...)`
 * [x] This contract's `withdraw()` function can only be executed by the controlling multisig and can only be executed after the sale is finalised
-* [x] There are no areas for potential overflow, underflow, division, division by zero and type conversion errors
+* [x] There are no areas with potential overflow, underflow, division, division by zero and type conversion errors
 * There is a `transfer(...)` function to transfer the ethers to the multisig account within the `withdraw()` function
   * [x] This function can only be called by the multisig account
 * My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
@@ -109,6 +110,14 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### DevTokensHolder
+* This contract will hold the developers tokens from the crowdsale that are released after time delays
+* [x] This contract uses the timestamp instead of block numbers to schedule the release of tokens, but this [timestamp dependence](https://github.com/ConsenSys/smart-contract-best-practices#timestamp-dependence) has no material consequences
+* [x] This contract's `claimTokens(...)` have an explicit statement that prevents the owner from claiming the time locked tokens
+* [x] There are areas with potential overflow, underflow and division errors but these are protected using the safe maths library
+* [x] There are no areas with potential type conversion errors
+* [x] The functions in this contract can only be called by the owner account
+* [x] No ethers are handled by this contract other than `claimTokens(...)`
+* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
 * My comments on the code can be found in [DevTokensHolder.md](DevTokensHolder.md)
 * Source [../contracts/DevTokensHolder.sol](../contracts/DevTokensHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
@@ -119,6 +128,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### DynamicCeiling
+* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
 * TODO - My comments on the code can be found in [DynamicCeiling.md](DynamicCeiling.md)
 * MEDIUM IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
   * `struct Curve` is renamed to `struct Point`
@@ -132,8 +142,11 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### SGTExchanger
-* TODO - My comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
-* For SGT tokens to be exchanged with the new SNT tokens
+* This contract allows SGT tokens to be exchanged with the new SNT tokens
+* The StatusContribution `finalize()` function places a limit on the % of SNTs that can be exchanged for SGTs
+* Account call `collect()` to collect their SNTs based on their SGT balances
+* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
+* My comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
 * Source [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
@@ -152,6 +165,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### SNTPlaceHolder
+* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
 * TODO - My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
 * Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)

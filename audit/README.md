@@ -1,10 +1,12 @@
-# Status Network Token Audit (Work in progress)
+# Status Network Token Audit
 
-Note that the MiniMe contract is excluded from this audit as I have been informed that this contract is already audited. See [../MINIME_README.md](../MINIME_README.md).
+Status is conducting a crowdsale on the Ethereum network and have developed a set of Ethereum smart contracts to receive ethers (ETH) from participants in exchange for Status Network Tokens (SNTs).
 
-Auditing the master branch of commit [2ec1fe9dcd3e2673690b5e0926d629064a65225b](https://github.com/status-im/status-network-token/commit/2ec1fe9dcd3e2673690b5e0926d629064a65225b).
+Status requested from Bok Consulting Pty Ltd some assistance in auditing their crowdsale smart contracts. Note that the MiniMe contract is excluded from this audit as this contract is already audited. See [../MINIME_README.md](../MINIME_README.md).
 
-See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
+This audit is of the master branch of commit [2ec1fe9dcd3e2673690b5e0926d629064a65225b](https://github.com/status-im/status-network-token/commit/2ec1fe9dcd3e2673690b5e0926d629064a65225b) from [https://github.com/status-im/status-network-token](https://github.com/status-im/status-network-token).
+
+See [../README.md](../README.md) and [../SPEC.md](../SPEC.md) for further details.
 
 <br />
 
@@ -12,8 +14,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 **Table of contents**
 
-* [To Check](#to-check)
-* [To Test](#to-test)
+* [Summary](#summary)
 * [Recommendations](#recommendations)
 * [General Notes](#general-notes)
 * [Solidity Files In Scope](#solidity-files-in-scope)
@@ -37,22 +38,17 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <hr />
 
-## To Check
+## Summary
 
-* Where is the 1 week transfer freeze implemented?
+The smart contracts are of medium complexity with the aim of raising funds from many individual participants rather than a smaller number of higher contributing participants, with some of the mechanisms employed being the use of hidden caps that are revealed as the crowdsale progresses.
 
-<br />
+The smart contracts are well written and have been compartmentalised into modules. Some of the complexity is in the interactions between these modules.
 
-<hr />
+The highest risk module is the ContributionWallet as this contract receives and holds the ETH contributed by participants during the crowdsale. This contract has been written to be clear and simple, with as little attack surface as possible.
 
-## To Test
+No serious issues have been found in the smart contracts.
 
-* ContributionWallet.sol
-  * Can receive funds during the crowdsale
-  * Can release the funds at the right time
-* DevTokensHolder.sol
-  * Can receive tokens during the crowdsale
-  * Can release tokens at the right time
+Scripts to monitor the crowdsale contracts can be found in [scripts](scripts).
 
 <br />
 
@@ -60,12 +56,9 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ## Recommendations
 
-* There are many moving parts to this set of contracts
-  * On deployment to Mainnet, scripts should be used to check for the correctness of the state of these contracts
-    * e.g., the multisig wallet accounts, DynamicCeiling hashes
-    * e.g., ethers will be locked up in ContributionWallet forever if the `multisig` address, or `endBlock` and `contribution` address are incorrect
-  * Scripts should be created to check, confirm and monitor that the state of these contracts are correct, e.g., funds received by StatusContribution and ContributionWallet should match up
-* [ ] LOW IMPORTANCE **ContributionWallet** There is a hard coded block number that should be converted into a constant
+* There are many moving parts to this set of contracts. On deployment to Mainnet, scripts should be used to confirm the interactions, status and transactions flowing through these contracts
+* VERY LOW IMPORTANCE **ContributionWallet** There is a hard coded block number that should be converted into a constant
+* VERY LOW IMPORTANCE - There is no default `function ()` that rejects ethers sent to this DevTokensHolder, DynamicCeiling, SGTExchanger and SNTPlaceholder, but there are `claimTokens(0x0)` functions in these contracts that will enable the owner to manually retrieve any accidentally sent ethers, and send them back to the originating accounts if necessary
 
 <br />
 
@@ -83,12 +76,9 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
     * As should be expected, the network may be saturated with transactions so it may be difficult to get the `pauseContribution()` transaction mined
 * [x] The SNT token contract is based on the MiniMe contract that has been audited in the past, and is already in production use
   * [x] The MiniMe contract has been updated with some minor changes, mainly to allow the injection of the blocknumber for testing purposes
-* [x] There is no refund functionality in this crowdsale, so the funds raised can be diverted to a less complex contract (ContributionWallet)
-* [x] Funds received in the crowdsale by StatusContribution are immediately diverted to ContributionWallet
+* [x] There is no refund functionality in this crowdsale, so the funds raised will be diverted to a less complex contract (ContributionWallet)
   * [x] The ContributionWallet contract has minimal functionality and complexity, reducing the attack surface and risk of errors
   * [x] The ContributionWallet does not have any [reentrancy](https://github.com/ConsenSys/smart-contract-best-practices#reentrancy) or [control flow hijacking](https://github.com/ConsenSys/smart-contract-best-practices#dont-make-control-flow-assumptions-after-external-calls) logic as external calls to transfer funds are only to the owner's own wallet, under the owner's control
-* LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this DevTokensHolder, DynamicCeiling, SGTExchanger and SNTPlaceholder, , but there are `claimTokens(0x0)` functions to retrieve any accidentally sent ethers
-* [x] The `claimTokens(...)` function in the DevTokensHolder, SGTExchanger, SNTPlaceHolder and StatusContribution (plus MiniMeToken) contracts can only be used to transfer small amounts of trapped ethers (if the contract allows the leak), does not have the reentrancy and control flow hijacking logic, and cannot be exploited as these function are only executable by the contract owner
 
 <br />
 
@@ -103,7 +93,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * [x] There are no areas with potential overflow, underflow, division, division by zero and type conversion errors
 * There is a `transfer(...)` function to transfer the ethers to the multisig account within the `withdraw()` function
   * [x] This function can only be called by the multisig account
-* My comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
+* Further comments on the code can be found in [ContributionWallet.md](ContributionWallet.md)
 * Source [../contracts/ContributionWallet.sol](../contracts/ContributionWallet.sol) that includes the following file:
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
 
@@ -118,7 +108,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * [x] The functions in this contract can only be called by the owner account
 * [x] No ethers are handled by this contract other than `claimTokens(...)`
 * LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
-* My comments on the code can be found in [DevTokensHolder.md](DevTokensHolder.md)
+* Further comments on the code can be found in [DevTokensHolder.md](DevTokensHolder.md)
 * Source [../contracts/DevTokensHolder.sol](../contracts/DevTokensHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
@@ -128,13 +118,13 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 <br />
 
 ### DynamicCeiling
+* This contract allows Status to deploy a set of hashes of soft caps on the crowdsale, and reveal these caps as the crowdsale progresses
 * LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
-* TODO - My comments on the code can be found in [DynamicCeiling.md](DynamicCeiling.md)
-* MEDIUM IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
+* Further comments can be found in [DynamicCeiling.md](DynamicCeiling.md)
+* LOW IMPORTANCE - It would be easier to read if the following are renamed, as the curve is a collection of [curve] points:
   * `struct Curve` is renamed to `struct Point`
   * `Curve[] public curves;` is renamed to `Point[] public curve`
   * `function setHiddenCurves(bytes32[] _curveHashes)` is renamed to `function setHiddenPoints(bytes32[] _curveHashes)`
-* Used in StatusContribution
 * Source [../contracts/DynamicCeiling.sol](../contracts/DynamicCeiling.sol) that includes the following files:
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
   * [../contracts/Owned.sol](../contracts/Owned.sol)
@@ -144,9 +134,9 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 ### SGTExchanger
 * This contract allows SGT tokens to be exchanged with the new SNT tokens
 * The StatusContribution `finalize()` function places a limit on the % of SNTs that can be exchanged for SGTs
-* Account call `collect()` to collect their SNTs based on their SGT balances
+* Accounts call `collect()` to collect their SNTs based on their SGT balances
 * LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
-* My comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
+* Further comments on the code can be found in [SGTExchanger.md](SGTExchanger.md)
 * Source [../contracts/SGTExchanger.sol](../contracts/SGTExchanger.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/SafeMath.sol](../contracts/SafeMath.sol)
@@ -166,7 +156,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ### SNTPlaceHolder
 * LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
-* My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
+* Further commments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
 * Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)
@@ -179,7 +169,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 ### StatusContribution
 * Accepts ethers, calculated token amounts, forwards ethers to ContributionWallet, finalises the crowdsale
 * Calls MiniMe's `generateTokens(...)` to generate tokens according to ETH contribution and the rules
-* My comments on the code can be found in [StatusContribution.md](StatusContribution.md)
+* Further comments on the code can be found in [StatusContribution.md](StatusContribution.md)
 * Source [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol) that includes the following files:
   * [../contracts/Owned.sol](../contracts/Owned.sol)
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
@@ -248,4 +238,4 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for Status - June 13 2017
+(c) BokkyPooBah / Bok Consulting Pty Ltd for Status - June 20 2017

@@ -166,7 +166,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
 ### SNTPlaceHolder
 * LOW IMPORTANCE - There is no `function ()` that rejects ethers sent to this contract, but there is a `claimTokens(0x0)` to retrieve any accidentally sent ethers 
-* TODO - My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
+* My comments on the code can be found in [SNTPlaceHolder.md](SNTPlaceHolder.md)
 * Source [../contracts/SNTPlaceHolder.sol](../contracts/SNTPlaceHolder.sol) that includes the following files:
   * [../contracts/MiniMeToken.sol](../contracts/MiniMeToken.sol)
   * [../contracts/StatusContribution.sol](../contracts/StatusContribution.sol)

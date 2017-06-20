@@ -3,6 +3,7 @@
 My comments prefixed with `// BK` below.
 
 ```javascript
+// BK Ok - Recent Solidity
 pragma solidity ^0.4.11;
 
 /*
@@ -39,8 +40,10 @@ import "./ERC20Token.sol";
 
 
 contract SNTPlaceHolder is TokenController, Owned {
+    // BK Ok - Safe maths
     using SafeMath for uint256;
 
+    // BK Next 4 lines Ok
     MiniMeToken public snt;
     StatusContribution public contribution;
     uint256 public activationTime;
@@ -52,6 +55,7 @@ contract SNTPlaceHolder is TokenController, Owned {
     /// @param _contribution StatusContribution contract address
     /// @param _sgtExchanger SGT-SNT Exchange address. (During the first week
     ///  only this exchanger will be able to move tokens)
+    // BK Ok
     function SNTPlaceHolder(address _owner, address _snt, address _contribution, address _sgtExchanger) {
         owner = _owner;
         snt = MiniMeToken(_snt);
@@ -62,7 +66,7 @@ contract SNTPlaceHolder is TokenController, Owned {
     /// @notice The owner of this contract can change the controller of the SNT token
     ///  Please, be sure that the owner is a trusted agent or 0x0 address.
     /// @param _newController The address of the new controller
-
+    // BK Ok
     function changeController(address _newController) public onlyOwner {
         snt.changeController(_newController);
         ControllerChanged(_newController);
@@ -74,18 +78,22 @@ contract SNTPlaceHolder is TokenController, Owned {
     //////////
 
     // In between the offering and the network. Default settings for allowing token transfers.
+    // BK Ok
     function proxyPayment(address) public payable returns (bool) {
         return false;
     }
 
+    // BK Ok
     function onTransfer(address _from, address, uint256) public returns (bool) {
         return transferable(_from);
     }
 
+    // BK Ok
     function onApprove(address _from, address, uint256) public returns (bool) {
         return transferable(_from);
     }
 
+    // BK Ok - SNTs become transferable 1 week from the StatusContribution.finalize() being called
     function transferable(address _from) internal returns (bool) {
         // Allow the exchanger to work from the beginning
         if (activationTime == 0) {
@@ -105,6 +113,7 @@ contract SNTPlaceHolder is TokenController, Owned {
     //////////
 
     /// @notice This function is overrided by the test Mocks.
+    // BK Ok
     function getTime() internal returns (uint256) {
         return now;
     }
@@ -118,6 +127,7 @@ contract SNTPlaceHolder is TokenController, Owned {
     ///  sent tokens to this contract.
     /// @param _token The address of the token contract that you want to recover
     ///  set to 0 in case you want to extract ether.
+    // BK Ok
     function claimTokens(address _token) public onlyOwner {
         if (snt.controller() == address(this)) {
             snt.claimTokens(_token);

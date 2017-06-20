@@ -495,19 +495,19 @@ function printDynamicCeilingDetails() {
     var latestBlock = eth.blockNumber;
     var i;
 
-    var hashSetEvents = contract.HashSet({}, { fromBlock: dynamicCeilingFromBlock, toBlock: latestBlock });
-    i = 0;
-    hashSetEvents.watch(function (error, result) {
-      console.log("RESULT: HashSet Event " + i++ + ": " + JSON.stringify(result.args) + " block=" + result.blockNumber);
-    });
-    hashSetEvents.stopWatching();
+    // var hashSetEvents = contract.HashSet({}, { fromBlock: dynamicCeilingFromBlock, toBlock: latestBlock });
+    // i = 0;
+    // hashSetEvents.watch(function (error, result) {
+    //   console.log("RESULT: HashSet Event " + i++ + ": " + JSON.stringify(result.args) + " block=" + result.blockNumber);
+    // });
+    // hashSetEvents.stopWatching();
 
-    var curvePointRevealedEvents = contract.CurvePointRevealed({}, { fromBlock: dynamicCeilingFromBlock, toBlock: latestBlock });
-    i = 0;
-    curvePointRevealedEvents.watch(function (error, result) {
-      console.log("RESULT: CurvePointRevealed Event " + i++ + ": " + JSON.stringify(result.args) + " block=" + result.blockNumber);
-    });
-    curvePointRevealedEvents.stopWatching();
+    // var curvePointRevealedEvents = contract.CurvePointRevealed({}, { fromBlock: dynamicCeilingFromBlock, toBlock: latestBlock });
+    // i = 0;
+    // curvePointRevealedEvents.watch(function (error, result) {
+    //   console.log("RESULT: CurvePointRevealed Event " + i++ + ": " + JSON.stringify(result.args) + " block=" + result.blockNumber);
+    // });
+    // curvePointRevealedEvents.stopWatching();
 
     for (i = 0; i < contract.nCurves(); i++) {
       console.log("RESULT: dynamicCeiling.curves(" + i + ")=" + JSON.stringify(contract.curves(i)));

@@ -145,15 +145,15 @@ var dynamicCeilingBin = "0x" + dynamicCeilingOutput.contracts["$CONTRACTSTEMPDIR
 var sntPlaceHolderAbi = JSON.parse(sntPlaceHolderOutput.contracts["$CONTRACTSTEMPDIR/$SNTPLACEHOLDER:SNTPlaceHolder"].abi);
 var sntPlaceHolderBin = "0x" + sntPlaceHolderOutput.contracts["$CONTRACTSTEMPDIR/$SNTPLACEHOLDER:SNTPlaceHolder"].bin;
 
-console.log("DATA: miniMeTokenFactoryAbi=" + JSON.stringify(miniMeTokenFactoryAbi));
-console.log("DATA: sgtAbi=" + JSON.stringify(sgtAbi));
-console.log("DATA: sntAbi=" + JSON.stringify(sntAbi));
-console.log("DATA: statusContributionAbi=" + JSON.stringify(statusContributionAbi));
-console.log("DATA: contributionWalletAbi=" + JSON.stringify(contributionWalletAbi));
-console.log("DATA: devTokensHolderAbi=" + JSON.stringify(devTokensHolderAbi));
-console.log("DATA: sgtExchangerAbi=" + JSON.stringify(sgtExchangerAbi));
-console.log("DATA: dynamicCeilingAbi=" + JSON.stringify(dynamicCeilingAbi));
-console.log("DATA: sntPlaceHolderAbi=" + JSON.stringify(sntPlaceHolderAbi));
+console.log("DATA: miniMeTokenFactoryAbi=" + JSON.stringify(miniMeTokenFactoryAbi) + ";");
+console.log("DATA: sgtAbi=" + JSON.stringify(sgtAbi) + ";");
+console.log("DATA: sntAbi=" + JSON.stringify(sntAbi) + ";");
+console.log("DATA: statusContributionAbi=" + JSON.stringify(statusContributionAbi) + ";");
+console.log("DATA: contributionWalletAbi=" + JSON.stringify(contributionWalletAbi) + ";");
+console.log("DATA: devTokensHolderAbi=" + JSON.stringify(devTokensHolderAbi) + ";");
+console.log("DATA: sgtExchangerAbi=" + JSON.stringify(sgtExchangerAbi) + ";");
+console.log("DATA: dynamicCeilingAbi=" + JSON.stringify(dynamicCeilingAbi) + ";");
+console.log("DATA: sntPlaceHolderAbi=" + JSON.stringify(sntPlaceHolderAbi) + ";");
 
 unlockAccounts("$PASSWORD");
 printBalances();

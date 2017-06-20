@@ -2,7 +2,7 @@
 
 Note that the MiniMe contract is excluded from this audit as I have been informed that this contract is already audited. See [../MINIME_README.md](../MINIME_README.md).
 
-Auditing the master branch of commit [8ee9ea0c36a89e819210464e4d546095de37ec0c](https://github.com/status-im/status-network-token/commit/8ee9ea0c36a89e819210464e4d546095de37ec0c).
+Auditing the master branch of commit [2ec1fe9dcd3e2673690b5e0926d629064a65225b](https://github.com/status-im/status-network-token/commit/2ec1fe9dcd3e2673690b5e0926d629064a65225b).
 
 See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 
@@ -31,6 +31,7 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
   * [MiniMeToken](#minimetoken)
   * [SGT](#sgt)
   * [MultisigWallet](#multisigwallet)
+* [References](#references)
 
 <br />
 
@@ -84,7 +85,9 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
   * [x] The MiniMe contract has been updated with some minor changes, mainly to allow the injection of the blocknumber for testing purposes
 * [x] There is no refund functionality in this crowdsale, so the funds raised can be diverted to a less complex contract (ContributionWallet)
 * [x] Funds received in the crowdsale by StatusContribution are immediately diverted to ContributionWallet
-  * [x] This contract has minimal functionality and complexity, reducing the attack surface and risk of errors
+  * [x] The ContributionWallet contract has minimal functionality and complexity, reducing the attack surface and risk of errors
+  * [x] The ContributionWallet does not have any [reentrancy](https://github.com/ConsenSys/smart-contract-best-practices#reentrancy) or [control flow hijacking](https://github.com/ConsenSys/smart-contract-best-practices#dont-make-control-flow-assumptions-after-external-calls) logic as external calls to transfer funds are only to the owner's own wallet, under the owner's control
+* [x] The `claimTokens(...)` function in the DevTokensHolder, SGTExchanger, SNTPlaceHolder and StatusContribution (plus MiniMeToken) contracts can only be used to transfer small amounts of trapped ethers (if the contract allows the leak), does not have the reentrancy and control flow hijacking logic, and cannot be exploited as these function are only executable by the contract owner
 
 <br />
 
@@ -219,6 +222,13 @@ See [../README.md](../README.md) and [../SPEC.md](../SPEC.md).
 * This is a copy of a [multisig wallet](https://github.com/ConsenSys/MultiSigWallet/blob/e3240481928e9d2b57517bd192394172e31da487/contracts/solidity/MultiSigWallet.sol) by Consensys with the Solidity version updated from `0.4.4` to `^0.4.11` and the event parameter names prefixed with `_`s
 * Audit not required
 * Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files
+
+<br />
+
+## References
+
+* [Ethereum Contract Security Techniques and Tips](https://github.com/ConsenSys/smart-contract-best-practices)
+* Solidity [bugs.json](https://github.com/ethereum/solidity/blob/develop/docs/bugs.json) and [bugs_by_version.json](https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json)
 
 <br />
 

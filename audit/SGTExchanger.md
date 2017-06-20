@@ -39,14 +39,17 @@ import "./StatusContribution.sol";
 import "./ERC20Token.sol";
 
 contract SGTExchanger is TokenController, Owned {
+    // BK Ok - Safe maths
     using SafeMath for uint256;
 
+    // BK Next 4 lines Ok
     mapping (address => uint256) public collected;
     uint256 public totalCollected;
     MiniMeToken public sgt;
     MiniMeToken public snt;
     StatusContribution public statusContribution;
 
+    // BK Ok - Constructor
     function SGTExchanger(address _sgt, address _snt, address _statusContribution) {
         sgt = MiniMeToken(_sgt);
         snt = MiniMeToken(_snt);
@@ -56,26 +59,36 @@ contract SGTExchanger is TokenController, Owned {
     /// @notice This method should be called by the SGT holders to collect their
     ///  corresponding SNTs
     function collect() public {
+        // BK Ok - will be 0 if not finalised
         uint256 finalizedBlock = statusContribution.finalizedBlock();
 
+        // BK Ok - Will only operate after the crowdsale is finalised
         require(finalizedBlock != 0);
         require(getBlockNumber() > finalizedBlock);
 
+        // BK Ok - Total collected including the user already collected SNT balance
         uint256 total = totalCollected.add(snt.balanceOf(address(this)));
 
+        // BK Ok - Accounts's SGT balance at the finalised block
         uint256 balance = sgt.balanceOfAt(msg.sender, finalizedBlock);
 
         // First calculate how much correspond to him
+        // BK Ok - Accounts's proportion of balance of SGT at the finalised block
         uint256 amount = total.mul(balance).div(sgt.totalSupplyAt(finalizedBlock));
 
         // And then subtract the amount already collected
+        // BK Ok - Amount user has not already collected
         amount = amount.sub(collected[msg.sender]);
 
+        // BK Ok - User has amount yet to collect
         require(amount > 0);  // Notify the user that there are no tokens to exchange
 
+        // BK Ok - Add this amount to the total collected
         totalCollected = totalCollected.add(amount);
+        // BK Ok - Record down this new amount the user is about to collect
         collected[msg.sender] = collected[msg.sender].add(amount);
 
+        // BK Ok - Transfer the SNT to the user
         assert(snt.transfer(msg.sender, amount));
 
         TokensCollected(msg.sender, amount);
@@ -110,6 +123,7 @@ contract SGTExchanger is TokenController, Owned {
     ///  sent tokens to this contract.
     /// @param _token The address of the token contract that you want to recover
     ///  set to 0 in case you want to extract ether.
+    // BK Ok - Only the specified owner can withdraw tokens and ethers held by ths contract address
     function claimTokens(address _token) public onlyOwner {
         require(_token != address(snt));
         if (_token == 0x0) {

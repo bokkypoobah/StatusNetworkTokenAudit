@@ -225,7 +225,8 @@ Scripts to monitor the crowdsale contracts can be found in [scripts](scripts).
 ### MultisigWallet
 * This is a copy of a [multisig wallet](https://github.com/ConsenSys/MultiSigWallet/blob/e3240481928e9d2b57517bd192394172e31da487/contracts/solidity/MultiSigWallet.sol) by Consensys with the Solidity version updated from `0.4.4` to `^0.4.11` and the event parameter names prefixed with `_`s
 * Audit not required
-* Source [../contracts/MultisigWallet.sol](../contracts/MultisigWallet.sol) that does not include any other files
+* Source [../contracts/MultiSigWallet.sol](../contracts/MultiSigWallet.sol) that does not include any other files
+* The multisig for Status was deployed to [0xa646e29877d52b9e2de457eca09c724ff16d0a2b](https://etherscan.io/address/0xa646e29877d52b9e2de457eca09c724ff16d0a2b#code)
 
 <br />
 
